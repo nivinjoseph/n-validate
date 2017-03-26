@@ -1,0 +1,12 @@
+import ValidationRule from "./validation-rule";
+import "n-ext";
+export declare function hasMinLength(minLength: number): ValidationRule<string>;
+export declare function hasMaxLength(maxLength: number): ValidationRule<string>;
+export declare function hasExactLength(exactLength: number): ValidationRule<string>;
+export declare function stringIsIn(values: Array<string>): ValidationRule<string>;
+export declare function stringIsIn(values: Array<string>, ignoreCase: boolean): ValidationRule<string>;
+export declare function stringIsNotIn(values: Array<string>): ValidationRule<string>;
+export declare function stringIsNotIn(values: Array<string>, ignoreCase: boolean): ValidationRule<string>;
+export declare function isEmail(): ValidationRule<string>;
+export declare function containsOnlyNumbers(): ValidationRule<string>;
+export declare function isPhoneOrFaxNumber(): ValidationRule<string>;
