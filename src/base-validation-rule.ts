@@ -1,5 +1,6 @@
 import ValidationRule from "./validation-rule";
 
+// public
 abstract class BaseValidationRule<T> implements ValidationRule<T>
 {
     private readonly _validationRules = new Array<ValidationRule<T>>();
