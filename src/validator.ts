@@ -21,6 +21,7 @@ export default class Validator<T> implements ValidationInitializer<T>, Validatio
     public for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>
     {
         given(propertyName, "propertyName")
+            .ensure(t => t !== "")
             .ensureHasValue()
             .ensure(t => this._propertyValidators.every(u => u.propertyName !== t),
             "validation already defined for property '{0}'".format(propertyName));
@@ -34,7 +35,8 @@ export default class Validator<T> implements ValidationInitializer<T>, Validatio
     {
         this._hasErrors = false;
         this._errors = new Object();
-
+        given(value, "value")
+            .ensureHasValue();
         this._propertyValidators.forEach(t =>
         {
             t.validate(value);
