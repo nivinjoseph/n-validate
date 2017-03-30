@@ -2,7 +2,7 @@ import given from "n-defensive";
 import "n-ext";
 import PropertyValidator from "./property-validator";
 import ValidationRule from "./validation-rule";
-import { ApplicationException, InvalidOperationException } from "n-exception";
+import { ApplicationException, InvalidOperationException, ArgumentNullException } from "n-exception";
 import ValidationInitializer from "./validation-initializer";
 import ValidationExecutor from "./validation-executor";
 
@@ -21,8 +21,8 @@ export default class Validator<T> implements ValidationInitializer<T>, Validatio
     public for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>
     {
         given(propertyName, "propertyName")
-            .ensure(t => t !== "")
             .ensureHasValue()
+            .ensure(t => !t.isEmptyOrWhiteSpace())
             .ensure(t => this._propertyValidators.every(u => u.propertyName !== t),
             "validation already defined for property '{0}'".format(propertyName));
 
@@ -90,11 +90,8 @@ class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TP
             {
                 if (e === "OPTIONAL")
                     break;
-                if (propertyVal === null)
-                {
-                    this._hasError = true;
-                    this._error = "Property not found";
-                }
+                 
+                throw e;
             }
 
             if (!validationResult)
