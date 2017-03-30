@@ -2,6 +2,7 @@ import Validator from "./validator";
 import ValidationRule from "./validation-rule";
 import given from "n-defensive";
 
+// public
 export default class CollectionValidationRule<T> implements ValidationRule<Array<T>>
 {
     private readonly _validator: Validator<T>;

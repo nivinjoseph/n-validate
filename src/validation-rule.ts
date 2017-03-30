@@ -1,3 +1,4 @@
+// public
 interface ValidationRule<T>
 {
     error: any;
