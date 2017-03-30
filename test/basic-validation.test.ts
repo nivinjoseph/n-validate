@@ -298,6 +298,29 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, false);
         });
         
+        test("should fail when the property is not given in the object being validated", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<string>("no-name").ensure(t => t.length <= 2);
+            validator.validate(testVal);
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.errors.getValue("no-name"), "Property not found", "Should have a correct error message");
+            
+        });
+        
+        test("should fail when the property is set to null in the object being validated", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<string>("firstName").ensure(t => t.length <= 2);
+            testVal.firstName = null; 
+            validator.validate(testVal);
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.errors.getValue("firstName"), "Property not found", "Should have a correct error message");
+
+        });
+        
         test("should pass when the property(array) is given in the object being validated does satisfy the given predicate", () =>
         {
             function check_array(array: Array<any>): boolean

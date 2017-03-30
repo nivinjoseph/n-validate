@@ -82,7 +82,7 @@ class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TP
         {
             let validationRule = this._validationRules[i];
             let validationResult = true;
-
+           
             try
             {
                 validationResult = validationRule.validate(val, propertyVal);
@@ -90,6 +90,11 @@ class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TP
             {
                 if (e === "OPTIONAL")
                     break;
+                if (propertyVal === null)
+                {
+                    this._hasError = true;
+                    this._error = "Property not found";
+                }
             }
 
             if (!validationResult)
