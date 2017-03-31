@@ -41,3 +41,6 @@ src/**/*.js
 src/**/*.map
 test/**/*.js
 test/**/*.map
+
+# Mac generated files
+.DS_Store
