@@ -208,7 +208,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
         
-        test.skip("should pass when the property of the object being validated is null and is in the given set", () =>
+        test("should pass when the property of the object being validated is null and is in the given set", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
@@ -274,7 +274,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
         
-        test.skip("should pass when the property of the object being validated is null and is not in the given set", () =>
+        test("should pass when the property of the object being validated is null and is not in the given set", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
@@ -330,7 +330,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
         
-        test.skip("should fail when the property of the object being validated is an empty string", () =>
+        test("should fail when the property of the object being validated is an empty string", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();

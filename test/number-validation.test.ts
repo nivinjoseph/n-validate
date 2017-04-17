@@ -125,11 +125,12 @@ suite("Number validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
 
-        test.skip("should pass when the property of the object being validated is null and is in the given set", () =>
+        test("should pass when the property of the object being validated is null and is in the given set", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
             let set: number[] = [1, 2, 3, null];
+            console.log(set.length);
             validator.for<number>("age").useValidationRule(numval.isIn(set));
             testVal.age = null;
             validator.validate(testVal);
