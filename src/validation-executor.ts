@@ -1,5 +1,5 @@
 // public
-interface ValidationExecutor<T>
+export interface ValidationExecutor<T>
 {
     isValid: boolean;
     hasErrors: boolean;
@@ -7,5 +7,3 @@ interface ValidationExecutor<T>
     hasRules: boolean;
     validate(value: T): void;
 }
-
-export default ValidationExecutor;

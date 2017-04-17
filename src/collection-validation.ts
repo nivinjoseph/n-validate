@@ -1,14 +1,14 @@
-import Validator from "./validator";
-import ValidationRule from "./validation-rule";
-import given from "n-defensive";
+import { Validator } from "./validator";
+import { ValidationRule } from "./validation-rule";
+import { given } from "n-defensive";
 
 // public
-export default class CollectionValidationRule<T> implements ValidationRule<Array<T>>
+export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
 {
     private readonly _validator: Validator<T>;
     private _error: any;
 
-    
+
     public get error(): any { return this._error; }
 
 
@@ -21,7 +21,7 @@ export default class CollectionValidationRule<T> implements ValidationRule<Array
 
     public validate(collection: Array<T>): boolean
     {
-        let errors = [];
+        let errors = new Array<any>();
         collection.forEach(item =>
         {
             this._validator.validate(item);

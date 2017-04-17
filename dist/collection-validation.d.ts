@@ -1,6 +1,6 @@
-import Validator from "./validator";
-import ValidationRule from "./validation-rule";
-export default class CollectionValidationRule<T> implements ValidationRule<Array<T>> {
+import { Validator } from "./validator";
+import { ValidationRule } from "./validation-rule";
+export declare class CollectionValidationRule<T> implements ValidationRule<Array<T>> {
     private readonly _validator;
     private _error;
     readonly error: any;

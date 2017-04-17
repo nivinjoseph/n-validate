@@ -1,8 +1,8 @@
-import ValidationRule from "./../validation-rule";
-import BaseStringValidationRule from "./base-string-validation-rule";
+import { ValidationRule } from "./../validation-rule";
+import { BaseStringValidationRule } from "./base-string-validation-rule";
 
 // public
-export default function isEmail(): ValidationRule<string>
+export function isEmail(): ValidationRule<string>
 {
     return new StringIsEmail();
 }

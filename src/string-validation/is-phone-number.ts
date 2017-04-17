@@ -1,11 +1,11 @@
-import ValidationRule from "./../validation-rule";
-import BaseStringValidationRule from "./base-string-validation-rule";
+import { ValidationRule } from "./../validation-rule";
+import { BaseStringValidationRule } from "./base-string-validation-rule";
 
 // public
-export default function isPhoneNumber(): ValidationRule<string>
+export function isPhoneNumber(): ValidationRule<string>
 {
     return new StringIsPhoneNumber();
-}   
+}
 
 class StringIsPhoneNumber extends BaseStringValidationRule
 {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// public
 var BaseValidationRule = (function () {
     function BaseValidationRule() {
         this._validationRules = new Array();
@@ -24,5 +25,5 @@ var BaseValidationRule = (function () {
     };
     return BaseValidationRule;
 }());
-exports.default = BaseValidationRule;
+exports.BaseValidationRule = BaseValidationRule;
 //# sourceMappingURL=base-validation-rule.js.map

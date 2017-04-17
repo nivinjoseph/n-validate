@@ -1,10 +1,10 @@
-import ValidationRule from "./validation-rule";
-import Validator from "./validator";
-import given from "n-defensive";
+import { ValidationRule } from "./validation-rule";
+import { Validator } from "./validator";
+import { given } from "n-defensive";
 import { InvalidOperationException } from "n-exception";
 
 // internal
-export default class InternalPropertyValidationRule<T, TProperty>
+export class InternalPropertyValidationRule<T, TProperty>
 {
     private _tpropertyValidationPredicate: (propertyValue: TProperty) => boolean;
     private _tValidationPredicate: (value: T) => boolean;

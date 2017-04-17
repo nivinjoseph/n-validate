@@ -1,7 +1,7 @@
-import ValidationRule from "./validation-rule";
+import { ValidationRule } from "./validation-rule";
 
 // public
-abstract class BaseValidationRule<T> implements ValidationRule<T>
+export abstract class BaseValidationRule<T> implements ValidationRule<T>
 {
     private readonly _validationRules = new Array<ValidationRule<T>>();
     private _error: string;
@@ -28,5 +28,3 @@ abstract class BaseValidationRule<T> implements ValidationRule<T>
         this._validationRules.push(validationRule);
     }
 }
-
-export default BaseValidationRule;

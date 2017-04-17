@@ -1,10 +1,10 @@
-import BaseNumberValidationRule from "./base-number-validation-rule";
-import ValidationRule from "./../validation-rule";
-import given from "n-defensive";
+import { BaseNumberValidationRule } from "./base-number-validation-rule";
+import { ValidationRule } from "./../validation-rule";
+import { given } from "n-defensive";
 import "n-ext";
 
 // public
-export default function hasMaxValue(maxValue: number): ValidationRule<number>
+export function hasMaxValue(maxValue: number): ValidationRule<number>
 {
     return new NumberHasMaxValue(maxValue);
 }

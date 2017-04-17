@@ -1,13 +1,13 @@
-import PropertyValidator from "./property-validator";
-import InternalPropertyValidationRule from "./internal-property-validation-rule";
-import ValidationRule from "./validation-rule";
-import Validator from "./validator";
-import given from "n-defensive";
+import { PropertyValidator } from "./property-validator";
+import { InternalPropertyValidationRule } from "./internal-property-validation-rule";
+import { ValidationRule } from "./validation-rule";
+import { Validator } from "./validator";
+import { given } from "n-defensive";
 import { ApplicationException } from "n-exception";
 import "n-ext";
 
 // internal
-export default class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>
+export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>
 {
     private readonly _propertyName: string;
     private _hasError: boolean;
@@ -48,8 +48,8 @@ export default class InternalPropertyValidator<T, TProperty> implements Property
             {
                 if (e === "OPTIONAL")
                     break;
-                
-                throw e; 
+
+                throw e;
             }
 
             if (!validationResult)

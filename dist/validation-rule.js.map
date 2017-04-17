@@ -1,1 +1,1 @@
-{"version":3,"file":"validation-rule.js","sourceRoot":"","sources":["../src/validation-rule.ts"],"names":[],"mappings":"","sourcesContent":["interface ValidationRule<T>\n{\n    error: any;\n    validate(value: T): boolean;\n}\n\nexport default ValidationRule;"]}
+{"version":3,"file":"validation-rule.js","sourceRoot":"","sources":["../src/validation-rule.ts"],"names":[],"mappings":"","sourcesContent":["// public\nexport interface ValidationRule<T>\n{\n    error: any;\n    validate(value: T): boolean;\n}"]}

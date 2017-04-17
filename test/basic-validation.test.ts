@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { Validator } from "../src/index";
-import { ApplicationException, ArgumentNullException, ArgumentException, InvalidArgumentException } from "n-exception";
+import { ApplicationException, ArgumentNullException, InvalidArgumentException } from "n-exception";
 import "n-ext";
 
 suite("Basic validation", () =>

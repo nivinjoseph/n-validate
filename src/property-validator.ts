@@ -1,8 +1,8 @@
-import ValidationRule from "./validation-rule";
-import Validator from "./validator";
+import { ValidationRule } from "./validation-rule";
+import { Validator } from "./validator";
 
 // public
-interface PropertyValidator<T, TProperty>
+export interface PropertyValidator<T, TProperty>
 {
     isRequired(): PropertyValidator<T, TProperty>;
     isOptional(): PropertyValidator<T, TProperty>;
@@ -12,6 +12,4 @@ interface PropertyValidator<T, TProperty>
     useValidator(validationRule: Validator<TProperty>): PropertyValidator<T, TProperty>;
     if(conditionPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
     withMessage(errorMessage: string): PropertyValidator<T, TProperty>;
-} 
-
-export default PropertyValidator;
+}

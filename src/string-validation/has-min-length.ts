@@ -1,10 +1,10 @@
-import ValidationRule from "./../validation-rule";
-import BaseStringValidationRule from "./base-string-validation-rule";
-import given from "n-defensive";
+import { ValidationRule } from "./../validation-rule";
+import { BaseStringValidationRule } from "./base-string-validation-rule";
+import { given } from "n-defensive";
 import "n-ext";
 
 // public
-export default function hasMinLength(minLength: number): ValidationRule<string>
+export function hasMinLength(minLength: number): ValidationRule<string>
 {
     return new StringHasMinLength(minLength);
 }

@@ -1,9 +1,9 @@
-import ValidationRule from "./../validation-rule";
-import BaseNumberValidationRule from "./base-number-validation-rule";
-import given from "n-defensive";
+import { ValidationRule } from "./../validation-rule";
+import { BaseNumberValidationRule } from "./base-number-validation-rule";
+import { given } from "n-defensive";
 
 // public
-export default function isIn(values: Array<number>): ValidationRule<number>
+export function isIn(values: Array<number>): ValidationRule<number>
 {
     return new NumberIsIn(values);
 }

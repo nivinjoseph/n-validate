@@ -1,9 +1,7 @@
-import PropertyValidator from "./property-validator";
+import { PropertyValidator } from "./property-validator";
 
 // public
-interface ValidationInitializer<T>
+export interface ValidationInitializer<T>
 {
     for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>;
 }
-
-export default ValidationInitializer;

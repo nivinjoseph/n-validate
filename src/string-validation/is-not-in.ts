@@ -1,11 +1,11 @@
-import ValidationRule from "./../validation-rule";
-import BaseStringValidationRule from "./base-string-validation-rule";
-import given from "n-defensive";
+import { ValidationRule } from "./../validation-rule";
+import { BaseStringValidationRule } from "./base-string-validation-rule";
+import { given } from "n-defensive";
 
 // public
-export default function isNotIn(values: Array<string>): ValidationRule<string>;
-export default function isNotIn(values: Array<string>, ignoreCase: boolean): ValidationRule<string>;
-export default function isNotIn(values: Array<string>, ignoreCase?: boolean): ValidationRule<string>
+export function isNotIn(values: Array<string>): ValidationRule<string>;
+export function isNotIn(values: Array<string>, ignoreCase: boolean): ValidationRule<string>;
+export function isNotIn(values: Array<string>, ignoreCase?: boolean): ValidationRule<string>
 {
     return new StringIsNotIn(values, ignoreCase);
 }

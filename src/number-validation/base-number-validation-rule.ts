@@ -1,7 +1,7 @@
-import BaseValidationRule from "./../base-validation-rule";
+import { BaseValidationRule } from "./../base-validation-rule";
 
 // public
-abstract class BaseNumberValidationRule extends BaseValidationRule<number>
+export abstract class BaseNumberValidationRule extends BaseValidationRule<number>
 {
     public constructor()
     {
@@ -13,5 +13,3 @@ abstract class BaseNumberValidationRule extends BaseValidationRule<number>
             });
     }
 }
-
-export default BaseNumberValidationRule;

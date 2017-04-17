@@ -1,7 +1,7 @@
-import BaseValidationRule from "./../base-validation-rule";
+import { BaseValidationRule } from "./../base-validation-rule";
 
 // public
-abstract class BaseStringValidationRule extends BaseValidationRule<string>
+export abstract class BaseStringValidationRule extends BaseValidationRule<string>
 {
     protected constructor()
     {
@@ -12,12 +12,13 @@ abstract class BaseStringValidationRule extends BaseValidationRule<string>
                 error: "Invalid value"
             });
     }
-    
+
     protected isNumber(value: any): boolean
     {
+        value = value.toString().trim();
+        if (value.length === 0)
+            return false;
         let parsed = +value.toString().trim();
         return !isNaN(parsed) && isFinite(parsed);
     }
 }
-
-export default BaseStringValidationRule;

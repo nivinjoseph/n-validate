@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var n_defensive_1 = require("n-defensive");
+// public
 var CollectionValidationRule = (function () {
     function CollectionValidationRule(validator) {
-        n_defensive_1.default(validator, "validator").ensureHasValue();
+        n_defensive_1.given(validator, "validator").ensureHasValue();
         this._validator = validator;
     }
     Object.defineProperty(CollectionValidationRule.prototype, "error", {
@@ -13,7 +14,7 @@ var CollectionValidationRule = (function () {
     });
     CollectionValidationRule.prototype.validate = function (collection) {
         var _this = this;
-        var errors = [];
+        var errors = new Array();
         collection.forEach(function (item) {
             _this._validator.validate(item);
             if (_this._validator.hasErrors)
@@ -27,5 +28,5 @@ var CollectionValidationRule = (function () {
     };
     return CollectionValidationRule;
 }());
-exports.default = CollectionValidationRule;
+exports.CollectionValidationRule = CollectionValidationRule;
 //# sourceMappingURL=collection-validation.js.map
