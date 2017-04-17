@@ -48,6 +48,8 @@ export default class InternalPropertyValidator<T, TProperty> implements Property
             {
                 if (e === "OPTIONAL")
                     break;
+                
+                throw e; 
             }
 
             if (!validationResult)

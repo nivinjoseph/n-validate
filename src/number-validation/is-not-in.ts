@@ -15,7 +15,7 @@ class NumberIsNotIn extends BaseNumberValidationRule
         given(values, "values").ensureHasValue();
         super();
         this.addValidationRule({
-            validate: t => t == null || values.every(u => u === t),
+            validate: t => t == null || values.every(u => u  !== t),
             error: "Invalid value"
         });
     }
