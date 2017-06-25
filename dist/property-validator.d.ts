@@ -3,6 +3,11 @@ import { Validator } from "./validator";
 export interface PropertyValidator<T, TProperty> {
     isRequired(): PropertyValidator<T, TProperty>;
     isOptional(): PropertyValidator<T, TProperty>;
+    ensureIsBoolean(): PropertyValidator<T, TProperty>;
+    ensureIsString(): PropertyValidator<T, TProperty>;
+    ensureIsNumber(): PropertyValidator<T, TProperty>;
+    ensureIsObject(): PropertyValidator<T, TProperty>;
+    ensureIsArray(): PropertyValidator<T, TProperty>;
     ensure(validationPredicate: (propertyValue: TProperty) => boolean): PropertyValidator<T, TProperty>;
     ensureT(validationPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
     useValidationRule(validationRule: ValidationRule<TProperty>): PropertyValidator<T, TProperty>;

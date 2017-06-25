@@ -15,6 +15,11 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     validate(value: T): void;
     isRequired(): PropertyValidator<T, TProperty>;
     isOptional(): PropertyValidator<T, TProperty>;
+    ensureIsBoolean(): PropertyValidator<T, TProperty>;
+    ensureIsString(): PropertyValidator<T, TProperty>;
+    ensureIsNumber(): PropertyValidator<T, TProperty>;
+    ensureIsObject(): PropertyValidator<T, TProperty>;
+    ensureIsArray(): PropertyValidator<T, TProperty>;
     ensure(propertyValidationPredicate: (propertyValue: TProperty) => boolean): PropertyValidator<T, TProperty>;
     ensureT(valueValidationPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
     useValidationRule(validationRule: ValidationRule<TProperty>): PropertyValidator<T, TProperty>;

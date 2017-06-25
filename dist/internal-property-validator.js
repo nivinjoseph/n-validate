@@ -63,6 +63,41 @@ class InternalPropertyValidator {
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
+    ensureIsBoolean() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "boolean");
+        this._lastValidationRule.withMessage("Must be boolean");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    ensureIsString() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "string");
+        this._lastValidationRule.withMessage("Must be string");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    ensureIsNumber() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "number");
+        this._lastValidationRule.withMessage("Must be number");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    ensureIsObject() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "object");
+        this._lastValidationRule.withMessage("Must be object");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    ensureIsArray() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => Array.isArray(propertyValue));
+        this._lastValidationRule.withMessage("Must be array");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
     ensure(propertyValidationPredicate) {
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
         this._lastValidationRule.ensure(propertyValidationPredicate);
