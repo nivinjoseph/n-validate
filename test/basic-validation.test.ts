@@ -184,6 +184,7 @@ suite("PropertyValidator", () =>
         age: number;
         scores: Array<any>;
         address?: any;
+        active: Boolean;
     }
 
     let testVal: TestVal;
@@ -198,7 +199,8 @@ suite("PropertyValidator", () =>
             address: {
                 street: "15 Benton rd",
                 province: "ON"
-            }
+            },
+            active: true
         };
     });
 
@@ -241,7 +243,106 @@ suite("PropertyValidator", () =>
         });
     });
 
+    suite("ensureIsBoolean", () =>
+    {
+        test("should pass when the property being validated is a boolean value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<Boolean>("active").ensureIsBoolean();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+        
+        test("should fail when the property being validated is not a boolean value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<Boolean>("age").ensureIsBoolean();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+        
+    });
+    
+    suite("ensureIsString", () =>
+    {
+        test("should pass when the property being validated is a string value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<string>("firstName").ensureIsString();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
 
+        test("should fail when the property being validated is not a string value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<string>("active").ensureIsString();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+
+    });
+    
+    suite("ensureIsNumber", () =>
+    {
+        test("should pass when the property being validated is a number value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<number>("age").ensureIsNumber();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+
+        test("should fail when the property being validated is not a number value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<number>("firstName").ensureIsNumber();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+
+    });
+    
+    suite("ensureIsObject", () =>
+    {
+        test("should pass when the property being validated is a object value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<object>("address").ensureIsObject();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+
+        test("should fail when the property being validated is not a object value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<object>("age").ensureIsObject();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+
+    });
+    
+    suite("ensureIsArray", () =>
+    {
+        test("should pass when the property being validated is a array value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<Array<any>>("scores").ensureIsArray();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+
+        test("should fail when the property being validated is not a array value", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.for<Array<any>>("address").ensureIsArray();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+
+    });
+    
     suite("isOptional", () =>
     {
         test("should pass when the property is not given in the object being validated", () =>
