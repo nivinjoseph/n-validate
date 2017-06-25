@@ -99,7 +99,57 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
+    
+    public ensureIsBoolean(): PropertyValidator<T, TProperty>
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof(propertyValue) === "boolean");
 
+        this._lastValidationRule.withMessage("Must be boolean");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public ensureIsString(): PropertyValidator<T, TProperty>
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "string");
+
+        this._lastValidationRule.withMessage("Must be string");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public ensureIsNumber(): PropertyValidator<T, TProperty>
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "number");
+
+        this._lastValidationRule.withMessage("Must be number");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public ensureIsObject(): PropertyValidator<T, TProperty>
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "object");
+
+        this._lastValidationRule.withMessage("Must be object");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public ensureIsArray(): PropertyValidator<T, TProperty>
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => Array.isArray(propertyValue));
+
+        this._lastValidationRule.withMessage("Must be array");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
     public ensure(propertyValidationPredicate: (propertyValue: TProperty) => boolean): PropertyValidator<T, TProperty>
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
