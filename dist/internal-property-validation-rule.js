@@ -5,6 +5,11 @@ const n_exception_1 = require("n-exception");
 // internal
 class InternalPropertyValidationRule {
     constructor() {
+        this._tpropertyValidationPredicate = null;
+        this._tValidationPredicate = null;
+        this._validationRule = null;
+        this._validator = null;
+        this._conditionPredicate = null;
         this._overrideError = false;
     }
     get error() {

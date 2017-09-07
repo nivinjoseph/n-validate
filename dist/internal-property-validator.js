@@ -2,12 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const internal_property_validation_rule_1 = require("./internal-property-validation-rule");
 const n_defensive_1 = require("n-defensive");
-const n_exception_1 = require("n-exception");
 require("n-ext");
 // internal
 class InternalPropertyValidator {
     constructor(propertyName) {
+        this._hasError = false;
+        this._error = null;
         this._validationRules = new Array();
+        this._lastValidationRule = null;
+        this._conditionPredicate = null;
+        this._overrideError = false;
         this._propertyName = propertyName;
     }
     get propertyName() { return this._propertyName; }
@@ -16,13 +20,14 @@ class InternalPropertyValidator {
     validate(value) {
         this._hasError = false;
         this._error = null;
-        let val = value;
-        let propertyVal = val.getValue(this._propertyName);
+        if (this._conditionPredicate != null && !this._conditionPredicate(value))
+            return;
+        let propertyVal = value.getValue(this._propertyName);
         for (let i = 0; i < this._validationRules.length; i++) {
             let validationRule = this._validationRules[i];
             let validationResult = true;
             try {
-                validationResult = validationRule.validate(val, propertyVal);
+                validationResult = validationRule.validate(value, propertyVal);
             }
             catch (e) {
                 if (e === "OPTIONAL")
@@ -31,7 +36,7 @@ class InternalPropertyValidator {
             }
             if (!validationResult) {
                 this._hasError = true;
-                this._error = validationRule.error;
+                this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 break;
             }
         }
@@ -125,15 +130,23 @@ class InternalPropertyValidator {
     if(conditionPredicate) {
         n_defensive_1.given(conditionPredicate, "conditionPredicate").ensureHasValue();
         if (this._lastValidationRule == null)
-            throw new n_exception_1.ApplicationException("No target Validation Rule specified for the condition.");
-        this._lastValidationRule.if(conditionPredicate);
+            this._conditionPredicate = conditionPredicate;
+        else
+            this._lastValidationRule.if(conditionPredicate);
         return this;
     }
     withMessage(errorMessage) {
-        n_defensive_1.given(errorMessage, "errorMessage").ensureHasValue();
-        if (this._lastValidationRule == null)
-            throw new n_exception_1.ApplicationException("No target Validation Rule specified for the condition.");
-        this._lastValidationRule.withMessage(errorMessage);
+        n_defensive_1.given(errorMessage, "errorMessage")
+            .ensureHasValue()
+            .ensureIsString()
+            .ensure(t => !t.isEmptyOrWhiteSpace());
+        errorMessage = errorMessage.trim();
+        if (this._lastValidationRule == null) {
+            this._overrideError = true;
+            this._errorMessage = errorMessage;
+        }
+        else
+            this._lastValidationRule.withMessage(errorMessage);
         return this;
     }
 }

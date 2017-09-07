@@ -8,6 +8,9 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     private _error;
     private readonly _validationRules;
     private _lastValidationRule;
+    private _conditionPredicate;
+    private _overrideError;
+    private _errorMessage;
     readonly propertyName: string;
     readonly hasError: boolean;
     readonly error: string;

@@ -10,10 +10,13 @@ import "n-ext";
 export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>
 {
     private readonly _propertyName: string;
-    private _hasError: boolean;
-    private _error: any;
+    private _hasError: boolean = false;
+    private _error: any = null;
     private readonly _validationRules = new Array<InternalPropertyValidationRule<T, TProperty>>();
-    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty>;
+    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> = null;
+    private _conditionPredicate: (value: T) => boolean = null;
+    private _overrideError = false;
+    private _errorMessage: string;
 
 
     public get propertyName(): string { return this._propertyName; }
@@ -31,10 +34,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     {
         this._hasError = false;
         this._error = null;
-
-        let val = <T>value;
-        let propertyVal = (<Object>val).getValue(this._propertyName);
-
+        
+        if (this._conditionPredicate != null && !this._conditionPredicate(value))
+            return;
+        
+        let propertyVal = (<Object>value).getValue(this._propertyName);
 
         for (let i = 0; i < this._validationRules.length; i++)
         {
@@ -43,8 +47,9 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
 
             try
             {
-                validationResult = validationRule.validate(val, propertyVal);
-            } catch (e)
+                validationResult = validationRule.validate(value, propertyVal);
+            }
+            catch (e)
             {
                 if (e === "OPTIONAL")
                     break;
@@ -55,7 +60,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
             if (!validationResult)
             {
                 this._hasError = true;
-                this._error = validationRule.error;
+                this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 break;
             }
         }
@@ -187,21 +192,29 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         given(conditionPredicate, "conditionPredicate").ensureHasValue();
 
         if (this._lastValidationRule == null)
-            throw new ApplicationException("No target Validation Rule specified for the condition.");
-
-        this._lastValidationRule.if(conditionPredicate);
+            this._conditionPredicate = conditionPredicate;
+        else
+            this._lastValidationRule.if(conditionPredicate);
 
         return this;
     }
 
     public withMessage(errorMessage: string): PropertyValidator<T, TProperty>
     {
-        given(errorMessage, "errorMessage").ensureHasValue();
+        given(errorMessage, "errorMessage")
+            .ensureHasValue()
+            .ensureIsString()
+            .ensure(t => !t.isEmptyOrWhiteSpace());
+        
+        errorMessage = errorMessage.trim();
 
         if (this._lastValidationRule == null)
-            throw new ApplicationException("No target Validation Rule specified for the condition.");
-
-        this._lastValidationRule.withMessage(errorMessage);
+        {
+            this._overrideError = true;
+            this._errorMessage = errorMessage;
+        }
+        else
+            this._lastValidationRule.withMessage(errorMessage);
 
         return this;
     }
