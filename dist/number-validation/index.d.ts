@@ -1,9 +1,12 @@
-import { ValidationRule } from "./../validation-rule";
 import { BaseNumberValidationRule } from "./base-number-validation-rule";
+import { hasMinValue } from "./has-min-value";
+import { hasMaxValue } from "./has-max-value";
+import { isIn } from "./is-in";
+import { isNotIn } from "./is-not-in";
 declare let numval: {
-    hasMinValue: (minValue: number) => ValidationRule<number>;
-    hasMaxValue: (maxValue: number) => ValidationRule<number>;
-    isIn: (values: number[]) => ValidationRule<number>;
-    isNotIn: (values: number[]) => ValidationRule<number>;
+    hasMinValue: typeof hasMinValue;
+    hasMaxValue: typeof hasMaxValue;
+    isIn: typeof isIn;
+    isNotIn: typeof isNotIn;
 };
 export { BaseNumberValidationRule, numval };

@@ -1,5 +1,5 @@
-import { given } from "n-defensive";
-import "n-ext";
+import { given } from "@nivinjoseph/n-defensive";
+import "@nivinjoseph/n-ext";
 import { PropertyValidator } from "./property-validator";
 import { ValidationInitializer } from "./validation-initializer";
 import { ValidationExecutor } from "./validation-executor";

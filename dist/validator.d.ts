@@ -1,4 +1,4 @@
-import "n-ext";
+import "@nivinjoseph/n-ext";
 import { PropertyValidator } from "./property-validator";
 import { ValidationInitializer } from "./validation-initializer";
 import { ValidationExecutor } from "./validation-executor";

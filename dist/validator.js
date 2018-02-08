@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const n_defensive_1 = require("n-defensive");
-require("n-ext");
+const n_defensive_1 = require("@nivinjoseph/n-defensive");
+require("@nivinjoseph/n-ext");
 const internal_property_validator_1 = require("./internal-property-validator");
 // public
 class Validator {

@@ -1,6 +1,6 @@
 import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
-import { given } from "n-defensive";
+import { given } from "@nivinjoseph/n-defensive";
 
 // public
 export function isIn(values: Array<string>): ValidationRule<string>;

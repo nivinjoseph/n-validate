@@ -1,3 +1,3 @@
 import { ValidationRule } from "./../validation-rule";
-import "n-ext";
+import "@nivinjoseph/n-ext";
 export declare function hasMinValue(minValue: number): ValidationRule<number>;

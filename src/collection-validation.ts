@@ -1,6 +1,6 @@
 import { Validator } from "./validator";
 import { ValidationRule } from "./validation-rule";
-import { given } from "n-defensive";
+import { given } from "@nivinjoseph/n-defensive";
 
 // public
 export class CollectionValidationRule<T> implements ValidationRule<Array<T>>

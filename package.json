@@ -1,5 +1,5 @@
 {
-  "name": "n-validate",
+  "name": "@nivinjoseph/n-validate",
   "version": "1.0.6",
   "description": "Validation Framework",
   "main": "./dist/index.js",
@@ -8,16 +8,13 @@
     "ts-build": "tsc -p .",
     "ts-build-watch": "npm run ts-build -- -w",
     "ts-build-dist": "tsc -p ./dist",
-    "x-ts-watch-build": "watch 'npm run build' ./src --wait 1 --interval 1",
     "clean-src": "find ./src -name '*.js' -delete -o -name '*.map' -delete",
     "clean-test": "find ./test -name '*.js' -delete -o -name '*.map' -delete",
     "pretest": "npm run ts-build",
     "test": "mocha --reporter spec --ui tdd --require ts-node/register './test/**/*.test.js' || true",
     "pretest-ci": "npm run pretest",
     "test-ci": "mocha --reporter spec --ui tdd --require ts-node/register './test/**/*.test.js'",
-    "pregit-publish": "npm run ts-build-dist && git add . && git commit -m 'preparing to publish new version'",
-    "git-publish": "npm version patch",
-    "postgit-publish": "git push"
+    "publish-package": "npm run ts-build-dist && git add . && git commit -m 'preparing to publish new version' && npm version patch && git push && npm publish --access=public"
   },
   "repository": {
     "type": "git",
@@ -43,8 +40,8 @@
     "typescript": "^2.2.1"
   },
   "dependencies": {
-    "n-defensive": "git+https://github.com/nivinjoseph/n-defensive.git",
-    "n-exception": "git+https://github.com/nivinjoseph/n-exception.git",
-    "n-ext": "git+https://github.com/nivinjoseph/n-ext.git"
+    "@nivinjoseph/n-defensive": "^1.0.17",
+    "@nivinjoseph/n-exception": "^1.0.13",
+    "@nivinjoseph/n-ext": "^1.0.24"
   }
 }

@@ -1,7 +1,7 @@
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
-import { given } from "n-defensive";
-import { InvalidOperationException } from "n-exception";
+import { given } from "@nivinjoseph/n-defensive";
+import { InvalidOperationException } from "@nivinjoseph/n-exception";
 
 // internal
 export class InternalPropertyValidationRule<T, TProperty>

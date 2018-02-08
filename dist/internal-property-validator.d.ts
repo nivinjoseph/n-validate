@@ -1,7 +1,7 @@
 import { PropertyValidator } from "./property-validator";
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
-import "n-ext";
+import "@nivinjoseph/n-ext";
 export declare class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty> {
     private readonly _propertyName;
     private _hasError;

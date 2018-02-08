@@ -2,9 +2,9 @@ import { PropertyValidator } from "./property-validator";
 import { InternalPropertyValidationRule } from "./internal-property-validation-rule";
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
-import { given } from "n-defensive";
-import { ApplicationException } from "n-exception";
-import "n-ext";
+import { given } from "@nivinjoseph/n-defensive";
+import { ApplicationException } from "@nivinjoseph/n-exception";
+import "@nivinjoseph/n-ext";
 
 // internal
 export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>

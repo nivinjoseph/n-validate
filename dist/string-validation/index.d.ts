@@ -1,19 +1,20 @@
-import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
+import { hasMinLength } from "./has-min-length";
+import { hasMaxLength } from "./has-max-length";
+import { hasExactLength } from "./has-exact-length";
+import { isIn } from "./is-in";
+import { isNotIn } from "./is-not-in";
+import { containsOnlyNumbers } from "./contains-only-numbers";
+import { isPhoneNumber } from "./is-phone-number";
+import { isEmail } from "./is-email";
 declare let strval: {
-    hasMinLength: (minLength: number) => ValidationRule<string>;
-    hasMaxLength: (maxLength: number) => ValidationRule<string>;
-    hasExactLength: (exactLength: number) => ValidationRule<string>;
-    isIn: {
-        (values: string[]): ValidationRule<string>;
-        (values: string[], ignoreCase: boolean): ValidationRule<string>;
-    };
-    isNotIn: {
-        (values: string[]): ValidationRule<string>;
-        (values: string[], ignoreCase: boolean): ValidationRule<string>;
-    };
-    containsOnlyNumbers: () => ValidationRule<string>;
-    isPhoneNumber: () => ValidationRule<string>;
-    isEmail: () => ValidationRule<string>;
+    hasMinLength: typeof hasMinLength;
+    hasMaxLength: typeof hasMaxLength;
+    hasExactLength: typeof hasExactLength;
+    isIn: typeof isIn;
+    isNotIn: typeof isNotIn;
+    containsOnlyNumbers: typeof containsOnlyNumbers;
+    isPhoneNumber: typeof isPhoneNumber;
+    isEmail: typeof isEmail;
 };
 export { BaseStringValidationRule, strval };

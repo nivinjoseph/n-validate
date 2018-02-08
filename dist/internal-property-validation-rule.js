@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const n_defensive_1 = require("n-defensive");
-const n_exception_1 = require("n-exception");
+const n_defensive_1 = require("@nivinjoseph/n-defensive");
+const n_exception_1 = require("@nivinjoseph/n-exception");
 // internal
 class InternalPropertyValidationRule {
     constructor() {
