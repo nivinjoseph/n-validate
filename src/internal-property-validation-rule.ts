@@ -13,7 +13,7 @@ export class InternalPropertyValidationRule<T, TProperty>
     private _conditionPredicate: (value: T) => boolean = null;
     private _error: string;
     private _overrideError = false;
-
+    
 
     public get error(): Object
     {
@@ -23,6 +23,8 @@ export class InternalPropertyValidationRule<T, TProperty>
             return this._validator.errors;
         else return this._error;
     }
+    
+    public get overrideError(): boolean { return this._overrideError; }
 
 
     public ensure(tpropertyValidationPredicate: (propertyValue: TProperty) => boolean): void
@@ -62,12 +64,12 @@ export class InternalPropertyValidationRule<T, TProperty>
         this._conditionPredicate = conditionPredicate;
     }
 
-    public withMessage(errorMessage: string): void
+    public withMessage(errorMessage: string, overrideError = false): void
     {
         given(errorMessage, "errorMessage").ensureHasValue().ensure(t => !t.isEmptyOrWhiteSpace());
 
         this._error = errorMessage;
-        this._overrideError = true;
+        this._overrideError = overrideError;
     }
 
     public validate(value: T, propertyValue: TProperty): boolean

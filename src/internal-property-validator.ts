@@ -60,7 +60,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
             if (!validationResult)
             {
                 this._hasError = true;
-                this._error = this._overrideError ? this._errorMessage : validationRule.error;
+                // this._error = this._overrideError ? this._errorMessage : validationRule.error;
+                let error = validationRule.error;
+                if (this._overrideError && !validationRule.overrideError)
+                    error = this._errorMessage;    
+                this._error = error;
                 break;
             }
         }
@@ -214,7 +218,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
             this._errorMessage = errorMessage;
         }
         else
-            this._lastValidationRule.withMessage(errorMessage);
+            this._lastValidationRule.withMessage(errorMessage, true);
 
         return this;
     }
