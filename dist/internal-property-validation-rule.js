@@ -20,6 +20,7 @@ class InternalPropertyValidationRule {
         else
             return this._error;
     }
+    get overrideError() { return this._overrideError; }
     ensure(tpropertyValidationPredicate) {
         n_defensive_1.given(tpropertyValidationPredicate, "tpropertyValidationPredicate").ensureHasValue();
         this._tpropertyValidationPredicate = tpropertyValidationPredicate;
@@ -42,10 +43,10 @@ class InternalPropertyValidationRule {
         n_defensive_1.given(conditionPredicate, "conditionPredicate").ensureHasValue();
         this._conditionPredicate = conditionPredicate;
     }
-    withMessage(errorMessage) {
+    withMessage(errorMessage, overrideError = false) {
         n_defensive_1.given(errorMessage, "errorMessage").ensureHasValue().ensure(t => !t.isEmptyOrWhiteSpace());
         this._error = errorMessage;
-        this._overrideError = true;
+        this._overrideError = overrideError;
     }
     validate(value, propertyValue) {
         if (this._conditionPredicate != null && !this._conditionPredicate(value))

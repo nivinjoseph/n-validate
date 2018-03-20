@@ -9,11 +9,12 @@ export declare class InternalPropertyValidationRule<T, TProperty> {
     private _error;
     private _overrideError;
     readonly error: Object;
+    readonly overrideError: boolean;
     ensure(tpropertyValidationPredicate: (propertyValue: TProperty) => boolean): void;
     ensureT(tValidationPredicate: (value: T) => boolean): void;
     useValidationRule(validationRule: ValidationRule<TProperty>): void;
     useValidator(validator: Validator<TProperty>): void;
     if(conditionPredicate: (value: T) => boolean): void;
-    withMessage(errorMessage: string): void;
+    withMessage(errorMessage: string, overrideError?: boolean): void;
     validate(value: T, propertyValue: TProperty): boolean;
 }
