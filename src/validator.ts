@@ -51,8 +51,14 @@ export class Validator<T> implements ValidationInitializer<T>, ValidationExecuto
             this._propertyValidators.forEach(t =>
             {
                 t.validate(value);
-                this._hasErrors = t.hasError;
-                this._errors[t.propertyName] = t.hasError ? t.error : null;
+                if (t.hasError)
+                {
+                    this._hasErrors = true;
+                    this._errors[t.propertyName] = t.error;
+                    return;
+                }    
+                    
+                this._errors[t.propertyName] = null;
             });
         }   
         else
