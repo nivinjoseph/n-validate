@@ -18,7 +18,7 @@ class InternalPropertyValidationRule {
         else if (this._validator != null && !this._overrideError)
             return this._validator.errors;
         else
-            return this._error;
+            return typeof this._error === "function" ? this._error() : this._error;
     }
     get overrideError() { return this._overrideError; }
     ensure(tpropertyValidationPredicate) {
@@ -44,7 +44,7 @@ class InternalPropertyValidationRule {
         this._conditionPredicate = conditionPredicate;
     }
     withMessage(errorMessage, overrideError = false) {
-        n_defensive_1.given(errorMessage, "errorMessage").ensureHasValue().ensure(t => !t.isEmptyOrWhiteSpace());
+        n_defensive_1.given(errorMessage, "errorMessage").ensureHasValue();
         this._error = errorMessage;
         this._overrideError = overrideError;
     }

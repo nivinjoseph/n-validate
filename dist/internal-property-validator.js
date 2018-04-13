@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const internal_property_validation_rule_1 = require("./internal-property-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
+const n_exception_1 = require("@nivinjoseph/n-exception");
 require("@nivinjoseph/n-ext");
 // internal
 class InternalPropertyValidator {
@@ -39,7 +40,7 @@ class InternalPropertyValidator {
                 // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
-                    error = this._errorMessage;
+                    error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;
                 this._error = error;
                 break;
             }
@@ -141,10 +142,19 @@ class InternalPropertyValidator {
     }
     withMessage(errorMessage) {
         n_defensive_1.given(errorMessage, "errorMessage")
-            .ensureHasValue()
-            .ensureIsString()
-            .ensure(t => !t.isEmptyOrWhiteSpace());
-        errorMessage = errorMessage.trim();
+            .ensureHasValue();
+        if (typeof errorMessage === "string") {
+            n_defensive_1.given(errorMessage, "errorMessage")
+                .ensureIsString()
+                .ensure(t => !t.isEmptyOrWhiteSpace());
+            errorMessage = errorMessage.trim();
+        }
+        else if (typeof errorMessage === "function") {
+            n_defensive_1.given(errorMessage, "errorMessage")
+                .ensureIsFunction();
+        }
+        else
+            throw new n_exception_1.ArgumentException("errorMessage", "has to be a string or a function that returns a string");
         if (this._lastValidationRule == null) {
             this._overrideError = true;
             this._errorMessage = errorMessage;

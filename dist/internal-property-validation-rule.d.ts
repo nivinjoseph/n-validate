@@ -15,6 +15,6 @@ export declare class InternalPropertyValidationRule<T, TProperty> {
     useValidationRule(validationRule: ValidationRule<TProperty>): void;
     useValidator(validator: Validator<TProperty>): void;
     if(conditionPredicate: (value: T) => boolean): void;
-    withMessage(errorMessage: string, overrideError?: boolean): void;
+    withMessage(errorMessage: string | Function, overrideError?: boolean): void;
     validate(value: T, propertyValue: TProperty): boolean;
 }

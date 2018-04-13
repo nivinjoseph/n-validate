@@ -28,5 +28,5 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     useValidationRule(validationRule: ValidationRule<TProperty>): PropertyValidator<T, TProperty>;
     useValidator(validator: Validator<TProperty>): PropertyValidator<T, TProperty>;
     if(conditionPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
-    withMessage(errorMessage: string): PropertyValidator<T, TProperty>;
+    withMessage(errorMessage: string | Function): PropertyValidator<T, TProperty>;
 }
