@@ -3,7 +3,7 @@ import { InternalPropertyValidationRule } from "./internal-property-validation-r
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
 import { given } from "@nivinjoseph/n-defensive";
-import { ApplicationException } from "@nivinjoseph/n-exception";
+import { ApplicationException, ArgumentException } from "@nivinjoseph/n-exception";
 import "@nivinjoseph/n-ext";
 
 // internal
@@ -16,7 +16,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> = null;
     private _conditionPredicate: (value: T) => boolean = null;
     private _overrideError = false;
-    private _errorMessage: string;
+    private _errorMessage: string | Function;
 
 
     public get propertyName(): string { return this._propertyName; }
@@ -63,7 +63,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
                 // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
-                    error = this._errorMessage;    
+                    error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;    
                 this._error = error;
                 break;
             }
@@ -203,14 +203,27 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 
-    public withMessage(errorMessage: string): PropertyValidator<T, TProperty>
+    public withMessage(errorMessage: string | Function): PropertyValidator<T, TProperty>
     {
         given(errorMessage, "errorMessage")
-            .ensureHasValue()
-            .ensureIsString()
-            .ensure(t => !t.isEmptyOrWhiteSpace());
+            .ensureHasValue();
         
-        errorMessage = errorMessage.trim();
+        if (typeof errorMessage === "string")
+        {
+            given(errorMessage, "errorMessage")
+                .ensureIsString()
+                .ensure(t => !t.isEmptyOrWhiteSpace());
+            
+            errorMessage = errorMessage.trim();
+        }
+        else if (typeof errorMessage === "function")
+        {
+            given(errorMessage, "errorMessage")
+                .ensureIsFunction();
+        }
+        else
+            throw new ArgumentException("errorMessage", "has to be a string or a function that returns a string"); 
+            
 
         if (this._lastValidationRule == null)
         {
@@ -223,3 +236,4 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 }
+

@@ -11,7 +11,7 @@ export class InternalPropertyValidationRule<T, TProperty>
     private _validationRule: ValidationRule<TProperty> = null;
     private _validator: Validator<TProperty> = null;
     private _conditionPredicate: (value: T) => boolean = null;
-    private _error: string;
+    private _error: string | Function;
     private _overrideError = false;
     
 
@@ -21,7 +21,7 @@ export class InternalPropertyValidationRule<T, TProperty>
             return this._validationRule.error;
         else if (this._validator != null && !this._overrideError)
             return this._validator.errors;
-        else return this._error;
+        else return typeof this._error === "function" ? this._error() : this._error;
     }
     
     public get overrideError(): boolean { return this._overrideError; }
@@ -64,9 +64,9 @@ export class InternalPropertyValidationRule<T, TProperty>
         this._conditionPredicate = conditionPredicate;
     }
 
-    public withMessage(errorMessage: string, overrideError = false): void
+    public withMessage(errorMessage: string | Function, overrideError = false): void
     {
-        given(errorMessage, "errorMessage").ensureHasValue().ensure(t => !t.isEmptyOrWhiteSpace());
+        given(errorMessage, "errorMessage").ensureHasValue();
 
         this._error = errorMessage;
         this._overrideError = overrideError;
