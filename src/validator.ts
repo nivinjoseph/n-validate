@@ -8,14 +8,23 @@ import { InternalPropertyValidator } from "./internal-property-validator";
 // public
 export class Validator<T> implements ValidationInitializer<T>, ValidationExecutor<T>
 {
-    private _propertyValidators = new Array<InternalPropertyValidator<T, any>>();
+    private readonly _propertyValidators = new Array<InternalPropertyValidator<T, any>>();
+    private readonly _errors: { [index: string]: any } = {};
     private _hasErrors = false;
-    private _errors: { [index: string]: any } = {};
+    private _isEnabled = true;
+    
 
     public get isValid(): boolean { return !this._hasErrors; }
     public get hasErrors(): boolean { return this._hasErrors; }
     public get errors(): { [index: string]: any } { return this._errors; }
     public get hasRules(): boolean { return this._propertyValidators.length > 0; }
+    public get isEnabled(): boolean { return this._isEnabled; }
+    
+    
+    public constructor(isEnabled: boolean = true)
+    {
+        this._isEnabled = isEnabled;
+    }
 
 
     public for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>
@@ -28,23 +37,37 @@ export class Validator<T> implements ValidationInitializer<T>, ValidationExecuto
 
         let propertyValidator = new InternalPropertyValidator<T, TProperty>(propertyName);
         this._propertyValidators.push(propertyValidator);
+        this._errors[propertyName] = null;
         return propertyValidator;
     }
 
     public validate(value: T): void 
     {
+        given(value, "value").ensureHasValue();
+        
         this._hasErrors = false;
-        this._errors = {};
-        given(value, "value")
-            .ensureHasValue();
-        this._propertyValidators.forEach(t =>
+        if (this._isEnabled)
         {
-            t.validate(value);
-            if (t.hasError)
+            this._propertyValidators.forEach(t =>
             {
-                this._hasErrors = true;
-                this._errors[t.propertyName] = t.error;
-            }
-        });
+                t.validate(value);
+                this._hasErrors = t.hasError;
+                this._errors[t.propertyName] = t.hasError ? t.error : null;
+            });
+        }   
+        else
+        {
+            this._propertyValidators.forEach(t => this._errors[t.propertyName] = null);
+        }
+    }
+    
+    public enable(): void
+    {
+        this._isEnabled = true;
+    }
+    
+    public disable(): void
+    {
+        this._isEnabled = false;
     }
 }
