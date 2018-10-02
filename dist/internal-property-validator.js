@@ -4,7 +4,6 @@ const internal_property_validation_rule_1 = require("./internal-property-validat
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 const n_exception_1 = require("@nivinjoseph/n-exception");
 require("@nivinjoseph/n-ext");
-// internal
 class InternalPropertyValidator {
     constructor(propertyName) {
         this._hasError = false;
@@ -37,7 +36,6 @@ class InternalPropertyValidator {
             }
             if (!validationResult) {
                 this._hasError = true;
-                // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
                     error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_number_validation_rule_1 = require("./base-number-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 require("@nivinjoseph/n-ext");
-// public
 function hasMinValue(minValue) {
     return new NumberHasMinValue(minValue);
 }

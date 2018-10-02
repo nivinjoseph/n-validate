@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
-// public
 function containsOnlyNumbers() {
     return new StringContainsOnlyNumbers();
 }

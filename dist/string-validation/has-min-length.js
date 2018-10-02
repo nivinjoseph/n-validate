@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 require("@nivinjoseph/n-ext");
-// public
 function hasMinLength(minLength) {
     return new StringHasMinLength(minLength);
 }
