@@ -5,9 +5,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "ts-build": "tsc -p .",
-    "ts-build-watch": "npm run ts-build -- -w",
-    "ts-build-dist": "tsc -p ./dist",
+    "ts-compile": "tsc -p .",
+    "ts-lint": "tslint -p . -c tslint.json",
+    "ts-build": "npm run ts-compile && npm run ts-lint",
+    "ts-build-dist": "npm run ts-build && tsc -p ./dist",
     "clean-src": "find ./src -name '*.js' -delete -o -name '*.map' -delete",
     "clean-test": "find ./test -name '*.js' -delete -o -name '*.map' -delete",
     "pretest": "npm run ts-build",
@@ -29,19 +30,16 @@
     "url": "https://github.com/nivinjoseph/n-validate/issues"
   },
   "homepage": "https://github.com/nivinjoseph/n-validate#readme",
-  "devDependencies": {
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^7.0.32",
-    "@types/sinon": "^1.16.35",
-    "mocha": "^3.4.2",
-    "sinon": "^2.3.5",
-    "ts-node": "^2.1.0",
-    "tslint": "^4.5.1",
-    "typescript": "^2.2.1"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "@nivinjoseph/n-defensive": "^1.0.17",
-    "@nivinjoseph/n-exception": "^1.0.13",
-    "@nivinjoseph/n-ext": "^1.0.24"
+    "@nivinjoseph/n-defensive": "^1.0.19",
+    "@nivinjoseph/n-exception": "^1.0.15",
+    "@nivinjoseph/n-ext": "^1.0.28",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^8.9.5",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
   }
 }

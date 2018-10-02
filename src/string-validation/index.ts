@@ -1,4 +1,3 @@
-import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { hasMinLength } from "./has-min-length";
 import { hasMaxLength } from "./has-max-length";
@@ -15,4 +14,4 @@ export
 {
     BaseStringValidationRule,
     strval
-}
+};

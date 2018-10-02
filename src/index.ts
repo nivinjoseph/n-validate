@@ -21,4 +21,4 @@ export
     numval,
     BaseStringValidationRule,
     strval
-}
+};

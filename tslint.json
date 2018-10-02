@@ -56,6 +56,8 @@
         "interface-name": [
             true,
             "never-prefix"
-        ]
+        ],
+        "await-promise": true,
+        "no-floating-promises": true
     }
 }

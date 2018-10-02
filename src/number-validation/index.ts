@@ -1,4 +1,3 @@
-import { ValidationRule } from "./../validation-rule";
 import { BaseNumberValidationRule } from "./base-number-validation-rule";
 import { hasMinValue } from "./has-min-value";
 import { hasMaxValue } from "./has-max-value";
@@ -11,4 +10,4 @@ export
 {
     BaseNumberValidationRule,
     numval
-}
+};

@@ -3,7 +3,7 @@ import { InternalPropertyValidationRule } from "./internal-property-validation-r
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
 import { given } from "@nivinjoseph/n-defensive";
-import { ApplicationException, ArgumentException } from "@nivinjoseph/n-exception";
+import { ArgumentException } from "@nivinjoseph/n-exception";
 import "@nivinjoseph/n-ext";
 
 // internal
