@@ -1,6 +1,6 @@
 import { given } from "@nivinjoseph/n-defensive";
 import "@nivinjoseph/n-ext";
-import { PropertyValidator } from "./property-validator";
+import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
 import { ValidationInitializer } from "./validation-initializer";
 import { ValidationExecutor } from "./validation-executor";
 import { InternalPropertyValidator } from "./internal-property-validator";
@@ -26,7 +26,11 @@ export class Validator<T> implements ValidationInitializer<T>, ValidationExecuto
         this._isEnabled = isEnabled;
     }
 
-
+    public for<TProperty extends boolean>(propertyName: string): BooleanPropertyValidator<T>;
+    public for<TProperty extends number>(propertyName: string): NumberPropertyValidator<T>;
+    public for<TProperty extends string>(propertyName: string): StringPropertyValidator<T>;
+    public for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
+    public for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
     public for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>
     {
         given(propertyName, "propertyName")

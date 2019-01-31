@@ -3,18 +3,18 @@ import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
 
 // public
-export function isIn(values: Array<string>): ValidationRule<string>;
-export function isIn(values: Array<string>, ignoreCase: boolean): ValidationRule<string>;
-export function isIn(values: Array<string>, ignoreCase?: boolean): ValidationRule<string>
+export function isIn(values: ReadonlyArray<string>): ValidationRule<string>;
+export function isIn(values: ReadonlyArray<string>, ignoreCase: boolean): ValidationRule<string>;
+export function isIn(values: ReadonlyArray<string>, ignoreCase?: boolean): ValidationRule<string>
 {
     return new StringIsIn(values, ignoreCase);
 }
 
 class StringIsIn extends BaseStringValidationRule
 {
-    public constructor(values: Array<string>);
-    public constructor(values: Array<string>, ignoreCase: boolean);
-    public constructor(values: Array<string>, ignoreCase?: boolean)
+    public constructor(values: ReadonlyArray<string>);
+    public constructor(values: ReadonlyArray<string>, ignoreCase: boolean);
+    public constructor(values: ReadonlyArray<string>, ignoreCase?: boolean)
     {
         given(values, "values").ensureHasValue();
         super();

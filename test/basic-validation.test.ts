@@ -248,7 +248,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a boolean value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<Boolean>("active").ensureIsBoolean();
+            validator.for<boolean>("active").ensureIsBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -256,7 +256,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a boolean value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<Boolean>("age").ensureIsBoolean();
+            validator.for<boolean>("age").ensureIsBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });

@@ -3,14 +3,14 @@ import { BaseNumberValidationRule } from "./base-number-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
 
 // public
-export function isIn(values: Array<number>): ValidationRule<number>
+export function isIn(values: ReadonlyArray<number>): ValidationRule<number>
 {
     return new NumberIsIn(values);
 }
 
 class NumberIsIn extends BaseNumberValidationRule
 {
-    public constructor(values: Array<number>)
+    public constructor(values: ReadonlyArray<number>)
     {
         given(values, "values").ensureHasValue();
         super();
