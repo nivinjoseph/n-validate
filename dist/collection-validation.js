@@ -13,12 +13,14 @@ class CollectionValidationRule {
             this._validator.validate(item);
             if (this._validator.hasErrors)
                 errors.push(this._validator.errors);
+            else
+                errors.push(null);
         });
-        if (errors.length > 0) {
-            this._error = errors;
+        this._error = errors;
+        if (errors.some(t => t !== null))
             return false;
-        }
-        return true;
+        else
+            return true;
     }
 }
 exports.CollectionValidationRule = CollectionValidationRule;

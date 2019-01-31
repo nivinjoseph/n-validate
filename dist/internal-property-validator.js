@@ -4,6 +4,7 @@ const internal_property_validation_rule_1 = require("./internal-property-validat
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 const n_exception_1 = require("@nivinjoseph/n-exception");
 require("@nivinjoseph/n-ext");
+const _1 = require(".");
 class InternalPropertyValidator {
     constructor(propertyName) {
         this._hasError = false;
@@ -160,6 +161,45 @@ class InternalPropertyValidator {
         else
             this._lastValidationRule.withMessage(errorMessage, true);
         return this;
+    }
+    hasMinValue(minValue) {
+        return this.useValidationRule(_1.numval.hasMinValue(minValue));
+    }
+    hasMaxValue(maxValue) {
+        return this.useValidationRule(_1.numval.hasMaxValue(maxValue));
+    }
+    isInNumbers(values) {
+        return this.useValidationRule(_1.numval.isIn(values));
+    }
+    isNotInNumbers(values) {
+        return this.useValidationRule(_1.numval.isNotIn(values));
+    }
+    hasMinLength(minLength) {
+        return this.useValidationRule(_1.strval.hasMinLength(minLength));
+    }
+    hasMaxLength(maxLength) {
+        return this.useValidationRule(_1.strval.hasMaxLength(maxLength));
+    }
+    hasExactLength(exactLength) {
+        return this.useValidationRule(_1.strval.hasExactLength(exactLength));
+    }
+    isInStrings(values, ignoreCase) {
+        return this.useValidationRule(_1.strval.isIn(values, ignoreCase));
+    }
+    isNotInStrings(values, ignoreCase) {
+        return this.useValidationRule(_1.strval.isNotIn(values, ignoreCase));
+    }
+    containsOnlyNumbers() {
+        return this.useValidationRule(_1.strval.containsOnlyNumbers());
+    }
+    isPhoneNumber() {
+        return this.useValidationRule(_1.strval.isPhoneNumber());
+    }
+    isEmail() {
+        return this.useValidationRule(_1.strval.isEmail());
+    }
+    useCollectionValidator(validator) {
+        return this.useValidationRule(new _1.CollectionValidationRule(validator));
     }
 }
 exports.InternalPropertyValidator = InternalPropertyValidator;

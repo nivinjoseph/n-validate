@@ -1,2 +1,2 @@
 import { ValidationRule } from "./../validation-rule";
-export declare function isIn(values: Array<number>): ValidationRule<number>;
+export declare function isIn(values: ReadonlyArray<number>): ValidationRule<number>;

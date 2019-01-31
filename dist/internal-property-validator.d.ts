@@ -1,8 +1,8 @@
-import { PropertyValidator } from "./property-validator";
+import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
 import "@nivinjoseph/n-ext";
-export declare class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty> {
+export declare class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T>, ObjectPropertyValidator<T> {
     private readonly _propertyName;
     private _hasError;
     private _error;
@@ -16,17 +16,30 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     readonly error: string;
     constructor(propertyName: string);
     validate(value: T): void;
-    isRequired(): PropertyValidator<T, TProperty>;
-    isOptional(): PropertyValidator<T, TProperty>;
-    ensureIsBoolean(): PropertyValidator<T, TProperty>;
-    ensureIsString(): PropertyValidator<T, TProperty>;
-    ensureIsNumber(): PropertyValidator<T, TProperty>;
-    ensureIsObject(): PropertyValidator<T, TProperty>;
-    ensureIsArray(): PropertyValidator<T, TProperty>;
-    ensure(propertyValidationPredicate: (propertyValue: TProperty) => boolean): PropertyValidator<T, TProperty>;
-    ensureT(valueValidationPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
-    useValidationRule(validationRule: ValidationRule<TProperty>): PropertyValidator<T, TProperty>;
-    useValidator(validator: Validator<TProperty>): PropertyValidator<T, TProperty>;
-    if(conditionPredicate: (value: T) => boolean): PropertyValidator<T, TProperty>;
-    withMessage(errorMessage: string | Function): PropertyValidator<T, TProperty>;
+    isRequired(): this;
+    isOptional(): this;
+    ensureIsBoolean(): this;
+    ensureIsString(): this;
+    ensureIsNumber(): this;
+    ensureIsObject(): this;
+    ensureIsArray(): this;
+    ensure(propertyValidationPredicate: (propertyValue: TProperty | any) => boolean): this;
+    ensureT(valueValidationPredicate: (value: T) => boolean): this;
+    useValidationRule(validationRule: ValidationRule<TProperty | any>): this;
+    useValidator(validator: Validator<TProperty | any>): this;
+    if(conditionPredicate: (value: T) => boolean): this;
+    withMessage(errorMessage: string | Function): this;
+    hasMinValue(minValue: number): this;
+    hasMaxValue(maxValue: number): this;
+    isInNumbers(values: ReadonlyArray<number>): this;
+    isNotInNumbers(values: ReadonlyArray<number>): this;
+    hasMinLength(minLength: number): this;
+    hasMaxLength(maxLength: number): this;
+    hasExactLength(exactLength: number): this;
+    isInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this;
+    isNotInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this;
+    containsOnlyNumbers(): this;
+    isPhoneNumber(): this;
+    isEmail(): this;
+    useCollectionValidator(validator: Validator<any>): this;
 }

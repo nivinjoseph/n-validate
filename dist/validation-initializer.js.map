@@ -1,1 +1,1 @@
-{"version":3,"file":"validation-initializer.js","sourceRoot":"","sources":["../src/validation-initializer.ts"],"names":[],"mappings":"","sourcesContent":["import { PropertyValidator } from \"./property-validator\";\n\n// public\nexport interface ValidationInitializer<T>\n{\n    for<TProperty>(propertyName: string): PropertyValidator<T, TProperty>;\n}"]}
+{"version":3,"file":"validation-initializer.js","sourceRoot":"","sources":["../src/validation-initializer.ts"],"names":[],"mappings":""}
