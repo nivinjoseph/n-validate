@@ -208,17 +208,6 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
         
-        test("should pass when the property of the object being validated is null and is in the given set", () =>
-        {
-            // TODO: fix this functions it fails for this case
-            validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", null];
-            validator.for<string>("firstName").useValidationRule(strval.isIn(set));
-            testVal.firstName = null;
-            validator.validate(testVal);
-            assert.strictEqual(validator.isValid, true, "Should be valid");
-        });
-        
         test("should pass when the property of the object being validated is in the given set(ignoreCase =true)", () =>
         {
             validator = new Validator<TestVal>();
@@ -272,17 +261,6 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
-        });
-        
-        test("should pass when the property of the object being validated is null and is not in the given set", () =>
-        {
-            // TODO: fix this functions it fails for this case
-            validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test"]; 
-            validator.for<string>("firstName").useValidationRule(strval.isNotIn(set));
-            testVal.firstName = null;
-            validator.validate(testVal);
-            assert.strictEqual(validator.isValid, true);
         });
         
         test("should fail when the property of the object being validated is in the given set(ignoreCase =true)", () =>

@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { Validator } from "../src/index";
-import { ApplicationException, ArgumentNullException, InvalidArgumentException } from "@nivinjoseph/n-exception";
+import { ArgumentNullException, ArgumentException } from "@nivinjoseph/n-exception";
 import "@nivinjoseph/n-ext";
 
 suite("Basic validation", () =>
@@ -108,7 +108,6 @@ suite("Validator", () =>
             validator.for<string>("firstName");
             assert.strictEqual(validator.hasRules, true, "Should have a rule");
             assert.strictEqual(validator.hasErrors, false, "Should have no errors");
-            assert.strictEqual(Object.keys(validator.errors).length, 0, "Should have no error messages");
             assert.strictEqual(validator.isValid, true, "Should be valid");
         });
         
@@ -121,18 +120,18 @@ suite("Validator", () =>
             }, ArgumentNullException);
         });
 
-        test("should thorw an InvalidArgumentException when property given is an empty string", () =>
+        test("should throw an ArgumentException when property given is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             assert.throws(() =>
             {
                 validator.for<string>("");
-            }, InvalidArgumentException);
+            }, ArgumentException);
         });
     });
 
 
-    suite("vaildate", () =>
+    suite("validate", () =>
     {
         test("should create a validation rule for a given property in the object and should be valid", () =>
         {
@@ -600,17 +599,7 @@ suite("PropertyValidator", () =>
 
     suite("if", () =>
     {
-        test("should throw an ApplicationException when no target validation rule is given", () =>
-        {
-            validator = new Validator<TestVal>();
-            assert.throws(
-                () =>
-                {
-                    validator.for<string>("firstName").if(t => t.firstName.length <= 2);
-                }, ApplicationException);
-        });
-       
-        test("should pass when the if condition is true and the object being validated does satisfy the given target vaildation rule", () =>
+        test("should pass when the if condition is true and the object being validated does satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.for<string>("firstName").ensure(t => t === "Nivin").if(t => t.firstName.length > 2);
@@ -618,7 +607,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
         
-        test("should fail when the if condition is true and the object being validated deosn't satisfy the given target validation rule", () =>
+        test("should fail when the if condition is true and the object being validated doesn't satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.for<string>("firstName").ensure(t => t === "Shrey").if(t => t.firstName.length > 2);
@@ -729,16 +718,7 @@ suite("PropertyValidator", () =>
 
 
     suite("withMessage", () =>
-    {
-        test("should thorw an Application error when no target validation rule given", () =>
-        {
-            validator = new Validator<TestVal>();
-            assert.throws(() =>
-            {
-                validator.for<string>("firstName").withMessage("Message check");
-            }, ApplicationException);
-        });
-    
+    {    
         test("should fail with correct message when target validation rule doesn't satisfy for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
