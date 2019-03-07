@@ -21,10 +21,18 @@ class Validator {
             .ensureHasValue()
             .ensure(t => !t.isEmptyOrWhiteSpace())
             .ensure(t => this._propertyValidators.every(u => u.propertyName !== t), "validation already defined for property '{0}'".format(propertyName));
-        let propertyValidator = new internal_property_validator_1.InternalPropertyValidator(propertyName);
+        const propertyValidator = new internal_property_validator_1.InternalPropertyValidator(propertyName);
         this._propertyValidators.push(propertyValidator);
         this._errors[propertyName] = null;
         return propertyValidator;
+    }
+    clearFor(propertyName) {
+        n_defensive_1.given(propertyName, "propertyName").ensureHasValue().ensureIsString();
+        const propertyValidator = this._propertyValidators.find(t => t.propertyName === propertyName);
+        if (!propertyValidator)
+            return;
+        this._propertyValidators.splice(this._propertyValidators.indexOf(propertyValidator), 1);
+        delete this._errors[propertyName];
     }
     validate(value) {
         n_defensive_1.given(value, "value").ensureHasValue();

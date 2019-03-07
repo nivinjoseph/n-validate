@@ -20,6 +20,7 @@ export declare class Validator<T> implements ValidationInitializer<T>, Validatio
     for<TProperty extends string>(propertyName: string): StringPropertyValidator<T>;
     for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
     for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
+    clearFor(propertyName: string): void;
     validate(value: T): void;
     enable(): void;
     disable(): void;
