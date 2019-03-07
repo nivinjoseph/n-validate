@@ -39,10 +39,22 @@ export class Validator<T> implements ValidationInitializer<T>, ValidationExecuto
             .ensure(t => this._propertyValidators.every(u => u.propertyName !== t),
             "validation already defined for property '{0}'".format(propertyName));
 
-        let propertyValidator = new InternalPropertyValidator<T, TProperty>(propertyName);
+        const propertyValidator = new InternalPropertyValidator<T, TProperty>(propertyName);
         this._propertyValidators.push(propertyValidator);
         this._errors[propertyName] = null;
         return propertyValidator;
+    }
+    
+    public clearFor(propertyName: string): void
+    {
+        given(propertyName, "propertyName").ensureHasValue().ensureIsString();
+        
+        const propertyValidator = this._propertyValidators.find(t => t.propertyName === propertyName);
+        if (!propertyValidator)
+            return;
+        
+        this._propertyValidators.splice(this._propertyValidators.indexOf(propertyValidator), 1);
+        delete this._errors[propertyName];
     }
 
     public validate(value: T): void 
