@@ -54,7 +54,7 @@ export class Validator<T> implements ValidationInitializer<T>, ValidationExecuto
             return;
         
         this._propertyValidators.splice(this._propertyValidators.indexOf(propertyValidator), 1);
-        delete this._errors[propertyName];
+        this._errors[propertyName] = null;
     }
 
     public validate(value: T): void 
