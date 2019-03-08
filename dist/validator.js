@@ -32,7 +32,7 @@ class Validator {
         if (!propertyValidator)
             return;
         this._propertyValidators.splice(this._propertyValidators.indexOf(propertyValidator), 1);
-        delete this._errors[propertyName];
+        this._errors[propertyName] = null;
     }
     validate(value) {
         n_defensive_1.given(value, "value").ensureHasValue();
