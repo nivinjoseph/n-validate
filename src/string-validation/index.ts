@@ -8,9 +8,13 @@ import { containsOnlyNumbers } from "./contains-only-numbers";
 import { isPhoneNumber } from "./is-phone-number";
 import { isEmail } from "./is-email";
 import { isDate } from "./is-date";
+import { matchesRegex } from "./matches-regex";
 
 
-const strval = { hasMinLength, hasMaxLength, hasExactLength, isIn, isNotIn, containsOnlyNumbers, isPhoneNumber, isEmail, isDate };
+const strval = {
+    hasMinLength, hasMaxLength, hasExactLength, isIn, isNotIn, containsOnlyNumbers, isPhoneNumber,
+    isEmail, isDate, matchesRegex
+};
 
 
 export

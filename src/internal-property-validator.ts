@@ -309,6 +309,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this.useValidationRule(strval.isDate(format));
     }
     
+    public matchesRegex(regex: RegExp): this
+    {
+        return this.useValidationRule(strval.matchesRegex(regex));
+    }
+    
     
     public useCollectionValidator(validator: Validator<any>): this
     {

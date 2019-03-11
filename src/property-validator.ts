@@ -52,6 +52,7 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
      * @param format eg: YYYY-MM-DD
      */
     isDate(format: string): this;
+    matchesRegex(regex: RegExp): this;
 }
 
 export interface ArrayPropertyValidator<T> extends PropertyValidator<T, Array<any>>
