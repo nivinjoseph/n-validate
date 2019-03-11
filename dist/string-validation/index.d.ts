@@ -7,7 +7,9 @@ import { isNotIn } from "./is-not-in";
 import { containsOnlyNumbers } from "./contains-only-numbers";
 import { isPhoneNumber } from "./is-phone-number";
 import { isEmail } from "./is-email";
-declare let strval: {
+import { isDate } from "./is-date";
+import { matchesRegex } from "./matches-regex";
+declare const strval: {
     hasMinLength: typeof hasMinLength;
     hasMaxLength: typeof hasMaxLength;
     hasExactLength: typeof hasExactLength;
@@ -16,5 +18,7 @@ declare let strval: {
     containsOnlyNumbers: typeof containsOnlyNumbers;
     isPhoneNumber: typeof isPhoneNumber;
     isEmail: typeof isEmail;
+    isDate: typeof isDate;
+    matchesRegex: typeof matchesRegex;
 };
 export { BaseStringValidationRule, strval };

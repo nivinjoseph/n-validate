@@ -10,6 +10,11 @@ const is_not_in_1 = require("./is-not-in");
 const contains_only_numbers_1 = require("./contains-only-numbers");
 const is_phone_number_1 = require("./is-phone-number");
 const is_email_1 = require("./is-email");
-let strval = { hasMinLength: has_min_length_1.hasMinLength, hasMaxLength: has_max_length_1.hasMaxLength, hasExactLength: has_exact_length_1.hasExactLength, isIn: is_in_1.isIn, isNotIn: is_not_in_1.isNotIn, containsOnlyNumbers: contains_only_numbers_1.containsOnlyNumbers, isPhoneNumber: is_phone_number_1.isPhoneNumber, isEmail: is_email_1.isEmail };
+const is_date_1 = require("./is-date");
+const matches_regex_1 = require("./matches-regex");
+const strval = {
+    hasMinLength: has_min_length_1.hasMinLength, hasMaxLength: has_max_length_1.hasMaxLength, hasExactLength: has_exact_length_1.hasExactLength, isIn: is_in_1.isIn, isNotIn: is_not_in_1.isNotIn, containsOnlyNumbers: contains_only_numbers_1.containsOnlyNumbers, isPhoneNumber: is_phone_number_1.isPhoneNumber,
+    isEmail: is_email_1.isEmail, isDate: is_date_1.isDate, matchesRegex: matches_regex_1.matchesRegex
+};
 exports.strval = strval;
 //# sourceMappingURL=index.js.map

@@ -17,6 +17,7 @@ export interface NumberPropertyValidator<T> extends PropertyValidator<T, number>
     ensureIsNumber(): this;
     hasMinValue(minValue: number): this;
     hasMaxValue(maxValue: number): this;
+    hasExactValue(exactValue: number): this;
     isInNumbers(values: ReadonlyArray<number>): this;
     isNotInNumbers(values: ReadonlyArray<number>): this;
 }
@@ -30,6 +31,8 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
     containsOnlyNumbers(): this;
     isPhoneNumber(): this;
     isEmail(): this;
+    isDate(format: string): this;
+    matchesRegex(regex: RegExp): this;
 }
 export interface ArrayPropertyValidator<T> extends PropertyValidator<T, Array<any>> {
     ensureIsArray(): this;

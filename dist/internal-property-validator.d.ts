@@ -31,6 +31,7 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     withMessage(errorMessage: string | Function): this;
     hasMinValue(minValue: number): this;
     hasMaxValue(maxValue: number): this;
+    hasExactValue(exactValue: number): this;
     isInNumbers(values: ReadonlyArray<number>): this;
     isNotInNumbers(values: ReadonlyArray<number>): this;
     hasMinLength(minLength: number): this;
@@ -41,5 +42,7 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     containsOnlyNumbers(): this;
     isPhoneNumber(): this;
     isEmail(): this;
+    isDate(format: string): this;
+    matchesRegex(regex: RegExp): this;
     useCollectionValidator(validator: Validator<any>): this;
 }

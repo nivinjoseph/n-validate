@@ -168,6 +168,9 @@ class InternalPropertyValidator {
     hasMaxValue(maxValue) {
         return this.useValidationRule(_1.numval.hasMaxValue(maxValue));
     }
+    hasExactValue(exactValue) {
+        return this.useValidationRule(_1.numval.hasExactValue(exactValue));
+    }
     isInNumbers(values) {
         return this.useValidationRule(_1.numval.isIn(values));
     }
@@ -197,6 +200,12 @@ class InternalPropertyValidator {
     }
     isEmail() {
         return this.useValidationRule(_1.strval.isEmail());
+    }
+    isDate(format) {
+        return this.useValidationRule(_1.strval.isDate(format));
+    }
+    matchesRegex(regex) {
+        return this.useValidationRule(_1.strval.matchesRegex(regex));
     }
     useCollectionValidator(validator) {
         return this.useValidationRule(new _1.CollectionValidationRule(validator));
