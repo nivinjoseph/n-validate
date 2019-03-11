@@ -7,8 +7,11 @@ import { isNotIn } from "./is-not-in";
 import { containsOnlyNumbers } from "./contains-only-numbers";
 import { isPhoneNumber } from "./is-phone-number";
 import { isEmail } from "./is-email";
+import { isDate } from "./is-date";
 
-let strval = { hasMinLength, hasMaxLength, hasExactLength, isIn, isNotIn, containsOnlyNumbers, isPhoneNumber, isEmail };
+
+const strval = { hasMinLength, hasMaxLength, hasExactLength, isIn, isNotIn, containsOnlyNumbers, isPhoneNumber, isEmail, isDate };
+
 
 export
 {

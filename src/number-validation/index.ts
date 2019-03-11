@@ -3,8 +3,11 @@ import { hasMinValue } from "./has-min-value";
 import { hasMaxValue } from "./has-max-value";
 import { isIn } from "./is-in";
 import { isNotIn } from "./is-not-in";
+import { hasExactValue } from "./has-exact-value";
 
-let numval = { hasMinValue, hasMaxValue, isIn, isNotIn };
+
+const numval = { hasMinValue, hasMaxValue, hasExactValue, isIn, isNotIn };
+
 
 export
 {

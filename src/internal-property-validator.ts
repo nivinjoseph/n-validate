@@ -248,6 +248,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this.useValidationRule(numval.hasMaxValue(maxValue));
     }
     
+    public hasExactValue(exactValue: number): this
+    {
+        return this.useValidationRule(numval.hasExactValue(exactValue));
+    }
+    
     public isInNumbers(values: ReadonlyArray<number>): this
     {
         return this.useValidationRule(numval.isIn(values));
@@ -297,6 +302,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     public isEmail(): this
     {
         return this.useValidationRule(strval.isEmail());
+    }
+    
+    public isDate(format: string): this
+    {
+        return this.useValidationRule(strval.isDate(format));
     }
     
     
