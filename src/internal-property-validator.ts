@@ -314,9 +314,46 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this.useValidationRule(strval.matchesRegex(regex));
     }
     
+    public isEnum(enumType: object): this
+    {
+        given(enumType, "enumType").ensureHasValue().ensureIsObject();
+        
+        const enumValues = this.getEnumValues(enumType);
+        
+        return this.useValidationRule({
+            validate: (value: T) => enumValues.contains(value),
+            error: "Invalid enum value"
+        });
+    }
+    
     
     public useCollectionValidator(validator: Validator<any>): this
     {
         return this.useValidationRule(new CollectionValidationRule(validator));
+    }
+    
+    
+    private isNumber(value: any): boolean
+    {
+        if (value == null)
+            return false;
+
+        value = value.toString().trim();
+        if (value.length === 0)
+            return false;
+        let parsed = +value.toString().trim();
+        return !isNaN(parsed) && isFinite(parsed);
+    }
+
+    private getEnumValues(enumType: object): ReadonlyArray<any>
+    {
+        const keys = Object.keys(enumType);
+        if (keys.length === 0)
+            return [];
+
+        if (this.isNumber(keys[0]))
+            return keys.filter(t => this.isNumber(t)).map(t => +t);
+
+        return keys.map(t => (<any>enumType)[t]);
     }
 }

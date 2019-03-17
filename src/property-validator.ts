@@ -34,6 +34,7 @@ export interface NumberPropertyValidator<T> extends PropertyValidator<T, number>
     hasExactValue(exactValue: number): this;
     isInNumbers(values: ReadonlyArray<number>): this;
     isNotInNumbers(values: ReadonlyArray<number>): this;
+    isEnum(enumType: object): this;
 }
 
 export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
@@ -53,6 +54,7 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
      */
     isDate(format: string): this;
     matchesRegex(regex: RegExp): this;
+    isEnum(enumType: object): this;
 }
 
 export interface ArrayPropertyValidator<T> extends PropertyValidator<T, Array<any>>
