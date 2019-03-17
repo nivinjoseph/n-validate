@@ -44,5 +44,8 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     isEmail(): this;
     isDate(format: string): this;
     matchesRegex(regex: RegExp): this;
+    isEnum(enumType: object): this;
     useCollectionValidator(validator: Validator<any>): this;
+    private isNumber;
+    private getEnumValues;
 }

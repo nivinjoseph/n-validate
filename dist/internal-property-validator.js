@@ -207,8 +207,33 @@ class InternalPropertyValidator {
     matchesRegex(regex) {
         return this.useValidationRule(_1.strval.matchesRegex(regex));
     }
+    isEnum(enumType) {
+        n_defensive_1.given(enumType, "enumType").ensureHasValue().ensureIsObject();
+        const enumValues = this.getEnumValues(enumType);
+        return this.useValidationRule({
+            validate: (value) => enumValues.contains(value),
+            error: "Invalid enum value"
+        });
+    }
     useCollectionValidator(validator) {
         return this.useValidationRule(new _1.CollectionValidationRule(validator));
+    }
+    isNumber(value) {
+        if (value == null)
+            return false;
+        value = value.toString().trim();
+        if (value.length === 0)
+            return false;
+        let parsed = +value.toString().trim();
+        return !isNaN(parsed) && isFinite(parsed);
+    }
+    getEnumValues(enumType) {
+        const keys = Object.keys(enumType);
+        if (keys.length === 0)
+            return [];
+        if (this.isNumber(keys[0]))
+            return keys.filter(t => this.isNumber(t)).map(t => +t);
+        return keys.map(t => enumType[t]);
     }
 }
 exports.InternalPropertyValidator = InternalPropertyValidator;
