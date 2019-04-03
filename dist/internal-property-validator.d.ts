@@ -18,11 +18,13 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     validate(value: T): void;
     isRequired(): this;
     isOptional(): this;
-    ensureIsBoolean(): this;
-    ensureIsString(): this;
-    ensureIsNumber(): this;
-    ensureIsObject(): this;
-    ensureIsArray(): this;
+    isBoolean(): this;
+    isString(): this;
+    isNumber(): this;
+    isArray(): this;
+    isObject(): this;
+    isType(type: Function): this;
+    isInstanceOf(type: Function): this;
     ensure(propertyValidationPredicate: (propertyValue: TProperty | any) => boolean): this;
     ensureT(valueValidationPredicate: (value: T) => boolean): this;
     useValidationRule(validationRule: ValidationRule<TProperty | any>): this;
@@ -46,6 +48,6 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     matchesRegex(regex: RegExp): this;
     isEnum(enumType: object): this;
     useCollectionValidator(validator: Validator<any>): this;
-    private isNumber;
+    private checkIsNumber;
     private getEnumValues;
 }

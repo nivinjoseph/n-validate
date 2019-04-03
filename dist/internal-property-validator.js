@@ -72,38 +72,55 @@ class InternalPropertyValidator {
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    ensureIsBoolean() {
+    isBoolean() {
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "boolean");
         this._lastValidationRule.withMessage("Must be boolean");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    ensureIsString() {
+    isString() {
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "string");
         this._lastValidationRule.withMessage("Must be string");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    ensureIsNumber() {
+    isNumber() {
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "number");
         this._lastValidationRule.withMessage("Must be number");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    ensureIsObject() {
+    isArray() {
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => Array.isArray(propertyValue));
+        this._lastValidationRule.withMessage("Must be array");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    isObject() {
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof (propertyValue) === "object");
         this._lastValidationRule.withMessage("Must be object");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    ensureIsArray() {
+    isType(type) {
+        n_defensive_1.given(type, "type").ensureHasValue().ensureIsFunction();
+        const typeName = type.getTypeName();
         this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
-        this._lastValidationRule.ensure((propertyValue) => Array.isArray(propertyValue));
-        this._lastValidationRule.withMessage("Must be array");
+        this._lastValidationRule.ensure((propertyValue) => propertyValue.getTypeName() === typeName);
+        this._lastValidationRule.withMessage(`Must be of type ${typeName}`);
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    isInstanceOf(type) {
+        n_defensive_1.given(type, "type").ensureHasValue().ensureIsFunction();
+        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule.ensure((propertyValue) => propertyValue instanceof type);
+        this._lastValidationRule.withMessage(`Must be instance of ${type.getTypeName()}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
@@ -218,7 +235,7 @@ class InternalPropertyValidator {
     useCollectionValidator(validator) {
         return this.useValidationRule(new _1.CollectionValidationRule(validator));
     }
-    isNumber(value) {
+    checkIsNumber(value) {
         if (value == null)
             return false;
         value = value.toString().trim();
@@ -231,8 +248,8 @@ class InternalPropertyValidator {
         const keys = Object.keys(enumType);
         if (keys.length === 0)
             return [];
-        if (this.isNumber(keys[0]))
-            return keys.filter(t => this.isNumber(t)).map(t => +t);
+        if (this.checkIsNumber(keys[0]))
+            return keys.filter(t => this.checkIsNumber(t)).map(t => +t);
         return keys.map(t => enumType[t]);
     }
 }

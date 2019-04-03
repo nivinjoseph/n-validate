@@ -11,10 +11,10 @@ export interface PropertyValidator<T, TProperty> {
     withMessage(errorMessage: string | Function): this;
 }
 export interface BooleanPropertyValidator<T> extends PropertyValidator<T, boolean> {
-    ensureIsBoolean(): this;
+    isBoolean(): this;
 }
 export interface NumberPropertyValidator<T> extends PropertyValidator<T, number> {
-    ensureIsNumber(): this;
+    isNumber(): this;
     hasMinValue(minValue: number): this;
     hasMaxValue(maxValue: number): this;
     hasExactValue(exactValue: number): this;
@@ -23,7 +23,7 @@ export interface NumberPropertyValidator<T> extends PropertyValidator<T, number>
     isEnum(enumType: object): this;
 }
 export interface StringPropertyValidator<T> extends PropertyValidator<T, string> {
-    ensureIsString(): this;
+    isString(): this;
     hasMinLength(minLength: number): this;
     hasMaxLength(maxLength: number): this;
     hasExactLength(exactLength: number): this;
@@ -37,9 +37,11 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
     isEnum(enumType: object): this;
 }
 export interface ArrayPropertyValidator<T> extends PropertyValidator<T, Array<any>> {
-    ensureIsArray(): this;
+    isArray(): this;
     useCollectionValidator(validator: Validator<any>): this;
 }
 export interface ObjectPropertyValidator<T> extends PropertyValidator<T, object> {
-    ensureIsObject(): this;
+    isObject(): this;
+    isType(type: Function): this;
+    isInstanceOf(type: Function): this;
 }
