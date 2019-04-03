@@ -110,7 +110,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
     
-    public ensureIsBoolean(): this
+    public isBoolean(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => typeof(propertyValue) === "boolean");
@@ -120,7 +120,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
     
-    public ensureIsString(): this
+    public isString(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "string");
@@ -130,7 +130,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
     
-    public ensureIsNumber(): this
+    public isNumber(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "number");
@@ -140,7 +140,17 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
     
-    public ensureIsObject(): this
+    public isArray(): this
+    {
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => Array.isArray(propertyValue));
+
+        this._lastValidationRule.withMessage("Must be array");
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public isObject(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "object");
@@ -150,12 +160,26 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
     
-    public ensureIsArray(): this
+    public isType(type: Function): this
     {
+        given(type, "type").ensureHasValue().ensureIsFunction();
+        
+        const typeName = (<Object>type).getTypeName();
+        
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
-        this._lastValidationRule.ensure((propertyValue: TProperty) => Array.isArray(propertyValue));
-
-        this._lastValidationRule.withMessage("Must be array");
+        this._lastValidationRule.ensure((propertyValue: TProperty) => (<Object>propertyValue).getTypeName() === typeName);
+        this._lastValidationRule.withMessage(`Must be of type ${typeName}`);
+        this._validationRules.push(this._lastValidationRule);
+        return this;
+    }
+    
+    public isInstanceOf(type: Function): this
+    {
+        given(type, "type").ensureHasValue().ensureIsFunction();
+        
+        this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
+        this._lastValidationRule.ensure((propertyValue: TProperty) => propertyValue instanceof type);
+        this._lastValidationRule.withMessage(`Must be instance of ${(<Object>type).getTypeName()}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
@@ -333,7 +357,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     }
     
     
-    private isNumber(value: any): boolean
+    private checkIsNumber(value: any): boolean
     {
         if (value == null)
             return false;
@@ -351,8 +375,8 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         if (keys.length === 0)
             return [];
 
-        if (this.isNumber(keys[0]))
-            return keys.filter(t => this.isNumber(t)).map(t => +t);
+        if (this.checkIsNumber(keys[0]))
+            return keys.filter(t => this.checkIsNumber(t)).map(t => +t);
 
         return keys.map(t => (<any>enumType)[t]);
     }

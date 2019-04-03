@@ -37,6 +37,7 @@ jspm_packages
 .node_repl_history
 
 # Ignores compiled TypeScript files
+tsconfig.tsbuildinfo
 src/**/*.js
 src/**/*.map
 test/**/*.js

@@ -247,7 +247,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a boolean value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<boolean>("active").ensureIsBoolean();
+            validator.for<boolean>("active").isBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -255,7 +255,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a boolean value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<boolean>("age").ensureIsBoolean();
+            validator.for<boolean>("age").isBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
@@ -267,7 +267,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a string value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<string>("firstName").ensureIsString();
+            validator.for<string>("firstName").isString();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -275,7 +275,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a string value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<string>("active").ensureIsString();
+            validator.for<string>("active").isString();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
@@ -287,7 +287,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a number value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<number>("age").ensureIsNumber();
+            validator.for<number>("age").isNumber();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -295,7 +295,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a number value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<number>("firstName").ensureIsNumber();
+            validator.for<number>("firstName").isNumber();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
@@ -307,7 +307,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a object value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<object>("address").ensureIsObject();
+            validator.for<object>("address").isObject();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -315,7 +315,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a object value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<object>("age").ensureIsObject();
+            validator.for<object>("age").isObject();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
@@ -327,7 +327,7 @@ suite("PropertyValidator", () =>
         test("should pass when the property being validated is a array value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<Array<any>>("scores").ensureIsArray();
+            validator.for<Array<any>>("scores").isArray();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -335,7 +335,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property being validated is not a array value", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for<Array<any>>("address").ensureIsArray();
+            validator.for<Array<any>>("address").isArray();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
