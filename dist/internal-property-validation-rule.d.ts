@@ -8,8 +8,8 @@ export declare class InternalPropertyValidationRule<T, TProperty> {
     private _conditionPredicate;
     private _error;
     private _overrideError;
-    readonly error: Object;
-    readonly overrideError: boolean;
+    get error(): Object;
+    get overrideError(): boolean;
     ensure(tpropertyValidationPredicate: (propertyValue: TProperty) => boolean): void;
     ensureT(tValidationPredicate: (value: T) => boolean): void;
     useValidationRule(validationRule: ValidationRule<TProperty>): void;

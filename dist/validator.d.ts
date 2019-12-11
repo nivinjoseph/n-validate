@@ -7,13 +7,13 @@ export declare class Validator<T> implements ValidationInitializer<T>, Validatio
     private readonly _errors;
     private _hasErrors;
     private _isEnabled;
-    readonly isValid: boolean;
-    readonly hasErrors: boolean;
-    readonly errors: {
+    get isValid(): boolean;
+    get hasErrors(): boolean;
+    get errors(): {
         [index: string]: any;
     };
-    readonly hasRules: boolean;
-    readonly isEnabled: boolean;
+    get hasRules(): boolean;
+    get isEnabled(): boolean;
     constructor(isEnabled?: boolean);
     for<TProperty extends boolean>(propertyName: string): BooleanPropertyValidator<T>;
     for<TProperty extends number>(propertyName: string): NumberPropertyValidator<T>;

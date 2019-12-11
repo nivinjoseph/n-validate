@@ -11,9 +11,9 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     private _conditionPredicate;
     private _overrideError;
     private _errorMessage;
-    readonly propertyName: string;
-    readonly hasError: boolean;
-    readonly error: string;
+    get propertyName(): string;
+    get hasError(): boolean;
+    get error(): string;
     constructor(propertyName: string);
     validate(value: T): void;
     isRequired(): this;
