@@ -7,7 +7,7 @@ suite("Basic validation", () =>
 {
     interface TestVal
     {
-        firstName: string;
+        firstName?: string| null;
         lastName: string;
         age: number;
         scores: Array<any>;

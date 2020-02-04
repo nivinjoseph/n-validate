@@ -5,7 +5,7 @@ suite("String validation", () =>
 {
     interface TestVal
     {
-        firstName: string;
+        firstName?: string | null;
         lastName: string;
         age: string;
         scores?: Array<any>;

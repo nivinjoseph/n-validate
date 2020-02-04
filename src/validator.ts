@@ -32,11 +32,11 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
     // public for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
     // public for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
     public for<K extends keyof T, TProperty extends T[K]>(propertyName: K)
-        : TProperty extends boolean ? BooleanPropertyValidator<T>
-        : TProperty extends number ? NumberPropertyValidator<T>
-        : TProperty extends string ? StringPropertyValidator<T>
-        : TProperty extends ReadonlyArray<infer A> ? ArrayPropertyValidator<T, A> 
-        : TProperty extends object ? ObjectPropertyValidator<T, TProperty>
+        : TProperty extends (boolean | null | undefined) ? BooleanPropertyValidator<T>
+        : TProperty extends (number | null | undefined) ? NumberPropertyValidator<T>
+        : TProperty extends (string | null | undefined) ? StringPropertyValidator<T>
+        : TProperty extends (ReadonlyArray<infer A> | null | undefined) ? ArrayPropertyValidator<T, A> 
+        : TProperty extends (object | null | undefined) ? ObjectPropertyValidator<T, TProperty>
         : PropertyValidator<T, TProperty>
     {
         given(propertyName as string, "propertyName")
