@@ -4,7 +4,7 @@ import { ValidationRule } from "./validation-rule";
 export abstract class BaseValidationRule<T> implements ValidationRule<T>
 {
     private readonly _validationRules = new Array<ValidationRule<T>>();
-    private _error: string;
+    private _error: string | null = null;
 
 
     public get error(): any { return this._error; }

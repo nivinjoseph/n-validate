@@ -7,7 +7,7 @@ suite("Basic validation", () =>
 {
     interface TestVal
     {
-        firstName?: string| null;
+        firstName?: string | null;
         lastName: string;
         age: number;
         scores: Array<any>;
@@ -116,7 +116,7 @@ suite("Validator", () =>
             validator = new Validator<TestVal>();
             assert.throws(() =>
             {
-                validator.for(null);
+                validator.for(null as any);
             }, ArgumentNullException);
         });
 
@@ -156,7 +156,7 @@ suite("Validator", () =>
             validator.for("firstName").isRequired();
             assert.throws(() =>
             {
-                validator.validate(null);
+                validator.validate(null as any);
             }, ArgumentNullException);
         });
 
@@ -166,7 +166,7 @@ suite("Validator", () =>
             validator.for("firstName" as any);
             assert.throws(() =>
             {
-                validator.validate(undefined);
+                validator.validate(undefined as any);
             }, ArgumentNullException);
         });
     });
@@ -218,7 +218,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property is set to null in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
-            testVal.firstName = null;
+            testVal.firstName = null as any;
             validator.for("firstName").isRequired();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -227,7 +227,7 @@ suite("PropertyValidator", () =>
         test("should fail when the property is set to undifined in object being validated", () =>
         {
             validator = new Validator<TestVal>();
-            testVal.firstName = undefined;
+            testVal.firstName = undefined as any;
             validator.for("firstName").isRequired();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -356,7 +356,7 @@ suite("PropertyValidator", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("firstName").isOptional();
-            testVal.firstName = undefined;
+            testVal.firstName = undefined as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -365,7 +365,7 @@ suite("PropertyValidator", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("firstName").isOptional();
-            testVal.firstName = null;
+            testVal.firstName = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -412,7 +412,7 @@ suite("PropertyValidator", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("firstName").ensure(t => t.length <= 2);
-            testVal.firstName = null; 
+            testVal.firstName = null as any; 
             assert.throws(() =>
             {
                 validator.validate(testVal);

@@ -7,7 +7,7 @@ export function isIn(values: ReadonlyArray<string>): ValidationRule<string>;
 export function isIn(values: ReadonlyArray<string>, ignoreCase: boolean): ValidationRule<string>;
 export function isIn(values: ReadonlyArray<string>, ignoreCase?: boolean): ValidationRule<string>
 {
-    return new StringIsIn(values, ignoreCase);
+    return new StringIsIn(values, !!ignoreCase);
 }
 
 class StringIsIn extends BaseStringValidationRule

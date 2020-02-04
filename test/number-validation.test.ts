@@ -161,9 +161,9 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [1, 2, 3, null];
+            let set: number[] = [1, 2, 3, null as any];
             validator.for("age").isNotInNumbers(set);
-            testVal.age = null;
+            testVal.age = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");

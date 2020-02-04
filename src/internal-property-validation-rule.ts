@@ -6,12 +6,12 @@ import { InvalidOperationException } from "@nivinjoseph/n-exception";
 // internal
 export class InternalPropertyValidationRule<T, TProperty>
 {
-    private _tpropertyValidationPredicate: (propertyValue: TProperty) => boolean = null;
-    private _tValidationPredicate: (value: T) => boolean = null;
-    private _validationRule: ValidationRule<TProperty> = null;
-    private _validator: Validator<TProperty> = null;
-    private _conditionPredicate: (value: T) => boolean = null;
-    private _error: string | Function;
+    private _tpropertyValidationPredicate: (propertyValue: TProperty) => boolean = null as any;
+    private _tValidationPredicate: (value: T) => boolean = null as any;
+    private _validationRule: ValidationRule<TProperty> = null as any;
+    private _validator: Validator<TProperty> = null as any;
+    private _conditionPredicate: (value: T) => boolean = null as any;
+    private _error: string | Function = null as any;
     private _overrideError = false;
     
 

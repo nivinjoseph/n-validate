@@ -254,7 +254,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", null]; 
+            let set: string[] = ["Jo", "J", "test", null as any]; 
             validator.for("firstName").useValidationRule(strval.isNotIn(set));
             testVal.firstName = null;
             validator.validate(testVal);
@@ -325,7 +325,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("age").useValidationRule(strval.containsOnlyNumbers());
-            testVal.age = null;
+            testVal.age = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Shoul be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -395,7 +395,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("phone").useValidationRule(strval.isPhoneNumber());
-            testVal.phone = null;
+            testVal.phone = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Shoul be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -440,7 +440,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             validator.for("email").useValidationRule(strval.isEmail());
-            testVal.email = null;
+            testVal.email = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");

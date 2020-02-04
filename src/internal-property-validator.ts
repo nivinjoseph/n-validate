@@ -14,10 +14,10 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     private _hasError: boolean = false;
     private _error: any = null;
     private readonly _validationRules = new Array<InternalPropertyValidationRule<T, TProperty>>();
-    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> = null;
-    private _conditionPredicate: (value: T) => boolean = null;
+    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> = null as any;
+    private _conditionPredicate: (value: T) => boolean = null as any;
     private _overrideError = false;
-    private _errorMessage: string | Function;
+    private _errorMessage: string | Function = null as any;
 
 
     public get propertyName(): keyof T { return this._propertyName; }
@@ -305,12 +305,12 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     
     public isInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this
     {
-        return this.useValidationRule(strval.isIn(values, ignoreCase));
+        return this.useValidationRule(strval.isIn(values, !!ignoreCase));
     }
     
     public isNotInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this
     {
-        return this.useValidationRule(strval.isNotIn(values, ignoreCase));
+        return this.useValidationRule(strval.isNotIn(values, !!ignoreCase));
     }
     
     public containsOnlyNumbers(): this
