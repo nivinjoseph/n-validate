@@ -14,7 +14,7 @@ export interface PropertyValidator<T, TProperty>
     
     ensure(validationPredicate: (propertyValue: TProperty) => boolean): this;
     useValidationRule(validationRule: ValidationRule<TProperty>): this;
-    useValidator(validationRule: Validator<TProperty>): this;
+    useValidator(validator: Validator<TProperty>): this;
     
     ensureT(validationPredicate: (value: T) => boolean): this;
     if(conditionPredicate: (value: T) => boolean): this;
@@ -57,15 +57,15 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
     isEnum(enumType: object): this;
 }
 
-export interface ArrayPropertyValidator<T> extends PropertyValidator<T, Array<any>>
+export interface ArrayPropertyValidator<T, A> extends PropertyValidator<T, ReadonlyArray<A>>
 {
     isArray(): this;
-    useCollectionValidator(validator: Validator<any>): this;
+    useCollectionValidator(validator: Validator<A>): this;
 }
 
-export interface ObjectPropertyValidator<T> extends PropertyValidator<T, object>
+export interface ObjectPropertyValidator<T, O> extends PropertyValidator<T, O>
 {
     isObject(): this;
-    isType(type: Function): this;
-    isInstanceOf(type: Function): this;
+    isType(type: new (...args: any[]) => O): this;
+    isInstanceOf(type: Function & { prototype: O }): this;
 }

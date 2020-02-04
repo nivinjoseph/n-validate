@@ -1,5 +1,5 @@
-import { ValidationInitializer } from "./validation-initializer";
-import { ValidationExecutor } from "./validation-executor";
+// import { ValidationInitializer } from "./validation-initializer";
+// import { ValidationExecutor } from "./validation-executor";
 import { Validator } from "./validator";
 import { PropertyValidator } from "./property-validator";
 import { ValidationRule } from "./validation-rule";
@@ -10,8 +10,8 @@ import { BaseStringValidationRule, strval } from "./string-validation/index";
 
 export
 {
-    ValidationInitializer,
-    ValidationExecutor,
+    // ValidationInitializer,
+    // ValidationExecutor,
     Validator,
     PropertyValidator,
     ValidationRule,

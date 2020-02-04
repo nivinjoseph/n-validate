@@ -8,9 +8,9 @@ import "@nivinjoseph/n-ext";
 import { numval, strval, CollectionValidationRule } from ".";
 
 // internal
-export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T>, ObjectPropertyValidator<T>
+export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T, any>, ObjectPropertyValidator<T, any>
 {
-    private readonly _propertyName: string;
+    private readonly _propertyName: keyof T;
     private _hasError: boolean = false;
     private _error: any = null;
     private readonly _validationRules = new Array<InternalPropertyValidationRule<T, TProperty>>();
@@ -20,12 +20,12 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     private _errorMessage: string | Function;
 
 
-    public get propertyName(): string { return this._propertyName; }
+    public get propertyName(): keyof T { return this._propertyName; }
     public get hasError(): boolean { return this._hasError; }
     public get error(): string { return this._error; }
 
 
-    public constructor(propertyName: string)
+    public constructor(propertyName: keyof T)
     {
         this._propertyName = propertyName;
     }
@@ -39,7 +39,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         if (this._conditionPredicate != null && !this._conditionPredicate(value))
             return;
         
-        let propertyVal = (<Object>value).getValue(this._propertyName);
+        let propertyVal = (<Object>value).getValue(this._propertyName as string);
 
         for (let i = 0; i < this._validationRules.length; i++)
         {
