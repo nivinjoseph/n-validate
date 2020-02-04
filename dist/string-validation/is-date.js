@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 const moment = require("moment");
+// public
+/**
+ *
+ * @param format eg: YYYY-MM-DD
+ */
 function isDate(format) {
     return new StringIsDate(format);
 }

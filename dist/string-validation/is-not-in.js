@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 function isNotIn(values, ignoreCase) {
-    return new StringIsNotIn(values, ignoreCase);
+    return new StringIsNotIn(values, !!ignoreCase);
 }
 exports.isNotIn = isNotIn;
 class StringIsNotIn extends base_string_validation_rule_1.BaseStringValidationRule {

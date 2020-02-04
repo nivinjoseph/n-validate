@@ -32,6 +32,10 @@ export interface StringPropertyValidator<T> extends PropertyValidator<T, string>
     containsOnlyNumbers(): this;
     isPhoneNumber(): this;
     isEmail(): this;
+    /**
+     *
+     * @param format eg: YYYY-MM-DD
+     */
     isDate(format: string): this;
     matchesRegex(regex: RegExp): this;
     isEnum(enumType: object): this;

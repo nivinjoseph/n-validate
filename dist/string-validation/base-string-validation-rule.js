@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_validation_rule_1 = require("./../base-validation-rule");
+// public
 class BaseStringValidationRule extends base_validation_rule_1.BaseValidationRule {
     constructor() {
         super();

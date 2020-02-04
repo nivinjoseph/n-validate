@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 require("@nivinjoseph/n-ext");
+// import { ValidationInitializer } from "./validation-initializer";
+// import { ValidationExecutor } from "./validation-executor";
 const internal_property_validator_1 = require("./internal-property-validator");
+// public
 class Validator {
     constructor(isEnabled = true) {
         this._propertyValidators = new Array();
@@ -16,6 +19,11 @@ class Validator {
     get errors() { return this._errors; }
     get hasRules() { return this._propertyValidators.length > 0; }
     get isEnabled() { return this._isEnabled; }
+    // public for<TProperty extends boolean>(propertyName: string): BooleanPropertyValidator<T>;
+    // public for<TProperty extends number>(propertyName: string): NumberPropertyValidator<T>;
+    // public for<TProperty extends string>(propertyName: string): StringPropertyValidator<T>;
+    // public for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
+    // public for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
     for(propertyName) {
         n_defensive_1.given(propertyName, "propertyName")
             .ensureHasValue()

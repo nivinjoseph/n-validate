@@ -5,6 +5,7 @@ const n_defensive_1 = require("@nivinjoseph/n-defensive");
 const n_exception_1 = require("@nivinjoseph/n-exception");
 require("@nivinjoseph/n-ext");
 const _1 = require(".");
+// internal
 class InternalPropertyValidator {
     constructor(propertyName) {
         this._hasError = false;
@@ -13,6 +14,7 @@ class InternalPropertyValidator {
         this._lastValidationRule = null;
         this._conditionPredicate = null;
         this._overrideError = false;
+        this._errorMessage = null;
         this._propertyName = propertyName;
     }
     get propertyName() { return this._propertyName; }
@@ -37,6 +39,7 @@ class InternalPropertyValidator {
             }
             if (!validationResult) {
                 this._hasError = true;
+                // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
                     error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;
@@ -204,10 +207,10 @@ class InternalPropertyValidator {
         return this.useValidationRule(_1.strval.hasExactLength(exactLength));
     }
     isInStrings(values, ignoreCase) {
-        return this.useValidationRule(_1.strval.isIn(values, ignoreCase));
+        return this.useValidationRule(_1.strval.isIn(values, !!ignoreCase));
     }
     isNotInStrings(values, ignoreCase) {
-        return this.useValidationRule(_1.strval.isNotIn(values, ignoreCase));
+        return this.useValidationRule(_1.strval.isNotIn(values, !!ignoreCase));
     }
     containsOnlyNumbers() {
         return this.useValidationRule(_1.strval.containsOnlyNumbers());

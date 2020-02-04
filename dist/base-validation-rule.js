@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// public
 class BaseValidationRule {
     constructor() {
         this._validationRules = new Array();
+        this._error = null;
     }
     get error() { return this._error; }
     validate(value) {
