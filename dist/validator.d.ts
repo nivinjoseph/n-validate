@@ -13,7 +13,7 @@ export declare class Validator<T> {
     get hasRules(): boolean;
     get isEnabled(): boolean;
     constructor(isEnabled?: boolean);
-    for<K extends keyof T, TProperty extends T[K]>(propertyName: K): TProperty extends boolean ? BooleanPropertyValidator<T> : TProperty extends number ? NumberPropertyValidator<T> : TProperty extends string ? StringPropertyValidator<T> : TProperty extends ReadonlyArray<infer A> ? ArrayPropertyValidator<T, A> : TProperty extends object ? ObjectPropertyValidator<T, TProperty> : PropertyValidator<T, TProperty>;
+    for<K extends keyof T, TProperty extends T[K]>(propertyName: K): TProperty extends (boolean | null | undefined) ? BooleanPropertyValidator<T> : TProperty extends (number | null | undefined) ? NumberPropertyValidator<T> : TProperty extends (string | null | undefined) ? StringPropertyValidator<T> : TProperty extends (ReadonlyArray<infer A> | null | undefined) ? ArrayPropertyValidator<T, A> : TProperty extends (object | null | undefined) ? ObjectPropertyValidator<T, TProperty> : PropertyValidator<T, TProperty>;
     clearFor<K extends keyof T>(propertyName: K): void;
     validate(value: T): void;
     enable(): void;
