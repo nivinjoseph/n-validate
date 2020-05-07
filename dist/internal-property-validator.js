@@ -151,7 +151,7 @@ class InternalPropertyValidator {
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    if(conditionPredicate) {
+    when(conditionPredicate) {
         n_defensive_1.given(conditionPredicate, "conditionPredicate").ensureHasValue();
         if (this._lastValidationRule == null)
             this._conditionPredicate = conditionPredicate;

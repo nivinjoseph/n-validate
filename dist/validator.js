@@ -7,12 +7,12 @@ require("@nivinjoseph/n-ext");
 const internal_property_validator_1 = require("./internal-property-validator");
 // public
 class Validator {
-    constructor(isEnabled = true) {
+    constructor(disabled = false) {
         this._propertyValidators = new Array();
         this._errors = {};
         this._hasErrors = false;
         this._isEnabled = true;
-        this._isEnabled = isEnabled;
+        this._isEnabled = !disabled;
     }
     get isValid() { return !this._hasErrors; }
     get hasErrors() { return this._hasErrors; }
@@ -24,7 +24,7 @@ class Validator {
     // public for<TProperty extends string>(propertyName: string): StringPropertyValidator<T>;
     // public for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
     // public for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
-    for(propertyName) {
+    prop(propertyName) {
         n_defensive_1.given(propertyName, "propertyName")
             .ensureHasValue()
             .ensureIsString()
@@ -34,7 +34,7 @@ class Validator {
         this._errors[propertyName] = null;
         return propertyValidator;
     }
-    clearFor(propertyName) {
+    clearProp(propertyName) {
         n_defensive_1.given(propertyName, "propertyName").ensureHasValue().ensureIsString();
         const propertyValidator = this._propertyValidators.find(t => t.propertyName === propertyName);
         if (!propertyValidator)

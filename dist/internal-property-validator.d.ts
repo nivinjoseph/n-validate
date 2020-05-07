@@ -29,7 +29,7 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     ensureT(valueValidationPredicate: (value: T) => boolean): this;
     useValidationRule(validationRule: ValidationRule<TProperty | any>): this;
     useValidator(validator: Validator<TProperty | any>): this;
-    if(conditionPredicate: (value: T) => boolean): this;
+    when(conditionPredicate: (value: T) => boolean): this;
     withMessage(errorMessage: string | Function): this;
     hasMinValue(minValue: number): this;
     hasMaxValue(maxValue: number): this;

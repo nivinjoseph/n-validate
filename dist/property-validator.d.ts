@@ -7,7 +7,7 @@ export interface PropertyValidator<T, TProperty> {
     useValidationRule(validationRule: ValidationRule<TProperty>): this;
     useValidator(validator: Validator<TProperty>): this;
     ensureT(validationPredicate: (value: T) => boolean): this;
-    if(conditionPredicate: (value: T) => boolean): this;
+    when(conditionPredicate: (value: T) => boolean): this;
     withMessage(errorMessage: string | Function): this;
 }
 export interface BooleanPropertyValidator<T> extends PropertyValidator<T, boolean> {
