@@ -21,9 +21,9 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
     public get isEnabled(): boolean { return this._isEnabled; }
     
     
-    public constructor(isEnabled: boolean = true)
+    public constructor(disabled: boolean = false)
     {
-        this._isEnabled = isEnabled;
+        this._isEnabled = !disabled;
     }
 
     // public for<TProperty extends boolean>(propertyName: string): BooleanPropertyValidator<T>;
@@ -31,7 +31,7 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
     // public for<TProperty extends string>(propertyName: string): StringPropertyValidator<T>;
     // public for<TProperty extends Array<any>>(propertyName: string): ArrayPropertyValidator<T>;
     // public for<TProperty extends object>(propertyName: string): ObjectPropertyValidator<T>;
-    public for<K extends keyof T, TProperty extends NonNullable<T[K]>>(propertyName: K)
+    public prop<K extends keyof T, TProperty extends NonNullable<T[K]>>(propertyName: K)
         : TProperty extends boolean ? BooleanPropertyValidator<T>
         : TProperty extends number ? NumberPropertyValidator<T>
         : TProperty extends string ? StringPropertyValidator<T>
@@ -51,7 +51,7 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
         return propertyValidator as any;
     }
     
-    public clearFor<K extends keyof T>(propertyName: K): void
+    public clearProp<K extends keyof T>(propertyName: K): void
     {
         given(propertyName as string, "propertyName").ensureHasValue().ensureIsString();
         

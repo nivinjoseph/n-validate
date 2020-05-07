@@ -216,7 +216,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 
-    public if(conditionPredicate: (value: T) => boolean): this
+    public when(conditionPredicate: (value: T) => boolean): this
     {
         given(conditionPredicate, "conditionPredicate").ensureHasValue();
 

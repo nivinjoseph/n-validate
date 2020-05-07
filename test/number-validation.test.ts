@@ -34,7 +34,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated has value greater than 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMinValue(18);
+            validator.prop("age").hasMinValue(18);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });  
@@ -42,7 +42,7 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated has value less than 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMinValue(18);
+            validator.prop("age").hasMinValue(18);
             testVal.age = 16;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be true");
@@ -52,7 +52,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated has value equal to 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMinValue(18);
+            validator.prop("age").hasMinValue(18);
             testVal.age = 18;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true, "Should be true");
@@ -65,7 +65,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated has value is less than 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMaxValue(18);
+            validator.prop("age").hasMaxValue(18);
             testVal.age = 16;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -74,7 +74,7 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated has value is greater than 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMaxValue(18);
+            validator.prop("age").hasMaxValue(18);
             testVal.age = 26;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be true");
@@ -84,7 +84,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated has value equal to 18", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").hasMaxValue(18);
+            validator.prop("age").hasMaxValue(18);
             testVal.age = 18;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true, "Should be true");
@@ -98,7 +98,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [12, 323, 18, 25, 31];
-            validator.for("age").isInNumbers(set);
+            validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -107,7 +107,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [1, 2, 3, 4];
-            validator.for("age").isInNumbers(set);
+            validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -118,7 +118,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [];
-            validator.for("age").isInNumbers(set);
+            validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -133,7 +133,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [12, 323, 18, 25];
-            validator.for("age").isNotInNumbers(set);
+            validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -142,7 +142,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [1, 2, 3, 4, 31];
-            validator.for("age").isNotInNumbers(set);
+            validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -153,7 +153,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [];
-            validator.for("age").isNotInNumbers(set);
+            validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -162,7 +162,7 @@ suite("Number validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: number[] = [1, 2, 3, null as any];
-            validator.for("age").isNotInNumbers(set);
+            validator.prop("age").isNotInNumbers(set);
             testVal.age = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");

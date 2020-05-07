@@ -35,7 +35,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated has length greater than 3", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMinLength(3));
+            validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -43,7 +43,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length less than 3", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMinLength(3));
+            validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
             testVal.firstName = "Jo";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -54,7 +54,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMinLength(3));
+            validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
             testVal.firstName = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -65,7 +65,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMinLength(3));
+            validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
             testVal.firstName = null;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -80,7 +80,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated has length less than 5", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMaxLength(5));
+            validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -88,7 +88,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length greater than 5", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMaxLength(5));
+            validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
             testVal.firstName = "thisIsAVeryLongName";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -99,7 +99,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMaxLength(5));
+            validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
             testVal.firstName = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -108,7 +108,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasMaxLength(5));
+            validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
             testVal.firstName = null;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -123,7 +123,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated has length exactly 4", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasExactLength(4));
+            validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -131,7 +131,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length greater than 4", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasExactLength(4));
+            validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             testVal.firstName = "thisIsAVeryLongName";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -142,7 +142,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length less than 4", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasExactLength(4));
+            validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             testVal.firstName = "Jo";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -153,7 +153,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasExactLength(4));
+            validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             testVal.firstName = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -164,7 +164,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("firstName").useValidationRule(strval.hasExactLength(4));
+            validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             testVal.firstName = null;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
@@ -181,7 +181,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test", "John"]; 
-            validator.for("firstName").useValidationRule(strval.isIn(set));
+            validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -190,7 +190,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test"];
-            validator.for("firstName").useValidationRule(strval.isIn(set));
+            validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -201,7 +201,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = [];
-            validator.for("firstName").useValidationRule(strval.isIn(set));
+            validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -212,7 +212,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test", "JOHN"];
-            validator.for("firstName").useValidationRule(strval.isIn(set, true));
+            validator.prop("firstName").useValidationRule(strval.isIn(set, true));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -226,7 +226,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test"];
-            validator.for("firstName").useValidationRule(strval.isNotIn(set));
+            validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -235,7 +235,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test", "John"];
-            validator.for("firstName").useValidationRule(strval.isNotIn(set));
+            validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -246,7 +246,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = [];
-            validator.for("firstName").useValidationRule(strval.isNotIn(set));
+            validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -255,7 +255,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test", null as any]; 
-            validator.for("firstName").useValidationRule(strval.isNotIn(set));
+            validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             testVal.firstName = null;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -267,7 +267,7 @@ suite("String validation", () =>
         {
             validator = new Validator<TestVal>();
             let set: string[] = ["Jo", "J", "test", "JOHN"];
-            validator.for("firstName").useValidationRule(strval.isNotIn(set, true));
+            validator.prop("firstName").useValidationRule(strval.isNotIn(set, true));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
             assert.strictEqual(validator.hasErrors, true, "Should have error");
@@ -281,7 +281,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated contain only numbers", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").useValidationRule(strval.containsOnlyNumbers());
+            validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -289,7 +289,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated contains no numbers", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").useValidationRule(strval.containsOnlyNumbers());
+            validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             testVal.age = "noage";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -300,7 +300,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated contains numbers and letters", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").useValidationRule(strval.containsOnlyNumbers());
+            validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             testVal.age = "25years";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -312,7 +312,7 @@ suite("String validation", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
-            validator.for("age").useValidationRule(strval.containsOnlyNumbers());
+            validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             testVal.age = "";
             // JavaScript interprets an empty string as a 0, which then fails the isNAN test. As well as isFinite test.
             validator.validate(testVal);
@@ -324,7 +324,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("age").useValidationRule(strval.containsOnlyNumbers());
+            validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             testVal.age = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Shoul be invalid");
@@ -339,7 +339,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is a valid phone number", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -347,7 +347,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated contains lettets", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             testVal.phone = "1sa4567292";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -358,7 +358,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length less than 10", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             testVal.phone = "1232112";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -369,7 +369,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated has length greater than 10", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             testVal.phone = "12321231231231212";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -381,7 +381,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             testVal.phone = "";
             // JavaScript interprets an empty string as a 0, which then fails the isNAN test. As well as isFinite test.
             // but here it passes cause of the length check in the rule.
@@ -394,7 +394,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("phone").useValidationRule(strval.isPhoneNumber());
+            validator.prop("phone").useValidationRule(strval.isPhoneNumber());
             testVal.phone = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Shoul be invalid");
@@ -409,7 +409,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is a valid email", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("email").useValidationRule(strval.isEmail());
+            validator.prop("email").useValidationRule(strval.isEmail());
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -417,7 +417,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is a invalid email", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("email").useValidationRule(strval.isEmail());
+            validator.prop("email").useValidationRule(strval.isEmail());
             testVal.email = "test.com";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -428,7 +428,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is a empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("email").useValidationRule(strval.isEmail());
+            validator.prop("email").useValidationRule(strval.isEmail());
             testVal.email = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -439,7 +439,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is a empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("email").useValidationRule(strval.isEmail());
+            validator.prop("email").useValidationRule(strval.isEmail());
             testVal.email = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -450,7 +450,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is a valid email", () =>
         {
             validator = new Validator<TestVal>();
-            validator.for("email").useValidationRule(strval.isEmail());
+            validator.prop("email").useValidationRule(strval.isEmail());
             testVal.email = "test1.tester@mail.tester.ca";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
