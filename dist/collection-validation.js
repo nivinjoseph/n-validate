@@ -4,6 +4,7 @@ const n_defensive_1 = require("@nivinjoseph/n-defensive");
 // public
 class CollectionValidationRule {
     constructor(validator) {
+        this._error = [];
         n_defensive_1.given(validator, "validator").ensureHasValue();
         this._validator = validator;
     }
@@ -13,7 +14,7 @@ class CollectionValidationRule {
         collection.forEach(item => {
             this._validator.validate(item);
             if (this._validator.hasErrors)
-                errors.push(this._validator.errors);
+                errors.push(JSON.parse(JSON.stringify(this._validator.errors)));
             else
                 errors.push(null);
         });
