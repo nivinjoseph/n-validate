@@ -6,7 +6,7 @@ import { given } from "@nivinjoseph/n-defensive";
 export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
 {
     private readonly _validator: Validator<T>;
-    private _error: any;
+    private _error: Array<object> = [];
 
 
     public get error(): Array<object> { return this._error; }
@@ -26,7 +26,7 @@ export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
         {
             this._validator.validate(item);
             if (this._validator.hasErrors)
-                errors.push(this._validator.errors);
+                errors.push(JSON.parse(JSON.stringify(this._validator.errors)));
             else errors.push(null);
         });
 

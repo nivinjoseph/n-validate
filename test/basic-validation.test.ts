@@ -100,7 +100,7 @@ suite("Validator", () =>
     });
 
 
-    suite("for", () =>  
+    suite("prop", () =>  
     {
         test("should create a validation rule for a given property", () =>
         {
@@ -597,7 +597,7 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("if", () =>
+    suite("when", () =>
     {
         test("should pass when the if condition is true and the object being validated does satisfy the given target validation rule", () =>
         {
