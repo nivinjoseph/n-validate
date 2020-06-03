@@ -20,9 +20,9 @@ class StringIsNotIn extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
-                validate: t => t == null || ignoreCase
+                validate: t => t == null || (ignoreCase
                     ? values.every(v => v.trim().toLowerCase() !== t.trim().toLowerCase())
-                    : values.every(v => v.trim() !== t.trim()),
+                    : values.every(v => v.trim() !== t.trim())),
                 error: "Invalid value"
             });
     }
