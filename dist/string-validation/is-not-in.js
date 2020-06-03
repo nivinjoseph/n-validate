@@ -11,9 +11,9 @@ class StringIsNotIn extends base_string_validation_rule_1.BaseStringValidationRu
         n_defensive_1.given(values, "values").ensureHasValue();
         super();
         this.addValidationRule({
-            validate: t => t == null || ignoreCase
+            validate: t => t == null || (ignoreCase
                 ? values.every(v => v.trim().toLowerCase() !== t.trim().toLowerCase())
-                : values.every(v => v.trim() !== t.trim()),
+                : values.every(v => v.trim() !== t.trim())),
             error: "Invalid value"
         });
     }
