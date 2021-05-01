@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseValidationRule = void 0;
 // public
 class BaseValidationRule {
     constructor() {

@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.strval = exports.BaseStringValidationRule = void 0;
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
-exports.BaseStringValidationRule = base_string_validation_rule_1.BaseStringValidationRule;
+Object.defineProperty(exports, "BaseStringValidationRule", { enumerable: true, get: function () { return base_string_validation_rule_1.BaseStringValidationRule; } });
 const has_min_length_1 = require("./has-min-length");
 const has_max_length_1 = require("./has-max-length");
 const has_exact_length_1 = require("./has-exact-length");

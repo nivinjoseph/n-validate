@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isPhoneNumber = void 0;
 const base_string_validation_rule_1 = require("./base-string-validation-rule");
 // public
 function isPhoneNumber() {

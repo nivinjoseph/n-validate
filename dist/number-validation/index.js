@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.numval = exports.BaseNumberValidationRule = void 0;
 const base_number_validation_rule_1 = require("./base-number-validation-rule");
-exports.BaseNumberValidationRule = base_number_validation_rule_1.BaseNumberValidationRule;
+Object.defineProperty(exports, "BaseNumberValidationRule", { enumerable: true, get: function () { return base_number_validation_rule_1.BaseNumberValidationRule; } });
 const has_min_value_1 = require("./has-min-value");
 const has_max_value_1 = require("./has-max-value");
 const is_in_1 = require("./is-in");
