@@ -4,7 +4,6 @@ exports.InternalPropertyValidator = void 0;
 const internal_property_validation_rule_1 = require("./internal-property-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
 const n_exception_1 = require("@nivinjoseph/n-exception");
-require("@nivinjoseph/n-ext");
 const _1 = require(".");
 // internal
 class InternalPropertyValidator {

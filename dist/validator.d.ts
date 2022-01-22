@@ -1,4 +1,3 @@
-import "@nivinjoseph/n-ext";
 import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
 export declare class Validator<T> {
     private readonly _propertyValidators;

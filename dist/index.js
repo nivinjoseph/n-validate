@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.strval = exports.BaseStringValidationRule = exports.numval = exports.BaseNumberValidationRule = exports.CollectionValidationRule = exports.BaseValidationRule = exports.Validator = void 0;
 // import { ValidationInitializer } from "./validation-initializer";
 // import { ValidationExecutor } from "./validation-executor";
+require("@nivinjoseph/n-ext");
 const validator_1 = require("./validator");
 Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return validator_1.Validator; } });
 const base_validation_rule_1 = require("./base-validation-rule");

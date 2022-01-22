@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validator = void 0;
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
-require("@nivinjoseph/n-ext");
 // import { ValidationInitializer } from "./validation-initializer";
 // import { ValidationExecutor } from "./validation-executor";
 const internal_property_validator_1 = require("./internal-property-validator");

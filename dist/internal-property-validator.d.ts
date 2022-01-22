@@ -1,7 +1,6 @@
 import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
 import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
-import "@nivinjoseph/n-ext";
 export declare class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T, any>, ObjectPropertyValidator<T, any> {
     private readonly _propertyName;
     private _hasError;

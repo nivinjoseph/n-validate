@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.hasExactValue = void 0;
 const base_number_validation_rule_1 = require("./base-number-validation-rule");
 const n_defensive_1 = require("@nivinjoseph/n-defensive");
-require("@nivinjoseph/n-ext");
 // public
 function hasExactValue(exactValue) {
     return new NumberHasExactValue(exactValue);
@@ -15,7 +14,7 @@ class NumberHasExactValue extends base_number_validation_rule_1.BaseNumberValida
         super();
         this.addValidationRule({
             validate: t => t == null || t === exactValue,
-            error: "Value has to be {0}".format(exactValue)
+            error: `Value has to be ${exactValue}`
         });
     }
 }
