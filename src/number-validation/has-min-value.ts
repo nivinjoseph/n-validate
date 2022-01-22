@@ -1,7 +1,6 @@
 import { BaseNumberValidationRule } from "./base-number-validation-rule";
 import { ValidationRule } from "./../validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
-import "@nivinjoseph/n-ext";
 
 // public
 export function hasMinValue(minValue: number): ValidationRule<number>
@@ -18,7 +17,7 @@ class NumberHasMinValue extends BaseNumberValidationRule
         this.addValidationRule(
             {
                 validate: t => t == null || t >= minValue,
-                error: "Value cannot be less than {0}".format(minValue)
+                error: `Value cannot be less than ${minValue}`
             });
     }
 }

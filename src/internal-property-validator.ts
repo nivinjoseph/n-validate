@@ -4,7 +4,6 @@ import { ValidationRule } from "./validation-rule";
 import { Validator } from "./validator";
 import { given } from "@nivinjoseph/n-defensive";
 import { ArgumentException } from "@nivinjoseph/n-exception";
-import "@nivinjoseph/n-ext";
 import { numval, strval, CollectionValidationRule } from ".";
 
 // internal

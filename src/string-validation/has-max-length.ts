@@ -1,7 +1,6 @@
 import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
-import "@nivinjoseph/n-ext";
 
 // public
 export function hasMaxLength(maxLength: number): ValidationRule<string>
@@ -18,7 +17,7 @@ class StringHasMaxLength extends BaseStringValidationRule
         this.addValidationRule(
             {
                 validate: t => t == null || t.trim().length <= maxLength,
-                error: "Max length of {0} required".format(maxLength)
+                error: `Max length of ${maxLength} required`
             });
     }
 }

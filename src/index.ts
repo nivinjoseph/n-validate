@@ -1,5 +1,6 @@
 // import { ValidationInitializer } from "./validation-initializer";
 // import { ValidationExecutor } from "./validation-executor";
+import "@nivinjoseph/n-ext";
 import { Validator } from "./validator";
 import { PropertyValidator } from "./property-validator";
 import { ValidationRule } from "./validation-rule";

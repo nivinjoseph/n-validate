@@ -1,7 +1,6 @@
 import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
-import "@nivinjoseph/n-ext";
 
 // public
 export function hasMinLength(minLength: number): ValidationRule<string>
@@ -18,7 +17,7 @@ class StringHasMinLength extends BaseStringValidationRule
         this.addValidationRule(
             {
                 validate: t => t == null || t.trim().length >= minLength,
-                error: "Min length of {0} required".format(minLength)
+                error: `Min length of ${minLength} required`
             });
     }
 }

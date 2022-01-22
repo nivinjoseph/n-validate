@@ -1,7 +1,6 @@
 import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
-import "@nivinjoseph/n-ext";
 
 // public
 export function hasExactLength(exactLength: number): ValidationRule<string>
@@ -18,7 +17,7 @@ class StringHasExactLength extends BaseStringValidationRule
         this.addValidationRule(
             {
                 validate: t => t == null || t.trim().length === exactLength,
-                error: "Exact length of {0} required".format(exactLength)
+                error: `Exact length of ${exactLength} required`
             });
     }
 }
