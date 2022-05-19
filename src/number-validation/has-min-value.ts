@@ -16,6 +16,7 @@ class NumberHasMinValue extends BaseNumberValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t >= minValue,
                 error: `Value cannot be less than ${minValue}`
             });

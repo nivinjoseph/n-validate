@@ -12,7 +12,7 @@ export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
     public get error(): Array<object> { return this._error; }
 
 
-    constructor(validator: Validator<T>)
+    public constructor(validator: Validator<T>)
     {
         given(validator, "validator").ensureHasValue();
         this._validator = validator;
@@ -21,7 +21,7 @@ export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
 
     public validate(collection: Array<T>): boolean
     {
-        let errors = new Array<any>();
+        const errors = new Array<any>();
         collection.forEach(item =>
         {
             this._validator.validate(item);

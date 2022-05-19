@@ -16,6 +16,7 @@ class StringHasMaxLength extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t.trim().length <= maxLength,
                 error: `Max length of ${maxLength} required`
             });

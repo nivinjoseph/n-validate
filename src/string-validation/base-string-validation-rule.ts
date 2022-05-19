@@ -13,12 +13,12 @@ export abstract class BaseStringValidationRule extends BaseValidationRule<string
             });
     }
 
-    protected isNumber(value: any): boolean
+    protected isNumber(value: unknown): boolean
     {
-        value = value.toString().trim();
-        if (value.length === 0)
+        const val = (<object>value).toString().trim();
+        if (val.length === 0)
             return false;
-        let parsed = +value.toString().trim();
+        const parsed = +val;
         return !isNaN(parsed) && isFinite(parsed);
     }
 }

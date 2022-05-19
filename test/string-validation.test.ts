@@ -180,7 +180,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", "John"]; 
+            const set: Array<string> = ["Jo", "J", "test", "John"]; 
             validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -189,7 +189,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test"];
+            const set: Array<string> = ["Jo", "J", "test"];
             validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -200,7 +200,7 @@ suite("String validation", () =>
         test("should fail when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = [];
+            const set: Array<string> = [];
             validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -211,7 +211,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is in the given set(ignoreCase =true)", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", "JOHN"];
+            const set: Array<string> = ["Jo", "J", "test", "JOHN"];
             validator.prop("firstName").useValidationRule(strval.isIn(set, true));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -225,7 +225,7 @@ suite("String validation", () =>
         test("should pass when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test"];
+            const set: Array<string> = ["Jo", "J", "test"];
             validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -234,7 +234,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", "John"];
+            const set: Array<string> = ["Jo", "J", "test", "John"];
             validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -245,7 +245,7 @@ suite("String validation", () =>
         test("should pass when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = [];
+            const set: Array<string> = [];
             validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -254,7 +254,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", null as any]; 
+            const set: Array<string> = ["Jo", "J", "test", null as any]; 
             validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             testVal.firstName = null;
             validator.validate(testVal);
@@ -266,7 +266,7 @@ suite("String validation", () =>
         test("should fail when the property of the object being validated is in the given set(ignoreCase =true)", () =>
         {
             validator = new Validator<TestVal>();
-            let set: string[] = ["Jo", "J", "test", "JOHN"];
+            const set: Array<string> = ["Jo", "J", "test", "JOHN"];
             validator.prop("firstName").useValidationRule(strval.isNotIn(set, true));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);

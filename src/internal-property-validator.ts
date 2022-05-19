@@ -10,18 +10,18 @@ import { numval, strval, CollectionValidationRule } from ".";
 export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T, any>, ObjectPropertyValidator<T, any>
 {
     private readonly _propertyName: keyof T;
-    private _hasError: boolean = false;
+    private _hasError = false;
     private _error: any = null;
     private readonly _validationRules = new Array<InternalPropertyValidationRule<T, TProperty>>();
-    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> = null as any;
-    private _conditionPredicate: (value: T) => boolean = null as any;
+    private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> | null = null;
+    private _conditionPredicate: ((value: T) => boolean) | null = null;
     private _overrideError = false;
     private _errorMessage: string | Function = null as any;
 
 
     public get propertyName(): keyof T { return this._propertyName; }
     public get hasError(): boolean { return this._hasError; }
-    public get error(): string { return this._error; }
+    public get error(): string { return this._error as string; }
 
 
     public constructor(propertyName: keyof T)
@@ -38,11 +38,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         if (this._conditionPredicate != null && !this._conditionPredicate(value))
             return;
         
-        let propertyVal = (<Object>value).getValue(this._propertyName as string);
+        const propertyVal = (<Object>value).getValue(this._propertyName as string);
 
         for (let i = 0; i < this._validationRules.length; i++)
         {
-            let validationRule = this._validationRules[i];
+            const validationRule = this._validationRules[i];
             let validationResult = true;
 
             try
@@ -77,7 +77,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         {
             if (propertyValue != null)
             {
-                if ((typeof propertyValue) === "string")
+                if (typeof propertyValue === "string")
                 {
                     return !(<string>(<any>propertyValue)).isEmptyOrWhiteSpace();
                 }
@@ -97,9 +97,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._lastValidationRule.ensure((propertyValue: TProperty) =>
         {
             if (propertyValue == null)
+                // eslint-disable-next-line @typescript-eslint/no-throw-literal
                 throw "OPTIONAL";
 
-            if ((typeof propertyValue) === "string" && (<string>(<any>propertyValue)).isEmptyOrWhiteSpace())
+            if (typeof propertyValue === "string" && (<string>(<any>propertyValue)).isEmptyOrWhiteSpace())
+                // eslint-disable-next-line @typescript-eslint/no-throw-literal
                 throw "OPTIONAL";
 
             return true;
@@ -112,7 +114,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     public isBoolean(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
-        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof(propertyValue) === "boolean");
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof propertyValue === "boolean");
 
         this._lastValidationRule.withMessage("Must be boolean");
         this._validationRules.push(this._lastValidationRule);
@@ -122,7 +124,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     public isString(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
-        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "string");
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof propertyValue === "string");
 
         this._lastValidationRule.withMessage("Must be string");
         this._validationRules.push(this._lastValidationRule);
@@ -132,7 +134,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     public isNumber(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
-        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "number");
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof propertyValue === "number");
 
         this._lastValidationRule.withMessage("Must be number");
         this._validationRules.push(this._lastValidationRule);
@@ -152,7 +154,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     public isObject(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
-        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof (propertyValue) === "object");
+        this._lastValidationRule.ensure((propertyValue: TProperty) => typeof propertyValue === "object");
 
         this._lastValidationRule.withMessage("Must be object");
         this._validationRules.push(this._lastValidationRule);
@@ -341,7 +343,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     {
         given(enumType, "enumType").ensureHasValue().ensureIsObject();
         
-        const enumValues = this.getEnumValues(enumType);
+        const enumValues = this._getEnumValues(enumType);
         
         return this.useValidationRule({
             validate: (value: T) => enumValues.contains(value),
@@ -356,27 +358,28 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     }
     
     
-    private checkIsNumber(value: any): boolean
+    private _checkIsNumber(value: any): boolean
     {
         if (value == null)
             return false;
 
-        value = value.toString().trim();
+        const val = (<object>value).toString().trim();
         if (value.length === 0)
             return false;
-        let parsed = +value.toString().trim();
+        const parsed = +val;
         return !isNaN(parsed) && isFinite(parsed);
     }
 
-    private getEnumValues(enumType: object): ReadonlyArray<any>
+    private _getEnumValues(enumType: object): ReadonlyArray<any>
     {
         const keys = Object.keys(enumType);
         if (keys.length === 0)
             return [];
 
-        if (this.checkIsNumber(keys[0]))
-            return keys.filter(t => this.checkIsNumber(t)).map(t => +t);
+        if (this._checkIsNumber(keys[0]))
+            return keys.filter(t => this._checkIsNumber(t)).map(t => +t);
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return keys.map(t => (<any>enumType)[t]);
     }
 }

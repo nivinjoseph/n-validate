@@ -22,6 +22,7 @@ class StringIsDate extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || moment(t, format).isValid(),
                 error: "Invalid date"
             });

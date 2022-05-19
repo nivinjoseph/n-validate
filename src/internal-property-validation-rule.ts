@@ -6,22 +6,22 @@ import { InvalidOperationException } from "@nivinjoseph/n-exception";
 // internal
 export class InternalPropertyValidationRule<T, TProperty>
 {
-    private _tpropertyValidationPredicate: (propertyValue: TProperty) => boolean = null as any;
-    private _tValidationPredicate: (value: T) => boolean = null as any;
-    private _validationRule: ValidationRule<TProperty> = null as any;
-    private _validator: Validator<TProperty> = null as any;
-    private _conditionPredicate: (value: T) => boolean = null as any;
-    private _error: string | Function = null as any;
+    private _tpropertyValidationPredicate: ((propertyValue: TProperty) => boolean) | null = null;
+    private _tValidationPredicate: ((value: T) => boolean) | null = null;
+    private _validationRule: ValidationRule<TProperty> | null = null;
+    private _validator: Validator<TProperty> | null = null;
+    private _conditionPredicate: ((value: T) => boolean) | null = null;
+    private _error: string | Function | null = null;
     private _overrideError = false;
     
 
     public get error(): Object
     {
         if (this._validationRule != null && !this._overrideError)
-            return this._validationRule.error;
+            return this._validationRule.error as Object;
         else if (this._validator != null && !this._overrideError)
             return this._validator.errors;
-        else return typeof this._error === "function" ? this._error() : this._error;
+        else return typeof this._error === "function" ? this._error() as Object : this._error as Object;
     }
     
     public get overrideError(): boolean { return this._overrideError; }

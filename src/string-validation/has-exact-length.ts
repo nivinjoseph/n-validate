@@ -16,6 +16,7 @@ class StringHasExactLength extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t.trim().length === exactLength,
                 error: `Exact length of ${exactLength} required`
             });

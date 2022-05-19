@@ -97,7 +97,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [12, 323, 18, 25, 31];
+            const set: Array<number> = [12, 323, 18, 25, 31];
             validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -106,7 +106,7 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [1, 2, 3, 4];
+            const set: Array<number> = [1, 2, 3, 4];
             validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -117,7 +117,7 @@ suite("Number validation", () =>
         test("should fail when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [];
+            const set: Array<number> = [];
             validator.prop("age").isInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -132,7 +132,7 @@ suite("Number validation", () =>
         test("should pass when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [12, 323, 18, 25];
+            const set: Array<number> = [12, 323, 18, 25];
             validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -141,7 +141,7 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [1, 2, 3, 4, 31];
+            const set: Array<number> = [1, 2, 3, 4, 31];
             validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -152,7 +152,7 @@ suite("Number validation", () =>
         test("should pass when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [];
+            const set: Array<number> = [];
             validator.prop("age").isNotInNumbers(set);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
@@ -161,7 +161,7 @@ suite("Number validation", () =>
         test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            let set: number[] = [1, 2, 3, null as any];
+            const set: Array<number> = [1, 2, 3, null as any];
             validator.prop("age").isNotInNumbers(set);
             testVal.age = null as any;
             validator.validate(testVal);

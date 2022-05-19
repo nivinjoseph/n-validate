@@ -16,6 +16,7 @@ class NumberHasExactValue extends BaseNumberValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t === exactValue,
                 error: `Value has to be ${exactValue}`
             });

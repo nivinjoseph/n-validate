@@ -17,6 +17,7 @@ class StringMatchesRegex extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || regex.test(t),
                 error: "Invalid format"
             });

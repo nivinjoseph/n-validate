@@ -15,6 +15,7 @@ class NumberIsNotIn extends BaseNumberValidationRule
         given(values, "values").ensureHasValue();
         super();
         this.addValidationRule({
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             validate: t => t == null || values.every(u => u !== t),
             error: "Invalid value"
         });

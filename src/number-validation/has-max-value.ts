@@ -16,6 +16,7 @@ class NumberHasMaxValue extends BaseNumberValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t <= maxValue,
                 error: `Value cannot be greater than ${maxValue}`
             });

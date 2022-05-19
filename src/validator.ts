@@ -20,7 +20,7 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
     public get isEnabled(): boolean { return this._isEnabled; }
     
     
-    public constructor(disabled: boolean = false)
+    public constructor(disabled = false)
     {
         this._isEnabled = !disabled;
     }
@@ -47,6 +47,7 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
         const propertyValidator = new InternalPropertyValidator<T, TProperty>(propertyName);
         this._propertyValidators.push(propertyValidator);
         this._errors[propertyName] = null;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return propertyValidator as any;
     }
     

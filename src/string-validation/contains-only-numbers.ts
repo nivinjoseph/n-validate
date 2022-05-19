@@ -14,6 +14,7 @@ class StringContainsOnlyNumbers extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || this.isNumber(t),
                 error: "Invalid value"
             });

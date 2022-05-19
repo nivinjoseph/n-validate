@@ -162,7 +162,7 @@ suite("Validator", () =>
 
         test("should throw an ArgumentNullException when validating undifined object", () =>
         {
-            let validator = new Validator<string>();
+            const validator = new Validator<string>();
             validator.prop("firstName" as any);
             assert.throws(() =>
             {
@@ -423,8 +423,8 @@ suite("PropertyValidator", () =>
         {
             function check_array(array: ReadonlyArray<number>): boolean
             {
-                let sum: number = 0;
-                for (let a of array)
+                let sum = 0;
+                for (const a of array)
                 {
                     sum += a;
                 }
@@ -440,8 +440,8 @@ suite("PropertyValidator", () =>
         {
             function check_array(array: ReadonlyArray<number>): boolean
             {
-                let sum: number = 0;
-                for (let a of array)
+                let sum = 0;
+                for (const a of array)
                 {
                     sum += a;
                 }
@@ -478,8 +478,8 @@ suite("PropertyValidator", () =>
         {
             function check_array(array: Array<any>): boolean
             {
-                let sum: number = 0;
-                for (let a of array)
+                let sum = 0;
+                for (const a of array)
                 {
                     sum += a;
                 }
@@ -495,8 +495,8 @@ suite("PropertyValidator", () =>
         {
             function check_array(array: Array<any>): boolean
             {
-                let sum: number = 0;
-                for (let a of array)
+                let sum = 0;
+                for (const a of array)
                 {
                     sum += a;
                 }
@@ -517,7 +517,7 @@ suite("PropertyValidator", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule({
-                validate: (t) => t[0] === "N",
+                validate: (t) => t.startsWith("N"),
                 error: "firstName Does not start with N"
             });
             validator.validate(testVal);
@@ -529,7 +529,7 @@ suite("PropertyValidator", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule({
-                validate: (t) => t[0] === "N",
+                validate: (t) => t.startsWith("N"),
                 error: "firstName Does not start with N"
             });
             testVal.firstName = "John";
@@ -546,7 +546,7 @@ suite("PropertyValidator", () =>
     {
         test("should pass validation given 2 validators", () =>
         {
-            let secondaryValidator: Validator<any> = new Validator<any>();
+            const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "ON");
 
             validator = new Validator<TestVal>();
@@ -558,19 +558,19 @@ suite("PropertyValidator", () =>
 
         test("should fail validation when secondary validator fails", () =>
         {
-            let secondaryValidator: Validator<any> = new Validator<any>();
+            const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t !== "ON");
 
             validator = new Validator<TestVal>();
             validator.prop("address").isRequired().ensure(t => t.getValue("street") === "15 Benton rd").useValidator(secondaryValidator);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
-            assert.strictEqual(validator.errors.getValue("address").getValue("province"), "Invalid value", "Should have error message of the secondary validator");
+            assert.strictEqual((validator.errors.getValue("address") as Object).getValue("province"), "Invalid value", "Should have error message of the secondary validator");
         });
 
         test("should fail validation when primary validator fails", () =>
         {
-            let secondaryValidator: Validator<any> = new Validator<any>();
+            const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "ON");
 
             validator = new Validator<TestVal>();
@@ -583,7 +583,7 @@ suite("PropertyValidator", () =>
 
         test("should fail validation when both validators fails", () =>
         {
-            let secondaryValidator: Validator<any> = new Validator<any>();
+            const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "AB");
 
             validator = new Validator<TestVal>();
@@ -775,7 +775,7 @@ suite("PropertyValidator", () =>
             validator.prop("firstName")
                 .ensure(t => t === "Shrey").withMessage("First name is not shrey")
                 .ensure(t => t.length > 5).withMessage("name not greater than 5")
-                .ensure(t => t[0] === "S").withMessage("name has to start with S");
+                .ensure(t => t.startsWith("S")).withMessage("name has to start with S");
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have errors");

@@ -20,6 +20,7 @@ class StringIsNotIn extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || (ignoreCase
                     ? values.every(v => v.trim().toLowerCase() !== t.trim().toLowerCase())
                     : values.every(v => v.trim() !== t.trim())),

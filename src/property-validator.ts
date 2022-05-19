@@ -66,6 +66,6 @@ export interface ArrayPropertyValidator<T, A> extends PropertyValidator<T, Reado
 export interface ObjectPropertyValidator<T, O> extends PropertyValidator<T, O>
 {
     isObject(): this;
-    isType(type: new (...args: any[]) => O): this;
-    isInstanceOf(type: Function & { prototype: O }): this;
+    isType(type: new (...args: Array<any>) => O): this;
+    isInstanceOf(type: Function & { prototype: O; }): this;
 }

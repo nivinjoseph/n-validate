@@ -16,6 +16,7 @@ class StringHasMinLength extends BaseStringValidationRule
         super();
         this.addValidationRule(
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 validate: t => t == null || t.trim().length >= minLength,
                 error: `Min length of ${minLength} required`
             });
