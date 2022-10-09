@@ -12,6 +12,7 @@ suite("String validation", () =>
         address?: any;
         phone: string;
         email: string;
+        dob: string;
     }
 
     let testVal: TestVal;
@@ -25,7 +26,8 @@ suite("String validation", () =>
             age: "31",
             scores: ["200", "400", "800"], 
             phone: "1112223456",
-            email: "test@test.com"
+            email: "test@test.com",
+            dob: "1955-04-16" // yyyy-mm-dd
         };
     });
     
@@ -436,7 +438,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("email"), "Invalid value", "Should have a correct message");
         });
         
-        test("should fail when the property of the object being validated is a empty string", () =>
+        test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
@@ -456,5 +458,60 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
         
+    });
+    
+    suite("isDate", () =>
+    {
+        test("should pass when the property of the object being validated is a valid date", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+
+        test("should fail when the property of the object being validated is a invalid date", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            testVal.dob = "1985-16-21";
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
+        });
+
+        test("should fail when the property of the object being validated is a empty string", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            testVal.dob = "";
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
+        });
+
+        test("should fail when the property of the object being validated is null", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            testVal.dob = null as any;
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.errors.getValue("dob"), "Invalid value", "Should have a correct message");
+        });
+
+        test("should fail when the property of the object being validated does not match format", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY/MM/DD"));
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
+            assert.strictEqual(validator.hasErrors, true, "Should have error");
+            assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
+        });
+
     });
 });

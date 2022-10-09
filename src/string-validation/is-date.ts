@@ -1,7 +1,10 @@
 import { ValidationRule } from "./../validation-rule";
 import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
-import * as moment from "moment";
+// import * as moment from "moment";
+import * as dayjs from "dayjs";
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 // public
 /**
@@ -23,7 +26,7 @@ class StringIsDate extends BaseStringValidationRule
         this.addValidationRule(
             {
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                validate: t => t == null || moment(t, format).isValid(),
+                validate: t => t == null || dayjs(t, format, true).isValid(),
                 error: "Invalid date"
             });
     }

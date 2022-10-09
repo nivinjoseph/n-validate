@@ -44,6 +44,6 @@
         "@nivinjoseph/n-defensive": "^1.0.39",
         "@nivinjoseph/n-exception": "^1.0.26",
         "@nivinjoseph/n-ext": "^1.1.35",
-        "moment": "^2.29.3"
+        "dayjs": "^1.11.5"
     }
 }
