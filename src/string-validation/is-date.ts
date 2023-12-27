@@ -7,7 +7,7 @@ import { BaseStringValidationRule } from "./base-string-validation-rule.js";
 // public
 /**
  * 
- * @param format eg: YYYY-MM-DD  https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+ * @param format eg: yyyy-MM-dd  https://moment.github.io/luxon/#/formatting?id=table-of-tokens
  */
 export function isDate(format: string): ValidationRule<string>
 {
