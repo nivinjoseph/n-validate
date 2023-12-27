@@ -28,7 +28,7 @@ await describe("String validation", async () =>
             scores: ["200", "400", "800"],
             phone: "1112223456",
             email: "test@test.com",
-            dob: "1955-04-16" // yyyy-mm-dd
+            dob: "1955-04-16" // yyyy-MM-dd
         };
     });
 
@@ -463,7 +463,7 @@ await describe("String validation", async () =>
 
     await describe("isDate", async () =>
     {
-        await test("should pass when the property of the object being validated is a valid date", () =>
+        await test("should pass when the property of the object being validated is a valid date of format yyyy-MM-dd", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
@@ -471,10 +471,10 @@ await describe("String validation", async () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        await test("should fail when the property of the object being validated is a invalid date", () =>
+        await test("should fail when the property of the object being validated is a invalid date for format yyyy-MM-dd", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-dd"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = "1985-16-21";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -485,7 +485,7 @@ await describe("String validation", async () =>
         await test("should fail when the property of the object being validated is a empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -496,7 +496,7 @@ await describe("String validation", async () =>
         await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -504,15 +504,23 @@ await describe("String validation", async () =>
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid value", "Should have a correct message");
         });
 
-        await test("should fail when the property of the object being validated does not match format", () =>
+        await test("should pass when the property of the object being validated does match format yyyy/MM/dd", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY/MM/DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy/MM/dd"));
+            testVal.dob = "2023/12/31";
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true, "Should be invalid");
+        });
+
+        await test("should fail when the property of the object being validated does not match format yyyy/MM/dd", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy/MM/dd"));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
         });
-
     });
 });
