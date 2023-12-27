@@ -41,5 +41,9 @@
         "@nivinjoseph/n-exception": "^2.0.1",
         "@nivinjoseph/n-ext": "^2.0.1",
         "luxon": "^3.4.4"
+    },
+    "engineStrict": true,
+    "engines": {
+        "node": ">=20.10"
     }
 }
