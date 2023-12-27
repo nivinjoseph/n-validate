@@ -9,7 +9,7 @@ dayjs.extend(customParseFormat);
 // public
 /**
  * 
- * @param format eg: YYYY-MM-DD  https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+ * @param format eg: YYYY-MM-DD
  */
 export function isDate(format: string): ValidationRule<string>
 {
