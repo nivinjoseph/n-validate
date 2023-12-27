@@ -1,5 +1,5 @@
-import { ValidationRule } from "./../validation-rule";
-import { BaseStringValidationRule } from "./base-string-validation-rule";
+import { ValidationRule } from "./../validation-rule.js";
+import { BaseStringValidationRule } from "./base-string-validation-rule.js";
 
 // public
 export function isEmail(): ValidationRule<string>

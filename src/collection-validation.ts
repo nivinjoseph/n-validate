@@ -1,6 +1,6 @@
-import { Validator } from "./validator";
-import { ValidationRule } from "./validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 
 // public
 export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
@@ -31,7 +31,7 @@ export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
         });
 
         this._error = errors;
-        
+
         if (errors.some(t => t !== null))
             return false;
         else

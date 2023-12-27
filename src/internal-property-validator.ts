@@ -1,10 +1,10 @@
-import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
-import { InternalPropertyValidationRule } from "./internal-property-validation-rule";
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
 import { given } from "@nivinjoseph/n-defensive";
 import { ArgumentException } from "@nivinjoseph/n-exception";
-import { numval, strval, CollectionValidationRule } from ".";
+import { CollectionValidationRule, numval, strval } from "./index.js";
+import { InternalPropertyValidationRule } from "./internal-property-validation-rule.js";
+import { ArrayPropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, ObjectPropertyValidator, PropertyValidator, StringPropertyValidator } from "./property-validator.js";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 
 // internal
 export class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T, any>, ObjectPropertyValidator<T, any>
@@ -34,10 +34,10 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     {
         this._hasError = false;
         this._error = null;
-        
+
         if (this._conditionPredicate != null && !this._conditionPredicate(value))
             return;
-        
+
         const propertyVal = (<Object>value).getValue(this._propertyName as string);
 
         for (let i = 0; i < this._validationRules.length; i++)
@@ -63,7 +63,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
                 // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
-                    error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;    
+                    error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;
                 this._error = error;
                 break;
             }
@@ -110,7 +110,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isBoolean(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -120,7 +120,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isString(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -130,7 +130,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isNumber(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -140,7 +140,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isArray(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -150,7 +150,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isObject(): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -160,31 +160,31 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isType(type: Function): this
     {
         given(type, "type").ensureHasValue().ensureIsFunction();
-        
+
         const typeName = (<Object>type).getTypeName();
-        
+
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => (<Object>propertyValue).getTypeName() === typeName);
         this._lastValidationRule.withMessage(`Must be of type ${typeName}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public isInstanceOf(type: Function): this
     {
         given(type, "type").ensureHasValue().ensureIsFunction();
-        
+
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
         this._lastValidationRule.ensure((propertyValue: TProperty) => propertyValue instanceof type);
         this._lastValidationRule.withMessage(`Must be instance of ${(<Object>type).getTypeName()}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
-    
+
     public ensure(propertyValidationPredicate: (propertyValue: TProperty | any) => boolean): this
     {
         this._lastValidationRule = new InternalPropertyValidationRule<T, TProperty>();
@@ -233,13 +233,13 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     {
         given(errorMessage, "errorMessage")
             .ensureHasValue();
-        
+
         if (typeof errorMessage === "string")
         {
             given(errorMessage, "errorMessage")
                 .ensureIsString()
                 .ensure(t => !t.isEmptyOrWhiteSpace());
-            
+
             errorMessage = errorMessage.trim();
         }
         else if (typeof errorMessage === "function")
@@ -248,8 +248,8 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
                 .ensureIsFunction();
         }
         else
-            throw new ArgumentException("errorMessage", "has to be a string or a function that returns a string"); 
-            
+            throw new ArgumentException("errorMessage", "has to be a string or a function that returns a string");
+
 
         if (this._lastValidationRule == null)
         {
@@ -261,103 +261,103 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
 
         return this;
     }
-    
-    
+
+
     public hasMinValue(minValue: number): this
     {
         return this.useValidationRule(numval.hasMinValue(minValue));
     }
-    
+
     public hasMaxValue(maxValue: number): this
     {
         return this.useValidationRule(numval.hasMaxValue(maxValue));
     }
-    
+
     public hasExactValue(exactValue: number): this
     {
         return this.useValidationRule(numval.hasExactValue(exactValue));
     }
-    
+
     public isInNumbers(values: ReadonlyArray<number>): this
     {
         return this.useValidationRule(numval.isIn(values));
     }
-    
+
     public isNotInNumbers(values: ReadonlyArray<number>): this
     {
         return this.useValidationRule(numval.isNotIn(values));
     }
-    
-    
+
+
     public hasMinLength(minLength: number): this
     {
         return this.useValidationRule(strval.hasMinLength(minLength));
     }
-    
+
     public hasMaxLength(maxLength: number): this
     {
         return this.useValidationRule(strval.hasMaxLength(maxLength));
     }
-    
+
     public hasExactLength(exactLength: number): this
     {
         return this.useValidationRule(strval.hasExactLength(exactLength));
     }
-    
+
     public isInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this
     {
         return this.useValidationRule(strval.isIn(values, !!ignoreCase));
     }
-    
+
     public isNotInStrings(values: ReadonlyArray<string>, ignoreCase?: boolean): this
     {
         return this.useValidationRule(strval.isNotIn(values, !!ignoreCase));
     }
-    
+
     public containsOnlyNumbers(): this
     {
         return this.useValidationRule(strval.containsOnlyNumbers());
     }
-    
+
     public isPhoneNumber(): this
     {
         return this.useValidationRule(strval.isPhoneNumber());
     }
-    
+
     public isEmail(): this
     {
         return this.useValidationRule(strval.isEmail());
     }
-    
+
     public isDate(format: string): this
     {
         return this.useValidationRule(strval.isDate(format));
     }
-    
+
     public matchesRegex(regex: RegExp): this
     {
         return this.useValidationRule(strval.matchesRegex(regex));
     }
-    
+
     public isEnum(enumType: object): this
     {
         given(enumType, "enumType").ensureHasValue().ensureIsObject();
-        
+
         const enumValues = this._getEnumValues(enumType);
-        
+
         return this.useValidationRule({
             validate: (value: T) => enumValues.contains(value),
             error: "Invalid enum value"
         });
     }
-    
-    
+
+
     public useCollectionValidator(validator: Validator<any>): this
     {
         return this.useValidationRule(new CollectionValidationRule(validator));
     }
-    
-    
+
+
     private _checkIsNumber(value: any): boolean
     {
         if (value == null)

@@ -1,7 +1,7 @@
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
 import { given } from "@nivinjoseph/n-defensive";
 import { InvalidOperationException } from "@nivinjoseph/n-exception";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 
 // internal
 export class InternalPropertyValidationRule<T, TProperty>
@@ -13,7 +13,7 @@ export class InternalPropertyValidationRule<T, TProperty>
     private _conditionPredicate: ((value: T) => boolean) | null = null;
     private _error: string | Function | null = null;
     private _overrideError = false;
-    
+
 
     public get error(): Object
     {
@@ -23,7 +23,7 @@ export class InternalPropertyValidationRule<T, TProperty>
             return this._validator.errors;
         else return typeof this._error === "function" ? this._error() as Object : this._error as Object;
     }
-    
+
     public get overrideError(): boolean { return this._overrideError; }
 
 
