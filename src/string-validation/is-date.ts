@@ -1,7 +1,9 @@
 import { given } from "@nivinjoseph/n-defensive";
-import { DateTime } from "luxon";
 import { ValidationRule } from "../validation-rule.js";
 import { BaseStringValidationRule } from "./base-string-validation-rule.js";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
+dayjs.extend(customParseFormat);
 
 
 // public
@@ -24,7 +26,7 @@ class StringIsDate extends BaseStringValidationRule
         this.addValidationRule(
             {
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                validate: t => t == null || DateTime.fromFormat(t, format).isValid,
+                validate: t => t == null || dayjs(t, format, true).isValid(),
                 error: "Invalid date"
             });
     }

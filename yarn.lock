@@ -117,13 +117,12 @@ __metadata:
     "@nivinjoseph/n-defensive": "npm:^2.0.1"
     "@nivinjoseph/n-exception": "npm:^2.0.1"
     "@nivinjoseph/n-ext": "npm:^2.0.1"
-    "@types/luxon": "npm:^3.3.6"
     "@types/node": "npm:^20.10"
     "@typescript-eslint/eslint-plugin": "npm:^6.15.0"
     "@typescript-eslint/parser": "npm:^6.15.0"
+    dayjs: "npm:1.11.10"
     eslint: "npm:^8.56.0"
     eslint-plugin-require-extensions: "npm:^0.1.3"
-    luxon: "npm:^3.4.4"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -159,13 +158,6 @@ __metadata:
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
-  languageName: node
-  linkType: hard
-
-"@types/luxon@npm:^3.3.6":
-  version: 3.3.7
-  resolution: "@types/luxon@npm:3.3.7"
-  checksum: ff6ba3fd83636c23c077fea7b2841ad5365ae22872a250baef2a99885123f0d5e997cfbc1ac0afccf89c70ff24b1517b2cc0ebadb2bee27559c670574620bed1
   languageName: node
   linkType: hard
 
@@ -475,6 +467,13 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:1.11.10":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: 4de9af50639d47df87f2e15fa36bb07e0f9ed1e9c52c6caa1482788ee9a384d668f1dbd00c54f82aaab163db07d61d2899384b8254da3a9184fc6deca080e2fe
   languageName: node
   linkType: hard
 
@@ -962,13 +961,6 @@ __metadata:
   dependencies:
     yallist: "npm:^4.0.0"
   checksum: cb53e582785c48187d7a188d3379c181b5ca2a9c78d2bce3e7dee36f32761d1c42983da3fe12b55cb74e1779fa94cdc2e5367c028a9b35317184ede0c07a30a9
-  languageName: node
-  linkType: hard
-
-"luxon@npm:^3.4.4":
-  version: 3.4.4
-  resolution: "luxon@npm:3.4.4"
-  checksum: 02e26a0b039c11fd5b75e1d734c8f0332c95510f6a514a9a0991023e43fb233884da02d7f966823ffb230632a733fc86d4a4b1e63c3fbe00058b8ee0f8c728af
   languageName: node
   linkType: hard
 

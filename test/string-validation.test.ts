@@ -466,7 +466,7 @@ await describe("String validation", async () =>
         await test("should pass when the property of the object being validated is a valid date", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
@@ -474,7 +474,7 @@ await describe("String validation", async () =>
         await test("should fail when the property of the object being validated is a invalid date", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-dd"));
+            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
             testVal.dob = "1985-16-21";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");

@@ -28,7 +28,6 @@
     },
     "homepage": "https://github.com/nivinjoseph/n-validate#readme",
     "devDependencies": {
-        "@types/luxon": "^3.3.6",
         "@types/node": "^20.10",
         "@typescript-eslint/eslint-plugin": "^6.15.0",
         "@typescript-eslint/parser": "^6.15.0",
@@ -40,6 +39,6 @@
         "@nivinjoseph/n-defensive": "^2.0.1",
         "@nivinjoseph/n-exception": "^2.0.1",
         "@nivinjoseph/n-ext": "^2.0.1",
-        "luxon": "^3.4.4"
+        "dayjs": "1.11.10"
     }
 }
