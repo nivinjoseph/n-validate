@@ -1,8 +1,8 @@
 import { given } from "@nivinjoseph/n-defensive";
-import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
+import { ArrayPropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, ObjectPropertyValidator, PropertyValidator, StringPropertyValidator } from "./property-validator.js";
 // import { ValidationInitializer } from "./validation-initializer";
 // import { ValidationExecutor } from "./validation-executor";
-import { InternalPropertyValidator } from "./internal-property-validator";
+import { InternalPropertyValidator } from "./internal-property-validator.js";
 
 // public
 export class Validator<T> // implements ValidationInitializer<T>, ValidationExecutor<T>

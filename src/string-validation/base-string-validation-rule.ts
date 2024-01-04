@@ -1,4 +1,4 @@
-import { BaseValidationRule } from "./../base-validation-rule";
+import { BaseValidationRule } from "./../base-validation-rule.js";
 
 // public
 export abstract class BaseStringValidationRule extends BaseValidationRule<string>

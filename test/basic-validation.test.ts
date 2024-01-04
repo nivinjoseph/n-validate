@@ -1,9 +1,10 @@
-import * as assert from "assert";
-import { Validator } from "../src/index";
-import { ArgumentNullException, ArgumentException } from "@nivinjoseph/n-exception";
+import { ArgumentException, ArgumentNullException } from "@nivinjoseph/n-exception";
 import "@nivinjoseph/n-ext";
+import assert from "node:assert";
+import { beforeEach, describe, test } from "node:test";
+import { Validator } from "../src/index.js";
 
-suite("Basic validation", () =>
+await describe("Basic validation", async () =>
 {
     interface TestVal
     {
@@ -17,7 +18,7 @@ suite("Basic validation", () =>
     let testVal: TestVal;
     let validator: Validator<TestVal>;
 
-    setup(() =>
+    beforeEach(() =>
     {
         testVal = {
             firstName: "Nivin",
@@ -43,19 +44,19 @@ suite("Basic validation", () =>
     });
 
 
-    test("should pass given a passing value", () =>
+    await test("should pass given a passing value", () =>
     {
         validator.validate(testVal);
         assert.strictEqual(validator.isValid, true);
     });
 
-    test("should fail given a failing value", () =>
+    await test("should fail given a failing value", () =>
     {
         testVal.firstName = "Kevin";
         validator.validate(testVal);
         assert.strictEqual(validator.isValid, false);
     });
-    test("should give the correct error message given a failing value", () =>
+    await test("should give the correct error message given a failing value", () =>
     {
         testVal.age = 17;
         validator.validate(testVal);
@@ -64,7 +65,7 @@ suite("Basic validation", () =>
 });
 
 
-suite("Validator", () =>
+await describe("Validator", async () =>
 {
     interface TestVal
     {
@@ -76,7 +77,7 @@ suite("Validator", () =>
 
     let testVal: TestVal;
     let validator: Validator<TestVal>;
-    setup(() =>
+    beforeEach(() =>
     {
         testVal = {
             firstName: "Nivin",
@@ -87,9 +88,9 @@ suite("Validator", () =>
     });
 
 
-    suite("init", () =>
+    await describe("init", async () =>
     {
-        test("should init with no errors and with no property validators and should be valid", () =>
+        await test("should init with no errors and with no property validators and should be valid", () =>
         {
             validator = new Validator<TestVal>();
             assert.strictEqual(validator.hasRules, false, "Should have no rules");
@@ -100,9 +101,9 @@ suite("Validator", () =>
     });
 
 
-    suite("prop", () =>  
+    await describe("prop", async () =>  
     {
-        test("should create a validation rule for a given property", () =>
+        await test("should create a validation rule for a given property", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName");
@@ -110,8 +111,8 @@ suite("Validator", () =>
             assert.strictEqual(validator.hasErrors, false, "Should have no errors");
             assert.strictEqual(validator.isValid, true, "Should be valid");
         });
-        
-        test("should throw an ArgumentNullException when given null", () =>
+
+        await test("should throw an ArgumentNullException when given null", () =>
         {
             validator = new Validator<TestVal>();
             assert.throws(() =>
@@ -120,7 +121,7 @@ suite("Validator", () =>
             }, ArgumentNullException);
         });
 
-        test("should throw an ArgumentException when property given is an empty string", () =>
+        await test("should throw an ArgumentException when property given is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             assert.throws(() =>
@@ -131,9 +132,9 @@ suite("Validator", () =>
     });
 
 
-    suite("validate", () =>
+    await describe("validate", async () =>
     {
-        test("should create a validation rule for a given property in the object and should be valid", () =>
+        await test("should create a validation rule for a given property in the object and should be valid", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isRequired();
@@ -142,7 +143,7 @@ suite("Validator", () =>
         });
 
 
-        test("should create a validation rule for a property not in the object and should be invalid", () =>
+        await test("should create a validation rule for a property not in the object and should be invalid", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("no-name" as any).isRequired();
@@ -150,7 +151,7 @@ suite("Validator", () =>
             assert.strictEqual(validator.isValid, false);
         });
 
-        test("should throw an ArgumentNullException when validating null object", () =>
+        await test("should throw an ArgumentNullException when validating null object", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isRequired();
@@ -160,7 +161,7 @@ suite("Validator", () =>
             }, ArgumentNullException);
         });
 
-        test("should throw an ArgumentNullException when validating undifined object", () =>
+        await test("should throw an ArgumentNullException when validating undifined object", () =>
         {
             const validator = new Validator<string>();
             validator.prop("firstName" as any);
@@ -174,7 +175,7 @@ suite("Validator", () =>
 
 
 
-suite("PropertyValidator", () =>
+await describe("PropertyValidator", async () =>
 {
     interface TestVal
     {
@@ -188,7 +189,7 @@ suite("PropertyValidator", () =>
 
     let testVal: TestVal;
     let validator: Validator<TestVal>;
-    setup(() =>
+    beforeEach(() =>
     {
         testVal = {
             firstName: "Nivin",
@@ -203,19 +204,19 @@ suite("PropertyValidator", () =>
         };
     });
 
-    
-    suite("isRequired", () =>
+
+    await describe("isRequired", async () =>
     {
-        
-        test("should pass when the property is given in the object being vaildated", () =>
+
+        await test("should pass when the property is given in the object being vaildated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isRequired();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property is set to null in the object being validated", () =>
+
+        await test("should fail when the property is set to null in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             testVal.firstName = null as any;
@@ -223,8 +224,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-        
-        test("should fail when the property is set to undifined in object being validated", () =>
+
+        await test("should fail when the property is set to undifined in object being validated", () =>
         {
             validator = new Validator<TestVal>();
             testVal.firstName = undefined as any;
@@ -232,8 +233,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-        
-        test("should fail when the property is not given in the object being validated", () =>
+
+        await test("should fail when the property is not given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("no-name" as any).isRequired();
@@ -242,29 +243,29 @@ suite("PropertyValidator", () =>
         });
     });
 
-    suite("ensureIsBoolean", () =>
+    await describe("ensureIsBoolean", async () =>
     {
-        test("should pass when the property being validated is a boolean value", () =>
+        await test("should pass when the property being validated is a boolean value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("active").isBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property being validated is not a boolean value", () =>
+
+        await test("should fail when the property being validated is not a boolean value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, boolean>("age").isBoolean();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-        
+
     });
-    
-    suite("ensureIsString", () =>
+
+    await describe("ensureIsString", async () =>
     {
-        test("should pass when the property being validated is a string value", () =>
+        await test("should pass when the property being validated is a string value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isString();
@@ -272,7 +273,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property being validated is not a string value", () =>
+        await test("should fail when the property being validated is not a string value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, string>("active").isString();
@@ -281,10 +282,10 @@ suite("PropertyValidator", () =>
         });
 
     });
-    
-    suite("ensureIsNumber", () =>
+
+    await describe("ensureIsNumber", async () =>
     {
-        test("should pass when the property being validated is a number value", () =>
+        await test("should pass when the property being validated is a number value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").isNumber();
@@ -292,7 +293,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property being validated is not a number value", () =>
+        await test("should fail when the property being validated is not a number value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, number>("firstName").isNumber();
@@ -301,10 +302,10 @@ suite("PropertyValidator", () =>
         });
 
     });
-    
-    suite("ensureIsObject", () =>
+
+    await describe("ensureIsObject", async () =>
     {
-        test("should pass when the property being validated is a object value", () =>
+        await test("should pass when the property being validated is a object value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("address").isObject();
@@ -312,7 +313,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property being validated is not a object value", () =>
+        await test("should fail when the property being validated is not a object value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, object>("age").isObject();
@@ -321,10 +322,10 @@ suite("PropertyValidator", () =>
         });
 
     });
-    
-    suite("ensureIsArray", () =>
+
+    await describe("ensureIsArray", async () =>
     {
-        test("should pass when the property being validated is a array value", () =>
+        await test("should pass when the property being validated is a array value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("scores").isArray();
@@ -332,7 +333,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property being validated is not a array value", () =>
+        await test("should fail when the property being validated is not a array value", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, Array<any>>("address").isArray();
@@ -341,18 +342,18 @@ suite("PropertyValidator", () =>
         });
 
     });
-    
-    suite("isOptional", () =>
+
+    await describe("isOptional", async () =>
     {
-        test("should pass when the property is not given in the object being validated", () =>
+        await test("should pass when the property is not given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, string>("no-name").isOptional();
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-       
-        test("should pass when the property is set to undefined in the object being validated", () =>
+
+        await test("should pass when the property is set to undefined in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isOptional();
@@ -361,7 +362,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should pass when the property is set to null in the object being validated", () =>
+        await test("should pass when the property is set to null in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isOptional();
@@ -369,7 +370,7 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        test("should pass when the property is given in the object being validated", () =>
+        await test("should pass when the property is given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").isOptional();
@@ -379,47 +380,47 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("ensure", () =>
+    await describe("ensure", async () =>
     {
-        
-        test("should pass when the property(string) is given in the object being validated does satisfy the given predicate", () =>
+
+        await test("should pass when the property(string) is given in the object being validated does satisfy the given predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t.length >= 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property(string) is given in the object being validated doesn't satisfy the given predicate", () =>
+
+        await test("should fail when the property(string) is given in the object being validated doesn't satisfy the given predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t.length <= 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-        
-        test("should throw an exception when the property is not given in the object being validated", () =>
+
+        await test("should throw an exception when the property is not given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, string>("no-name").ensure(t => t.length <= 2);
             assert.throws(() =>
             {
-                validator.validate(testVal);    
-            });     
+                validator.validate(testVal);
+            });
         });
-        
-        test("should throw and exception when the property is set to null in the object being validated", () =>
+
+        await test("should throw and exception when the property is set to null in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t.length <= 2);
-            testVal.firstName = null as any; 
+            testVal.firstName = null as any;
             assert.throws(() =>
             {
                 validator.validate(testVal);
             });
         });
-        
-        test("should pass when the property(array) is given in the object being validated does satisfy the given predicate", () =>
+
+        await test("should pass when the property(array) is given in the object being validated does satisfy the given predicate", () =>
         {
             function check_array(array: ReadonlyArray<number>): boolean
             {
@@ -435,8 +436,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the value(array) given in the object being validated doesn't satisfy the given predicate", () =>
+
+        await test("should fail when the value(array) given in the object being validated doesn't satisfy the given predicate", () =>
         {
             function check_array(array: ReadonlyArray<number>): boolean
             {
@@ -455,26 +456,26 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("ensureT", () =>
+    await describe("ensureT", async () =>
     {
-       
-        test("should pass when the property(string) given in the object being validated does satisfy the given predicate", () =>
+
+        await test("should pass when the property(string) given in the object being validated does satisfy the given predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensureT(t => t.firstName.length >= 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-         
-        test("should fail when the property(string) given in the object being validated doesn't satisfy the given predicate", () =>
+
+        await test("should fail when the property(string) given in the object being validated doesn't satisfy the given predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensureT(t => t.firstName.length <= 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-        
-        test("should pass when the property(array) given in the object being validated doesn't satisfy the given predicate", () =>
+
+        await test("should pass when the property(array) given in the object being validated doesn't satisfy the given predicate", () =>
         {
             function check_array(array: Array<any>): boolean
             {
@@ -490,8 +491,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property(array) given in the object being validated doesn't satisfy the given predicate", () =>
+
+        await test("should fail when the property(array) given in the object being validated doesn't satisfy the given predicate", () =>
         {
             function check_array(array: Array<any>): boolean
             {
@@ -510,10 +511,10 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("useValidationRule", () =>
+    await describe("useValidationRule", async () =>
     {
-        
-        test("should pass when the property given in the object being validated does satisfy the given validation rule predicate", () =>
+
+        await test("should pass when the property given in the object being validated does satisfy the given validation rule predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule({
@@ -525,7 +526,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.hasErrors, false, "Should have no errors");
         });
 
-        test("should pass when the property given in the object being validated doesn't satisfy the given validation rule predicate", () =>
+        await test("should pass when the property given in the object being validated doesn't satisfy the given validation rule predicate", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule({
@@ -542,9 +543,9 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("useValidator", () =>
+    await describe("useValidator", async () =>
     {
-        test("should pass validation given 2 validators", () =>
+        await test("should pass validation given 2 validators", () =>
         {
             const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "ON");
@@ -556,7 +557,7 @@ suite("PropertyValidator", () =>
 
         });
 
-        test("should fail validation when secondary validator fails", () =>
+        await test("should fail validation when secondary validator fails", () =>
         {
             const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t !== "ON");
@@ -568,7 +569,7 @@ suite("PropertyValidator", () =>
             assert.strictEqual((validator.errors.getValue("address") as Object).getValue("province"), "Invalid value", "Should have error message of the secondary validator");
         });
 
-        test("should fail validation when primary validator fails", () =>
+        await test("should fail validation when primary validator fails", () =>
         {
             const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "ON");
@@ -581,7 +582,7 @@ suite("PropertyValidator", () =>
 
         });
 
-        test("should fail validation when both validators fails", () =>
+        await test("should fail validation when both validators fails", () =>
         {
             const secondaryValidator: Validator<any> = new Validator<any>();
             secondaryValidator.prop("province").ensure(t => t === "AB");
@@ -597,33 +598,33 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("when", () =>
+    await describe("when", async () =>
     {
-        test("should pass when the if condition is true and the object being validated does satisfy the given target validation rule", () =>
+        await test("should pass when the if condition is true and the object being validated does satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t === "Nivin").when(t => t.firstName.length > 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the if condition is true and the object being validated doesn't satisfy the given target validation rule", () =>
+
+        await test("should fail when the if condition is true and the object being validated doesn't satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t === "Shrey").when(t => t.firstName.length > 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-       
-        test("should pass when the if condition is false and the object being validated does satisfy the given target validation rule", () =>
+
+        await test("should pass when the if condition is false and the object being validated does satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t === "Nivin").when(t => t.firstName.length === 2);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should pass when the if condition is false and the object being validated doesn't satisfy the given target validation rule", () =>
+
+        await test("should pass when the if condition is false and the object being validated doesn't satisfy the given target validation rule", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").ensure(t => t === "Shrey").when(t => t.firstName.length === 2);
@@ -633,9 +634,9 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("chaining", () =>
+    await describe("chaining", async () =>
     {
-        test("should pass when the object being validated does satisfy the predicates of 2 ensures chained together", () =>
+        await test("should pass when the object being validated does satisfy the predicates of 2 ensures chained together", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -644,8 +645,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-       
-        test("should fail when the object being validated does satisfy the predicate of the first ensure and doesn't satisy the predicate of the seconnd ensure", () =>
+
+        await test("should fail when the object being validated does satisfy the predicate of the first ensure and doesn't satisy the predicate of the seconnd ensure", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -654,8 +655,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-       
-        test("should pass when 2 enusures that are true and false respectively are chanied with a if(false) on the second", () =>
+
+        await test("should pass when 2 enusures that are true and false respectively are chanied with a if(false) on the second", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -664,8 +665,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-       
-        test("should pass when 2 enusures that are true and false respectively are chanied with a if(true) on the second in the object being validated", () =>
+
+        await test("should pass when 2 enusures that are true and false respectively are chanied with a if(true) on the second in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -674,8 +675,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should pass when a given property is required and enusure is true in the object being validated", () =>
+
+        await test("should pass when a given property is required and enusure is true in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -684,8 +685,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-       
-        test("should fail when a given property is required and enusure is false in the object being validated", () =>
+
+        await test("should fail when a given property is required and enusure is false in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -694,8 +695,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false);
         });
-      
-        test("should pass when a property is optional and ensure is false and property is not given in the object being validated", () =>
+
+        await test("should pass when a property is optional and ensure is false and property is not given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, string>("middleName")
@@ -704,8 +705,8 @@ suite("PropertyValidator", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-       
-        test("should fail when a property is optional and ensure is false and property is given in the object being validated", () =>
+
+        await test("should fail when a property is optional and ensure is false and property is given in the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -717,9 +718,9 @@ suite("PropertyValidator", () =>
     });
 
 
-    suite("withMessage", () =>
-    {    
-        test("should fail with correct message when target validation rule doesn't satisfy for the object being validated", () =>
+    await describe("withMessage", async () =>
+    {
+        await test("should fail with correct message when target validation rule doesn't satisfy for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop<any, string>("middleName")
@@ -729,8 +730,8 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have errors");
             assert.strictEqual(validator.errors.getValue("middleName"), "middle name is required");
         });
-       
-        test("should fail with correct message of the 1st validation rule when target validations are false, true, true respectively for the object being validated", () =>
+
+        await test("should fail with correct message of the 1st validation rule when target validations are false, true, true respectively for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -742,8 +743,8 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have errors");
             assert.strictEqual(validator.errors.getValue("firstName"), "First name is wrong", "Should have correct message");
         });
-       
-        test("should fail with correct message of the 2nd valudation rule when target validations are true, false, true respectively for the object being validated", () =>
+
+        await test("should fail with correct message of the 2nd valudation rule when target validations are true, false, true respectively for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -755,8 +756,8 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have errors");
             assert.strictEqual(validator.errors.getValue("firstName"), "name can't be empty", "Should have correct message");
         });
-        
-        test("should fail with correct message of the 3rd rule when target validations are true, true, false respectively for the object being validated", () =>
+
+        await test("should fail with correct message of the 3rd rule when target validations are true, true, false respectively for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")
@@ -768,8 +769,8 @@ suite("PropertyValidator", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have errors");
             assert.strictEqual(validator.errors.getValue("firstName"), "name has to be 6 letters", "Should have a correct message");
         });
-        
-        test("should fail with correct message of the 1st rule when target validations are false, false, false respectively for the object being validated", () =>
+
+        await test("should fail with correct message of the 1st rule when target validations are false, false, false respectively for the object being validated", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName")

@@ -1,7 +1,8 @@
-import * as assert from "assert";
-import { strval, Validator } from "../src/index";
+import assert from "node:assert";
+import { beforeEach, describe, test } from "node:test";
+import { strval, Validator } from "../src/index.js";
 
-suite("String validation", () =>
+await describe("String validation", async () =>
 {
     interface TestVal
     {
@@ -17,32 +18,32 @@ suite("String validation", () =>
 
     let testVal: TestVal;
     let validator: Validator<TestVal>;
-    
-    setup(() =>
+
+    beforeEach(() =>
     {
         testVal = {
             firstName: "John",
             lastName: "doh",
             age: "31",
-            scores: ["200", "400", "800"], 
+            scores: ["200", "400", "800"],
             phone: "1112223456",
             email: "test@test.com",
-            dob: "1955-04-16" // yyyy-mm-dd
+            dob: "1955-04-16" // yyyy-MM-dd
         };
     });
-    
-    suite("hasMinLength", () =>
+
+    await describe("hasMinLength", async () =>
     {
-        
-        test("should pass when the property of the object being validated has length greater than 3", () =>
+
+        await test("should pass when the property of the object being validated has length greater than 3", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property of the object being validated has length less than 3", () =>
+
+        await test("should fail when the property of the object being validated has length less than 3", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
@@ -52,8 +53,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Min length of 3 required", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is an empty string", () =>
+
+        await test("should fail when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
@@ -63,8 +64,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Min length of 3 required", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is null", () =>
+
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMinLength(3));
@@ -75,11 +76,11 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("hasMaxLength", () =>
+
+
+    await describe("hasMaxLength", async () =>
     {
-        test("should pass when the property of the object being validated has length less than 5", () =>
+        await test("should pass when the property of the object being validated has length less than 5", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
@@ -87,7 +88,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated has length greater than 5", () =>
+        await test("should fail when the property of the object being validated has length greater than 5", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
@@ -98,7 +99,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Max length of 5 required", "Should have a correct message");
         });
 
-        test("should pass when the property of the object being validated is an empty string", () =>
+        await test("should pass when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
@@ -107,7 +108,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is null", () =>
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasMaxLength(5));
@@ -118,11 +119,11 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("hasExactLength", () =>
+
+
+    await describe("hasExactLength", async () =>
     {
-        test("should pass when the property of the object being validated has length exactly 4", () =>
+        await test("should pass when the property of the object being validated has length exactly 4", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
@@ -130,7 +131,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated has length greater than 4", () =>
+        await test("should fail when the property of the object being validated has length greater than 4", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
@@ -140,8 +141,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Exact length of 4 required", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated has length less than 4", () =>
+
+        await test("should fail when the property of the object being validated has length less than 4", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
@@ -151,8 +152,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Exact length of 4 required", "Should have a correct message");
         });
-        
-        test("should pass when the property of the object being validated is an empty string", () =>
+
+        await test("should pass when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
@@ -163,7 +164,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Exact length of 4 required", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated is null", () =>
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
@@ -174,21 +175,21 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("isIn", () =>
+
+
+    await describe("isIn", async () =>
     {
-        
-        test("should pass when the property of the object being validated is in the given set", () =>
+
+        await test("should pass when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            const set: Array<string> = ["Jo", "J", "test", "John"]; 
+            const set: Array<string> = ["Jo", "J", "test", "John"];
             validator.prop("firstName").useValidationRule(strval.isIn(set));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property of the object being validated is not in the given set", () =>
+
+        await test("should fail when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = ["Jo", "J", "test"];
@@ -198,8 +199,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the given set empty", () =>
+
+        await test("should fail when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = [];
@@ -209,8 +210,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should pass when the property of the object being validated is in the given set(ignoreCase =true)", () =>
+
+        await test("should pass when the property of the object being validated is in the given set(ignoreCase =true)", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = ["Jo", "J", "test", "JOHN"];
@@ -218,13 +219,13 @@ suite("String validation", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
+
     });
-    
-    
-    suite("isNotIn", () =>
+
+
+    await describe("isNotIn", async () =>
     {
-        test("should pass when the property of the object being validated is not in the given set", () =>
+        await test("should pass when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = ["Jo", "J", "test"];
@@ -233,7 +234,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is in the given set", () =>
+        await test("should fail when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = ["Jo", "J", "test", "John"];
@@ -244,7 +245,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
 
-        test("should pass when the given set empty", () =>
+        await test("should pass when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = [];
@@ -253,10 +254,10 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is null and is in the given set", () =>
+        await test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
-            const set: Array<string> = ["Jo", "J", "test", null as any]; 
+            const set: Array<string> = ["Jo", "J", "test", null as any];
             validator.prop("firstName").useValidationRule(strval.isNotIn(set));
             testVal.firstName = null;
             validator.validate(testVal);
@@ -264,8 +265,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is in the given set(ignoreCase =true)", () =>
+
+        await test("should fail when the property of the object being validated is in the given set(ignoreCase =true)", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<string> = ["Jo", "J", "test", "JOHN"];
@@ -276,11 +277,11 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("containsOnlyNumbers", () =>
+
+
+    await describe("containsOnlyNumbers", async () =>
     {
-        test("should pass when the property of the object being validated contain only numbers", () =>
+        await test("should pass when the property of the object being validated contain only numbers", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
@@ -288,7 +289,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated contains no numbers", () =>
+        await test("should fail when the property of the object being validated contains no numbers", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
@@ -298,8 +299,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated contains numbers and letters", () =>
+
+        await test("should fail when the property of the object being validated contains numbers and letters", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
@@ -309,8 +310,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is an empty string", () =>
+
+        await test("should fail when the property of the object being validated is an empty string", () =>
         {
             // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
@@ -318,12 +319,12 @@ suite("String validation", () =>
             testVal.age = "";
             // JavaScript interprets an empty string as a 0, which then fails the isNAN test. As well as isFinite test.
             validator.validate(testVal);
-            assert.strictEqual(validator.isValid, false , "Should be invalid");
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated is null", () =>
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
@@ -334,11 +335,11 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("isPhoneNumber", () =>
+
+
+    await describe("isPhoneNumber", async () =>
     {
-        test("should pass when the property of the object being validated is a valid phone number", () =>
+        await test("should pass when the property of the object being validated is a valid phone number", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -346,7 +347,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated contains lettets", () =>
+        await test("should fail when the property of the object being validated contains lettets", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -356,8 +357,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("phone"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated has length less than 10", () =>
+
+        await test("should fail when the property of the object being validated has length less than 10", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -367,8 +368,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("phone"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated has length greater than 10", () =>
+
+        await test("should fail when the property of the object being validated has length greater than 10", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -380,7 +381,7 @@ suite("String validation", () =>
         });
 
 
-        test("should fail when the property of the object being validated is an empty string", () =>
+        await test("should fail when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -393,7 +394,7 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("phone"), "Invalid value", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated is null", () =>
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("phone").useValidationRule(strval.isPhoneNumber());
@@ -404,19 +405,19 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("phone"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("isEmail", () =>
+
+
+    await describe("isEmail", async () =>
     {
-        test("should pass when the property of the object being validated is a valid email", () =>
+        await test("should pass when the property of the object being validated is a valid email", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
-        test("should fail when the property of the object being validated is a invalid email", () =>
+
+        await test("should fail when the property of the object being validated is a invalid email", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
@@ -426,8 +427,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("email"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is a empty string", () =>
+
+        await test("should fail when the property of the object being validated is a empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
@@ -437,8 +438,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("email"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should fail when the property of the object being validated is null", () =>
+
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
@@ -448,8 +449,8 @@ suite("String validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("email"), "Invalid value", "Should have a correct message");
         });
-        
-        test("should pass when the property of the object being validated is a valid email", () =>
+
+        await test("should pass when the property of the object being validated is a valid email", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("email").useValidationRule(strval.isEmail());
@@ -457,23 +458,23 @@ suite("String validation", () =>
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
-        
+
     });
-    
-    suite("isDate", () =>
+
+    await describe("isDate", async () =>
     {
-        test("should pass when the property of the object being validated is a valid date", () =>
+        await test("should pass when the property of the object being validated is a valid date of format yyyy-MM-dd", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is a invalid date", () =>
+        await test("should fail when the property of the object being validated is a invalid date for format yyyy-MM-dd", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = "1985-16-21";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -481,10 +482,10 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated is a empty string", () =>
+        await test("should fail when the property of the object being validated is a empty string", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = "";
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -492,10 +493,10 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated is null", () =>
+        await test("should fail when the property of the object being validated is null", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY-MM-DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy-MM-dd"));
             testVal.dob = null as any;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
@@ -503,15 +504,23 @@ suite("String validation", () =>
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid value", "Should have a correct message");
         });
 
-        test("should fail when the property of the object being validated does not match format", () =>
+        await test("should pass when the property of the object being validated does match format yyyy/MM/dd", () =>
         {
             validator = new Validator<TestVal>();
-            validator.prop("dob").useValidationRule(strval.isDate("YYYY/MM/DD"));
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy/MM/dd"));
+            testVal.dob = "2023/12/31";
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true, "Should be invalid");
+        });
+
+        await test("should fail when the property of the object being validated does not match format yyyy/MM/dd", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("dob").useValidationRule(strval.isDate("yyyy/MM/dd"));
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("dob"), "Invalid date", "Should have a correct message");
         });
-
     });
 });

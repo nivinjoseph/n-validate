@@ -1,6 +1,6 @@
-import { ValidationRule } from "./../validation-rule";
-import { BaseStringValidationRule } from "./base-string-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
+import { ValidationRule } from "./../validation-rule.js";
+import { BaseStringValidationRule } from "./base-string-validation-rule.js";
 
 // public
 export function isNotIn(values: ReadonlyArray<string>): ValidationRule<string>;

@@ -1,7 +1,8 @@
-import * as assert from "assert";
-import { Validator } from "../src/index";
+import assert from "node:assert";
+import { beforeEach, describe, test } from "node:test";
+import { Validator } from "../src/index.js";
 
-suite("Number validation", () =>
+await describe("Number validation", async () =>
 {
     interface TestVal
     {
@@ -17,7 +18,7 @@ suite("Number validation", () =>
     let testVal: TestVal;
     let validator: Validator<TestVal>;
 
-    setup(() =>
+    beforeEach(() =>
     {
         testVal = {
             firstName: "John",
@@ -28,18 +29,18 @@ suite("Number validation", () =>
             email: "test@test.com"
         };
     });
-    
-    suite("hasMinValue", () =>
+
+    await describe("hasMinValue", async () =>
     {
-        test("should pass when the property of the object being validated has value greater than 18", () =>
+        await test("should pass when the property of the object being validated has value greater than 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMinValue(18);
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true);
-        });  
-        
-        test("should fail when the property of the object being validated has value less than 18", () =>
+        });
+
+        await test("should fail when the property of the object being validated has value less than 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMinValue(18);
@@ -48,21 +49,21 @@ suite("Number validation", () =>
             assert.strictEqual(validator.isValid, false, "Should be true");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("age"), "Value cannot be less than 18", "Should have a correct message");
-        });  
-        test("should pass when the property of the object being validated has value equal to 18", () =>
+        });
+        await test("should pass when the property of the object being validated has value equal to 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMinValue(18);
             testVal.age = 18;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true, "Should be true");
-        });  
+        });
     });
-    
-    
-    suite("hasMaxValue", () =>
+
+
+    await describe("hasMaxValue", async () =>
     {
-        test("should pass when the property of the object being validated has value is less than 18", () =>
+        await test("should pass when the property of the object being validated has value is less than 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMaxValue(18);
@@ -71,7 +72,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated has value is greater than 18", () =>
+        await test("should fail when the property of the object being validated has value is greater than 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMaxValue(18);
@@ -81,20 +82,20 @@ suite("Number validation", () =>
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("age"), "Value cannot be greater than 18", "Should have a correct message");
         });
-        test("should pass when the property of the object being validated has value equal to 18", () =>
+        await test("should pass when the property of the object being validated has value equal to 18", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("age").hasMaxValue(18);
             testVal.age = 18;
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, true, "Should be true");
-        });  
+        });
     });
-    
-    
-    suite("isIn", () =>
+
+
+    await describe("isIn", async () =>
     {
-        test("should pass when the property of the object being validated is in the given set", () =>
+        await test("should pass when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [12, 323, 18, 25, 31];
@@ -103,7 +104,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is not in the given set", () =>
+        await test("should fail when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [1, 2, 3, 4];
@@ -114,7 +115,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
 
-        test("should fail when the given set empty", () =>
+        await test("should fail when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [];
@@ -125,11 +126,11 @@ suite("Number validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
     });
-    
-    
-    suite("isNotIn", () =>
+
+
+    await describe("isNotIn", async () =>
     {
-        test("should pass when the property of the object being validated is not in the given set", () =>
+        await test("should pass when the property of the object being validated is not in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [12, 323, 18, 25];
@@ -138,7 +139,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is in the given set", () =>
+        await test("should fail when the property of the object being validated is in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [1, 2, 3, 4, 31];
@@ -149,7 +150,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.errors.getValue("age"), "Invalid value", "Should have a correct message");
         });
 
-        test("should pass when the given set empty", () =>
+        await test("should pass when the given set empty", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [];
@@ -158,7 +159,7 @@ suite("Number validation", () =>
             assert.strictEqual(validator.isValid, true);
         });
 
-        test("should fail when the property of the object being validated is null and is in the given set", () =>
+        await test("should fail when the property of the object being validated is null and is in the given set", () =>
         {
             validator = new Validator<TestVal>();
             const set: Array<number> = [1, 2, 3, null as any];

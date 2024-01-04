@@ -1,5 +1,5 @@
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 
 // public
 export interface PropertyValidator<T, TProperty>
@@ -11,11 +11,11 @@ export interface PropertyValidator<T, TProperty>
     // ensureIsNumber(): PropertyValidator<T, TProperty>;
     // ensureIsObject(): PropertyValidator<T, TProperty>;
     // ensureIsArray(): PropertyValidator<T, TProperty>;
-    
+
     ensure(validationPredicate: (propertyValue: TProperty) => boolean): this;
     useValidationRule(validationRule: ValidationRule<TProperty>): this;
     useValidator(validator: Validator<TProperty>): this;
-    
+
     ensureT(validationPredicate: (value: T) => boolean): this;
     when(conditionPredicate: (value: T) => boolean): this;
     withMessage(errorMessage: string | Function): this;

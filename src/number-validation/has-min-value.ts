@@ -1,6 +1,6 @@
-import { BaseNumberValidationRule } from "./base-number-validation-rule";
-import { ValidationRule } from "./../validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
+import { ValidationRule } from "./../validation-rule.js";
+import { BaseNumberValidationRule } from "./base-number-validation-rule.js";
 
 // public
 export function hasMinValue(minValue: number): ValidationRule<number>

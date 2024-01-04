@@ -1,6 +1,6 @@
-import { ValidationRule } from "./../validation-rule";
-import { BaseNumberValidationRule } from "./base-number-validation-rule";
 import { given } from "@nivinjoseph/n-defensive";
+import { ValidationRule } from "./../validation-rule.js";
+import { BaseNumberValidationRule } from "./base-number-validation-rule.js";
 
 // public
 export function isNotIn(values: ReadonlyArray<number>): ValidationRule<number>
