@@ -1,5 +1,5 @@
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 export interface PropertyValidator<T, TProperty> {
     isRequired(): this;
     isOptional(): this;
@@ -51,3 +51,4 @@ export interface ObjectPropertyValidator<T, O> extends PropertyValidator<T, O> {
         prototype: O;
     }): this;
 }
+//# sourceMappingURL=property-validator.d.ts.map

@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InternalPropertyValidationRule = void 0;
-const n_defensive_1 = require("@nivinjoseph/n-defensive");
-const n_exception_1 = require("@nivinjoseph/n-exception");
+import { given } from "@nivinjoseph/n-defensive";
+import { InvalidOperationException } from "@nivinjoseph/n-exception";
 // internal
-class InternalPropertyValidationRule {
+export class InternalPropertyValidationRule {
     constructor() {
         this._tpropertyValidationPredicate = null;
         this._tValidationPredicate = null;
@@ -24,29 +21,29 @@ class InternalPropertyValidationRule {
     }
     get overrideError() { return this._overrideError; }
     ensure(tpropertyValidationPredicate) {
-        (0, n_defensive_1.given)(tpropertyValidationPredicate, "tpropertyValidationPredicate").ensureHasValue();
+        given(tpropertyValidationPredicate, "tpropertyValidationPredicate").ensureHasValue();
         this._tpropertyValidationPredicate = tpropertyValidationPredicate;
         this._error = "Invalid value";
     }
     ensureT(tValidationPredicate) {
-        (0, n_defensive_1.given)(tValidationPredicate, "tValidationPredicate").ensureHasValue();
+        given(tValidationPredicate, "tValidationPredicate").ensureHasValue();
         this._tValidationPredicate = tValidationPredicate;
         this._error = "Invalid value";
     }
     useValidationRule(validationRule) {
-        (0, n_defensive_1.given)(validationRule, "validationRule").ensureHasValue();
+        given(validationRule, "validationRule").ensureHasValue();
         this._validationRule = validationRule;
     }
     useValidator(validator) {
-        (0, n_defensive_1.given)(validator, "validator").ensureHasValue();
+        given(validator, "validator").ensureHasValue();
         this._validator = validator;
     }
     if(conditionPredicate) {
-        (0, n_defensive_1.given)(conditionPredicate, "conditionPredicate").ensureHasValue();
+        given(conditionPredicate, "conditionPredicate").ensureHasValue();
         this._conditionPredicate = conditionPredicate;
     }
     withMessage(errorMessage, overrideError = false) {
-        (0, n_defensive_1.given)(errorMessage, "errorMessage").ensureHasValue();
+        given(errorMessage, "errorMessage").ensureHasValue();
         this._error = errorMessage;
         this._overrideError = overrideError;
     }
@@ -63,8 +60,7 @@ class InternalPropertyValidationRule {
             this._validator.validate(propertyValue);
             return this._validator.isValid;
         }
-        throw new n_exception_1.InvalidOperationException("Validate");
+        throw new InvalidOperationException("Validate");
     }
 }
-exports.InternalPropertyValidationRule = InternalPropertyValidationRule;
 //# sourceMappingURL=internal-property-validation-rule.js.map

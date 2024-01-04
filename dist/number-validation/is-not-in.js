@@ -1,16 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isNotIn = void 0;
-const base_number_validation_rule_1 = require("./base-number-validation-rule");
-const n_defensive_1 = require("@nivinjoseph/n-defensive");
+import { given } from "@nivinjoseph/n-defensive";
+import { BaseNumberValidationRule } from "./base-number-validation-rule.js";
 // public
-function isNotIn(values) {
+export function isNotIn(values) {
     return new NumberIsNotIn(values);
 }
-exports.isNotIn = isNotIn;
-class NumberIsNotIn extends base_number_validation_rule_1.BaseNumberValidationRule {
+class NumberIsNotIn extends BaseNumberValidationRule {
     constructor(values) {
-        (0, n_defensive_1.given)(values, "values").ensureHasValue();
+        given(values, "values").ensureHasValue();
         super();
         this.addValidationRule({
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

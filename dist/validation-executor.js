@@ -1,4 +1,4 @@
-"use strict";
+export {};
 // // public
 // export interface ValidationExecutor<T>
 // {

@@ -1,4 +1,4 @@
-import { ValidationRule } from "./validation-rule";
+import { ValidationRule } from "./validation-rule.js";
 export declare abstract class BaseValidationRule<T> implements ValidationRule<T> {
     private readonly _validationRules;
     private _error;
@@ -6,3 +6,4 @@ export declare abstract class BaseValidationRule<T> implements ValidationRule<T>
     validate(value: T): boolean;
     protected addValidationRule(validationRule: ValidationRule<T>): void;
 }
+//# sourceMappingURL=base-validation-rule.d.ts.map

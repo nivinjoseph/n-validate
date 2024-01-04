@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseNumberValidationRule = void 0;
-const base_validation_rule_1 = require("./../base-validation-rule");
+import { BaseValidationRule } from "./../base-validation-rule.js";
 // public
-class BaseNumberValidationRule extends base_validation_rule_1.BaseValidationRule {
+export class BaseNumberValidationRule extends BaseValidationRule {
     constructor() {
         super();
         this.addValidationRule({
@@ -12,5 +9,4 @@ class BaseNumberValidationRule extends base_validation_rule_1.BaseValidationRule
         });
     }
 }
-exports.BaseNumberValidationRule = BaseNumberValidationRule;
 //# sourceMappingURL=base-number-validation-rule.js.map

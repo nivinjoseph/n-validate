@@ -1,9 +1,9 @@
-import { BaseNumberValidationRule } from "./base-number-validation-rule";
-import { hasMinValue } from "./has-min-value";
-import { hasMaxValue } from "./has-max-value";
-import { isIn } from "./is-in";
-import { isNotIn } from "./is-not-in";
-import { hasExactValue } from "./has-exact-value";
+import { BaseNumberValidationRule } from "./base-number-validation-rule.js";
+import { hasMinValue } from "./has-min-value.js";
+import { hasMaxValue } from "./has-max-value.js";
+import { isIn } from "./is-in.js";
+import { isNotIn } from "./is-not-in.js";
+import { hasExactValue } from "./has-exact-value.js";
 declare const numval: {
     hasMinValue: typeof hasMinValue;
     hasMaxValue: typeof hasMaxValue;
@@ -12,3 +12,4 @@ declare const numval: {
     isNotIn: typeof isNotIn;
 };
 export { BaseNumberValidationRule, numval };
+//# sourceMappingURL=index.d.ts.map

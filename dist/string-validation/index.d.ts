@@ -1,14 +1,14 @@
-import { BaseStringValidationRule } from "./base-string-validation-rule";
-import { hasMinLength } from "./has-min-length";
-import { hasMaxLength } from "./has-max-length";
-import { hasExactLength } from "./has-exact-length";
-import { isIn } from "./is-in";
-import { isNotIn } from "./is-not-in";
-import { containsOnlyNumbers } from "./contains-only-numbers";
-import { isPhoneNumber } from "./is-phone-number";
-import { isEmail } from "./is-email";
-import { isDate } from "./is-date";
-import { matchesRegex } from "./matches-regex";
+import { BaseStringValidationRule } from "./base-string-validation-rule.js";
+import { containsOnlyNumbers } from "./contains-only-numbers.js";
+import { hasExactLength } from "./has-exact-length.js";
+import { hasMaxLength } from "./has-max-length.js";
+import { hasMinLength } from "./has-min-length.js";
+import { isDate } from "./is-date.js";
+import { isEmail } from "./is-email.js";
+import { isIn } from "./is-in.js";
+import { isNotIn } from "./is-not-in.js";
+import { isPhoneNumber } from "./is-phone-number.js";
+import { matchesRegex } from "./matches-regex.js";
 declare const strval: {
     hasMinLength: typeof hasMinLength;
     hasMaxLength: typeof hasMaxLength;
@@ -22,3 +22,4 @@ declare const strval: {
     matchesRegex: typeof matchesRegex;
 };
 export { BaseStringValidationRule, strval };
+//# sourceMappingURL=index.d.ts.map

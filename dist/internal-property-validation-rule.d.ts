@@ -1,5 +1,5 @@
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 export declare class InternalPropertyValidationRule<T, TProperty> {
     private _tpropertyValidationPredicate;
     private _tValidationPredicate;
@@ -18,3 +18,4 @@ export declare class InternalPropertyValidationRule<T, TProperty> {
     withMessage(errorMessage: string | Function, overrideError?: boolean): void;
     validate(value: T, propertyValue: TProperty): boolean;
 }
+//# sourceMappingURL=internal-property-validation-rule.d.ts.map

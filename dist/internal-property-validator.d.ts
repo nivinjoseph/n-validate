@@ -1,6 +1,6 @@
-import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
-import { ValidationRule } from "./validation-rule";
-import { Validator } from "./validator";
+import { ArrayPropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, ObjectPropertyValidator, PropertyValidator, StringPropertyValidator } from "./property-validator.js";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 export declare class InternalPropertyValidator<T, TProperty> implements PropertyValidator<T, TProperty>, BooleanPropertyValidator<T>, NumberPropertyValidator<T>, StringPropertyValidator<T>, ArrayPropertyValidator<T, any>, ObjectPropertyValidator<T, any> {
     private readonly _propertyName;
     private _hasError;
@@ -50,3 +50,4 @@ export declare class InternalPropertyValidator<T, TProperty> implements Property
     private _checkIsNumber;
     private _getEnumValues;
 }
+//# sourceMappingURL=internal-property-validator.d.ts.map

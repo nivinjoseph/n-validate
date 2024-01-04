@@ -1,4 +1,4 @@
-import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
+import { ArrayPropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, ObjectPropertyValidator, PropertyValidator, StringPropertyValidator } from "./property-validator.js";
 export declare class Validator<T> {
     private readonly _propertyValidators;
     private readonly _errors;
@@ -18,3 +18,4 @@ export declare class Validator<T> {
     enable(): void;
     disable(): void;
 }
+//# sourceMappingURL=validator.d.ts.map

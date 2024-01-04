@@ -1,12 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InternalPropertyValidator = void 0;
-const internal_property_validation_rule_1 = require("./internal-property-validation-rule");
-const n_defensive_1 = require("@nivinjoseph/n-defensive");
-const n_exception_1 = require("@nivinjoseph/n-exception");
-const _1 = require(".");
+import { given } from "@nivinjoseph/n-defensive";
+import { ArgumentException } from "@nivinjoseph/n-exception";
+import { CollectionValidationRule, numval, strval } from "./index.js";
+import { InternalPropertyValidationRule } from "./internal-property-validation-rule.js";
 // internal
-class InternalPropertyValidator {
+export class InternalPropertyValidator {
+    get propertyName() { return this._propertyName; }
+    get hasError() { return this._hasError; }
+    get error() { return this._error; }
     constructor(propertyName) {
         this._hasError = false;
         this._error = null;
@@ -17,9 +17,6 @@ class InternalPropertyValidator {
         this._errorMessage = null;
         this._propertyName = propertyName;
     }
-    get propertyName() { return this._propertyName; }
-    get hasError() { return this._hasError; }
-    get error() { return this._error; }
     validate(value) {
         this._hasError = false;
         this._error = null;
@@ -49,7 +46,7 @@ class InternalPropertyValidator {
         }
     }
     isRequired() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => {
             if (propertyValue != null) {
                 if (typeof propertyValue === "string") {
@@ -64,7 +61,7 @@ class InternalPropertyValidator {
         return this;
     }
     isOptional() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => {
             if (propertyValue == null)
                 // eslint-disable-next-line @typescript-eslint/no-throw-literal
@@ -78,83 +75,83 @@ class InternalPropertyValidator {
         return this;
     }
     isBoolean() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof propertyValue === "boolean");
         this._lastValidationRule.withMessage("Must be boolean");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isString() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof propertyValue === "string");
         this._lastValidationRule.withMessage("Must be string");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isNumber() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof propertyValue === "number");
         this._lastValidationRule.withMessage("Must be number");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isArray() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => Array.isArray(propertyValue));
         this._lastValidationRule.withMessage("Must be array");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isObject() {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => typeof propertyValue === "object");
         this._lastValidationRule.withMessage("Must be object");
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isType(type) {
-        (0, n_defensive_1.given)(type, "type").ensureHasValue().ensureIsFunction();
+        given(type, "type").ensureHasValue().ensureIsFunction();
         const typeName = type.getTypeName();
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => propertyValue.getTypeName() === typeName);
         this._lastValidationRule.withMessage(`Must be of type ${typeName}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     isInstanceOf(type) {
-        (0, n_defensive_1.given)(type, "type").ensureHasValue().ensureIsFunction();
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        given(type, "type").ensureHasValue().ensureIsFunction();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => propertyValue instanceof type);
         this._lastValidationRule.withMessage(`Must be instance of ${type.getTypeName()}`);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     ensure(propertyValidationPredicate) {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure(propertyValidationPredicate);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     ensureT(valueValidationPredicate) {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensureT(valueValidationPredicate);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     useValidationRule(validationRule) {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.useValidationRule(validationRule);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     useValidator(validator) {
-        this._lastValidationRule = new internal_property_validation_rule_1.InternalPropertyValidationRule();
+        this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.useValidator(validator);
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
     when(conditionPredicate) {
-        (0, n_defensive_1.given)(conditionPredicate, "conditionPredicate").ensureHasValue();
+        given(conditionPredicate, "conditionPredicate").ensureHasValue();
         if (this._lastValidationRule == null)
             this._conditionPredicate = conditionPredicate;
         else
@@ -162,20 +159,20 @@ class InternalPropertyValidator {
         return this;
     }
     withMessage(errorMessage) {
-        (0, n_defensive_1.given)(errorMessage, "errorMessage")
+        given(errorMessage, "errorMessage")
             .ensureHasValue();
         if (typeof errorMessage === "string") {
-            (0, n_defensive_1.given)(errorMessage, "errorMessage")
+            given(errorMessage, "errorMessage")
                 .ensureIsString()
                 .ensure(t => !t.isEmptyOrWhiteSpace());
             errorMessage = errorMessage.trim();
         }
         else if (typeof errorMessage === "function") {
-            (0, n_defensive_1.given)(errorMessage, "errorMessage")
+            given(errorMessage, "errorMessage")
                 .ensureIsFunction();
         }
         else
-            throw new n_exception_1.ArgumentException("errorMessage", "has to be a string or a function that returns a string");
+            throw new ArgumentException("errorMessage", "has to be a string or a function that returns a string");
         if (this._lastValidationRule == null) {
             this._overrideError = true;
             this._errorMessage = errorMessage;
@@ -185,52 +182,52 @@ class InternalPropertyValidator {
         return this;
     }
     hasMinValue(minValue) {
-        return this.useValidationRule(_1.numval.hasMinValue(minValue));
+        return this.useValidationRule(numval.hasMinValue(minValue));
     }
     hasMaxValue(maxValue) {
-        return this.useValidationRule(_1.numval.hasMaxValue(maxValue));
+        return this.useValidationRule(numval.hasMaxValue(maxValue));
     }
     hasExactValue(exactValue) {
-        return this.useValidationRule(_1.numval.hasExactValue(exactValue));
+        return this.useValidationRule(numval.hasExactValue(exactValue));
     }
     isInNumbers(values) {
-        return this.useValidationRule(_1.numval.isIn(values));
+        return this.useValidationRule(numval.isIn(values));
     }
     isNotInNumbers(values) {
-        return this.useValidationRule(_1.numval.isNotIn(values));
+        return this.useValidationRule(numval.isNotIn(values));
     }
     hasMinLength(minLength) {
-        return this.useValidationRule(_1.strval.hasMinLength(minLength));
+        return this.useValidationRule(strval.hasMinLength(minLength));
     }
     hasMaxLength(maxLength) {
-        return this.useValidationRule(_1.strval.hasMaxLength(maxLength));
+        return this.useValidationRule(strval.hasMaxLength(maxLength));
     }
     hasExactLength(exactLength) {
-        return this.useValidationRule(_1.strval.hasExactLength(exactLength));
+        return this.useValidationRule(strval.hasExactLength(exactLength));
     }
     isInStrings(values, ignoreCase) {
-        return this.useValidationRule(_1.strval.isIn(values, !!ignoreCase));
+        return this.useValidationRule(strval.isIn(values, !!ignoreCase));
     }
     isNotInStrings(values, ignoreCase) {
-        return this.useValidationRule(_1.strval.isNotIn(values, !!ignoreCase));
+        return this.useValidationRule(strval.isNotIn(values, !!ignoreCase));
     }
     containsOnlyNumbers() {
-        return this.useValidationRule(_1.strval.containsOnlyNumbers());
+        return this.useValidationRule(strval.containsOnlyNumbers());
     }
     isPhoneNumber() {
-        return this.useValidationRule(_1.strval.isPhoneNumber());
+        return this.useValidationRule(strval.isPhoneNumber());
     }
     isEmail() {
-        return this.useValidationRule(_1.strval.isEmail());
+        return this.useValidationRule(strval.isEmail());
     }
     isDate(format) {
-        return this.useValidationRule(_1.strval.isDate(format));
+        return this.useValidationRule(strval.isDate(format));
     }
     matchesRegex(regex) {
-        return this.useValidationRule(_1.strval.matchesRegex(regex));
+        return this.useValidationRule(strval.matchesRegex(regex));
     }
     isEnum(enumType) {
-        (0, n_defensive_1.given)(enumType, "enumType").ensureHasValue().ensureIsObject();
+        given(enumType, "enumType").ensureHasValue().ensureIsObject();
         const enumValues = this._getEnumValues(enumType);
         return this.useValidationRule({
             validate: (value) => enumValues.contains(value),
@@ -238,7 +235,7 @@ class InternalPropertyValidator {
         });
     }
     useCollectionValidator(validator) {
-        return this.useValidationRule(new _1.CollectionValidationRule(validator));
+        return this.useValidationRule(new CollectionValidationRule(validator));
     }
     _checkIsNumber(value) {
         if (value == null)
@@ -259,5 +256,4 @@ class InternalPropertyValidator {
         return keys.map(t => enumType[t]);
     }
 }
-exports.InternalPropertyValidator = InternalPropertyValidator;
 //# sourceMappingURL=internal-property-validator.js.map

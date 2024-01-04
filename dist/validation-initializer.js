@@ -1,5 +1,5 @@
-"use strict";
 // import { PropertyValidator, BooleanPropertyValidator, NumberPropertyValidator, StringPropertyValidator, ArrayPropertyValidator, ObjectPropertyValidator } from "./property-validator";
+export {};
 // // public
 // export interface ValidationInitializer<T>
 // {

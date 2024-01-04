@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CollectionValidationRule = void 0;
-const n_defensive_1 = require("@nivinjoseph/n-defensive");
+import { given } from "@nivinjoseph/n-defensive";
 // public
-class CollectionValidationRule {
+export class CollectionValidationRule {
+    get error() { return this._error; }
     constructor(validator) {
         this._error = [];
-        (0, n_defensive_1.given)(validator, "validator").ensureHasValue();
+        given(validator, "validator").ensureHasValue();
         this._validator = validator;
     }
-    get error() { return this._error; }
     validate(collection) {
         const errors = new Array();
         collection.forEach(item => {
@@ -26,5 +23,4 @@ class CollectionValidationRule {
             return true;
     }
 }
-exports.CollectionValidationRule = CollectionValidationRule;
 //# sourceMappingURL=collection-validation.js.map

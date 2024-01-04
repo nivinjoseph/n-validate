@@ -1,6 +1,6 @@
 {
     "name": "@nivinjoseph/n-validate",
-    "version": "1.0.34",
+    "version": "2.0.0",
     "description": "Validation Framework",
     "packageManager": "yarn@4.0.2",
     "type": "module",

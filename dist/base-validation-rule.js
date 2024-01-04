@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseValidationRule = void 0;
 // public
-class BaseValidationRule {
+export class BaseValidationRule {
     constructor() {
         this._validationRules = new Array();
         this._error = null;
@@ -22,5 +19,4 @@ class BaseValidationRule {
         this._validationRules.push(validationRule);
     }
 }
-exports.BaseValidationRule = BaseValidationRule;
 //# sourceMappingURL=base-validation-rule.js.map

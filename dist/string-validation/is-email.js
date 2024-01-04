@@ -1,13 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isEmail = void 0;
-const base_string_validation_rule_1 = require("./base-string-validation-rule");
+import { BaseStringValidationRule } from "./base-string-validation-rule.js";
 // public
-function isEmail() {
+export function isEmail() {
     return new StringIsEmail();
 }
-exports.isEmail = isEmail;
-class StringIsEmail extends base_string_validation_rule_1.BaseStringValidationRule {
+class StringIsEmail extends BaseStringValidationRule {
     constructor() {
         super();
         this.addValidationRule({

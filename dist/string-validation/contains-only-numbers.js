@@ -1,13 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.containsOnlyNumbers = void 0;
-const base_string_validation_rule_1 = require("./base-string-validation-rule");
+import { BaseStringValidationRule } from "./base-string-validation-rule.js";
 // public
-function containsOnlyNumbers() {
+export function containsOnlyNumbers() {
     return new StringContainsOnlyNumbers();
 }
-exports.containsOnlyNumbers = containsOnlyNumbers;
-class StringContainsOnlyNumbers extends base_string_validation_rule_1.BaseStringValidationRule {
+class StringContainsOnlyNumbers extends BaseStringValidationRule {
     constructor() {
         super();
         this.addValidationRule({

@@ -1,5 +1,5 @@
-import { Validator } from "./validator";
-import { ValidationRule } from "./validation-rule";
+import { ValidationRule } from "./validation-rule.js";
+import { Validator } from "./validator.js";
 export declare class CollectionValidationRule<T> implements ValidationRule<Array<T>> {
     private readonly _validator;
     private _error;
@@ -7,3 +7,4 @@ export declare class CollectionValidationRule<T> implements ValidationRule<Array
     constructor(validator: Validator<T>);
     validate(collection: Array<T>): boolean;
 }
+//# sourceMappingURL=collection-validation.d.ts.map
