@@ -1,1 +1,1 @@
-{"version":3,"file":"validation-rule.d.ts","sourceRoot":"","sources":["../src/validation-rule.ts"],"names":[],"mappings":"AACA,MAAM,WAAW,cAAc,CAAC,CAAC;IAE7B,KAAK,EAAE,GAAG,CAAC;IACX,QAAQ,CAAC,KAAK,EAAE,CAAC,GAAG,OAAO,CAAC;CAC/B"}
+{"version":3,"file":"validation-rule.d.ts","sourceRoot":"","sources":["../src/validation-rule.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,WAAW,cAAc,CAAC,CAAC;IAE7B;;;OAGG;IACH,KAAK,EAAE,GAAG,CAAC;IAEX;;;;OAIG;IACH,QAAQ,CAAC,KAAK,EAAE,CAAC,GAAG,OAAO,CAAC;CAC/B"}

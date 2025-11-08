@@ -8,6 +8,7 @@ export class InternalPropertyValidationRule {
         this._validationRule = null;
         this._validator = null;
         this._conditionPredicate = null;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         this._error = null;
         this._overrideError = false;
     }
@@ -16,6 +17,7 @@ export class InternalPropertyValidationRule {
             return this._validationRule.error;
         else if (this._validator != null && !this._overrideError)
             return this._validator.errors;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         else
             return typeof this._error === "function" ? this._error() : this._error;
     }
@@ -42,6 +44,7 @@ export class InternalPropertyValidationRule {
         given(conditionPredicate, "conditionPredicate").ensureHasValue();
         this._conditionPredicate = conditionPredicate;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     withMessage(errorMessage, overrideError = false) {
         given(errorMessage, "errorMessage").ensureHasValue();
         this._error = errorMessage;

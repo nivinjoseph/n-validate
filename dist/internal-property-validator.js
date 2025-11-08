@@ -14,6 +14,7 @@ export class InternalPropertyValidator {
         this._lastValidationRule = null;
         this._conditionPredicate = null;
         this._overrideError = false;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         this._errorMessage = null;
         this._propertyName = propertyName;
     }
@@ -39,6 +40,7 @@ export class InternalPropertyValidator {
                 // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;
                 this._error = error;
                 break;
@@ -64,10 +66,10 @@ export class InternalPropertyValidator {
         this._lastValidationRule = new InternalPropertyValidationRule();
         this._lastValidationRule.ensure((propertyValue) => {
             if (propertyValue == null)
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal
+                // eslint-disable-next-line no-throw-literal
                 throw "OPTIONAL";
             if (typeof propertyValue === "string" && propertyValue.isEmptyOrWhiteSpace())
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal
+                // eslint-disable-next-line no-throw-literal
                 throw "OPTIONAL";
             return true;
         });
@@ -109,6 +111,7 @@ export class InternalPropertyValidator {
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     isType(type) {
         given(type, "type").ensureHasValue().ensureIsFunction();
         const typeName = type.getTypeName();
@@ -118,6 +121,7 @@ export class InternalPropertyValidator {
         this._validationRules.push(this._lastValidationRule);
         return this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     isInstanceOf(type) {
         given(type, "type").ensureHasValue().ensureIsFunction();
         this._lastValidationRule = new InternalPropertyValidationRule();
@@ -158,6 +162,7 @@ export class InternalPropertyValidator {
             this._lastValidationRule.if(conditionPredicate);
         return this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     withMessage(errorMessage) {
         given(errorMessage, "errorMessage")
             .ensureHasValue();
