@@ -97,6 +97,7 @@ export interface PropertyValidator<T, TProperty>
      *     .withMessage(value => `Invalid email format: ${value}`);
      * ```
      */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     withMessage(errorMessage: string | Function): this;
 }
 
@@ -317,5 +318,6 @@ export interface ObjectPropertyValidator<T, O> extends PropertyValidator<T, O>
      * @param type - The type to check against
      * @returns The property validator for method chaining
      */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     isInstanceOf(type: Function & { prototype: O; }): this;
 }

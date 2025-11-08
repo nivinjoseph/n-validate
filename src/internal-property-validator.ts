@@ -16,6 +16,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
     private _lastValidationRule: InternalPropertyValidationRule<T, TProperty> | null = null;
     private _conditionPredicate: ((value: T) => boolean) | null = null;
     private _overrideError = false;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     private _errorMessage: string | Function = null as any;
 
 
@@ -63,6 +64,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
                 // this._error = this._overrideError ? this._errorMessage : validationRule.error;
                 let error = validationRule.error;
                 if (this._overrideError && !validationRule.overrideError)
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     error = typeof this._errorMessage === "function" ? this._errorMessage() : this._errorMessage;
                 this._error = error;
                 break;
@@ -97,11 +99,11 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         this._lastValidationRule.ensure((propertyValue: TProperty) =>
         {
             if (propertyValue == null)
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal
+                // eslint-disable-next-line no-throw-literal
                 throw "OPTIONAL";
 
             if (typeof propertyValue === "string" && (<string>(<any>propertyValue)).isEmptyOrWhiteSpace())
-                // eslint-disable-next-line @typescript-eslint/no-throw-literal
+                // eslint-disable-next-line no-throw-literal
                 throw "OPTIONAL";
 
             return true;
@@ -161,6 +163,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     public isType(type: Function): this
     {
         given(type, "type").ensureHasValue().ensureIsFunction();
@@ -174,6 +177,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     public isInstanceOf(type: Function): this
     {
         given(type, "type").ensureHasValue().ensureIsFunction();
@@ -229,6 +233,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         return this;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     public withMessage(errorMessage: string | Function): this
     {
         given(errorMessage, "errorMessage")

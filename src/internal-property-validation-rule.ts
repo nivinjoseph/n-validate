@@ -11,6 +11,7 @@ export class InternalPropertyValidationRule<T, TProperty>
     private _validationRule: ValidationRule<TProperty> | null = null;
     private _validator: Validator<TProperty> | null = null;
     private _conditionPredicate: ((value: T) => boolean) | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     private _error: string | Function | null = null;
     private _overrideError = false;
 
@@ -21,6 +22,7 @@ export class InternalPropertyValidationRule<T, TProperty>
             return this._validationRule.error as Object;
         else if (this._validator != null && !this._overrideError)
             return this._validator.errors;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         else return typeof this._error === "function" ? this._error() as Object : this._error as Object;
     }
 
@@ -64,6 +66,7 @@ export class InternalPropertyValidationRule<T, TProperty>
         this._conditionPredicate = conditionPredicate;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     public withMessage(errorMessage: string | Function, overrideError = false): void
     {
         given(errorMessage, "errorMessage").ensureHasValue();
