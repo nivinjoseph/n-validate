@@ -2,7 +2,7 @@
     "name": "@nivinjoseph/n-validate",
     "version": "2.0.2",
     "description": "Validation Framework",
-    "packageManager": "yarn@4.0.2",
+    "packageManager": "yarn@4.14.1",
     "type": "module",
     "exports": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -12,7 +12,7 @@
         "ts-build": "yarn ts-compile && yarn ts-lint",
         "ts-build-dist": "yarn ts-build && tsc -p ./dist",
         "test": "yarn ts-build && node --test --enable-source-maps ./test/**/*.test.js",
-        "publish-package": "yarn ts-build-dist && git add . && git commit -m 'preparing to publish new version' && npm version patch && git push && npm publish --access=public"
+        "publish-package": "yarn ts-build-dist && git add . && git commit -m 'preparing to publish new version' && yarn version patch && git add . && git commit -m 'new version' && git push && npm publish --access=public"
     },
     "repository": {
         "type": "git",
@@ -28,21 +28,21 @@
     },
     "homepage": "https://github.com/nivinjoseph/n-validate#readme",
     "devDependencies": {
-        "@eslint/js": "^9.39.1",
-        "@stylistic/eslint-plugin": "^5.5.0",
-        "@types/luxon": "^3.7.1",
-        "@types/node": "^24.10",
-        "eslint": "^9.39.1",
-        "eslint-import-resolver-typescript": "^4.4.4",
-        "eslint-plugin-import": "^2.32.0",
-        "typescript": "^5.9.3",
-        "typescript-eslint": "^8.46.3"
+        "@eslint/js": "10.0.1",
+        "@stylistic/eslint-plugin": "5.10.0",
+        "@types/luxon": "3.7.1",
+        "@types/node": "24.10",
+        "eslint": "10.2.1",
+        "eslint-import-resolver-typescript": "4.4.4",
+        "eslint-plugin-import": "2.32.0",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.58.2"
     },
     "dependencies": {
-        "@nivinjoseph/n-defensive": "^2.0.2",
-        "@nivinjoseph/n-exception": "^2.0.2",
-        "@nivinjoseph/n-ext": "^2.0.2",
-        "luxon": "^3.7.2"
+        "@nivinjoseph/n-defensive": "2.0.3",
+        "@nivinjoseph/n-exception": "2.0.3",
+        "@nivinjoseph/n-ext": "2.0.5",
+        "luxon": "3.7.2"
     },
     "engines": {
         "node": ">=24.10"

@@ -44,6 +44,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
         for (let i = 0; i < this._validationRules.length; i++)
         {
             const validationRule = this._validationRules[i];
+            // eslint-disable-next-line no-useless-assignment
             let validationResult = true;
 
             try

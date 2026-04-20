@@ -45,6 +45,7 @@ test/**/*.map
 
 # Mac generated files
 .DS_Store
+**/.DS_Store
 
 .pnp.*
 .yarn/*
