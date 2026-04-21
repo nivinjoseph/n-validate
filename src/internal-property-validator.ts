@@ -370,7 +370,7 @@ export class InternalPropertyValidator<T, TProperty> implements PropertyValidato
             return false;
 
         const val = (<object>value).toString().trim();
-        if (value.length === 0)
+        if (val.length === 0)
             return false;
         const parsed = +val;
         return !isNaN(parsed) && isFinite(parsed);

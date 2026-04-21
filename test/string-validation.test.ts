@@ -153,13 +153,13 @@ await describe("String validation", async () =>
             assert.strictEqual(validator.errors.getValue("firstName"), "Exact length of 4 required", "Should have a correct message");
         });
 
-        await test("should pass when the property of the object being validated is an empty string", () =>
+        await test("should fail when the property of the object being validated is an empty string", () =>
         {
             validator = new Validator<TestVal>();
             validator.prop("firstName").useValidationRule(strval.hasExactLength(4));
             testVal.firstName = "";
             validator.validate(testVal);
-            assert.strictEqual(validator.isValid, false);
+            assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");
             assert.strictEqual(validator.errors.getValue("firstName"), "Exact length of 4 required", "Should have a correct message");
         });
@@ -313,11 +313,10 @@ await describe("String validation", async () =>
 
         await test("should fail when the property of the object being validated is an empty string", () =>
         {
-            // TODO: fix this functions it fails for this case
             validator = new Validator<TestVal>();
             validator.prop("age").useValidationRule(strval.containsOnlyNumbers());
             testVal.age = "";
-            // JavaScript interprets an empty string as a 0, which then fails the isNAN test. As well as isFinite test.
+            // JavaScript interprets an empty string as a 0, which then fails the isNAN test. As well as isFinite test?
             validator.validate(testVal);
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have error");

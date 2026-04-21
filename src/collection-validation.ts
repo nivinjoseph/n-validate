@@ -21,9 +21,21 @@ export class CollectionValidationRule<T> implements ValidationRule<Array<T>>
 
     public validate(collection: Array<T>): boolean
     {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (collection == null)
+        {
+            this._error = [];
+            return true;
+        }
+
         const errors = new Array<any>();
         collection.forEach(item =>
         {
+            if (item == null)
+            {
+                errors.push(null);
+                return;
+            }
             this._validator.validate(item);
             if (this._validator.hasErrors)
                 errors.push(JSON.parse(JSON.stringify(this._validator.errors)));

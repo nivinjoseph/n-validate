@@ -171,6 +171,94 @@ await describe("Validator", async () =>
             }, ArgumentNullException);
         });
     });
+
+
+    await describe("clearProp", async () =>
+    {
+        await test("should remove a previously-defined rule", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("firstName").isRequired();
+            assert.strictEqual(validator.hasRules, true);
+            validator.clearProp("firstName");
+            assert.strictEqual(validator.hasRules, false);
+        });
+
+        await test("should not throw when clearing a property that was never defined", () =>
+        {
+            validator = new Validator<TestVal>();
+            assert.doesNotThrow(() => validator.clearProp("firstName"));
+        });
+
+        await test("should clear the stored error for the property", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("firstName").isRequired();
+            testVal.firstName = null as any;
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+            validator.clearProp("firstName");
+            assert.strictEqual(validator.errors["firstName"], null);
+        });
+
+        await test("should allow a property to be re-defined after clearing", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("firstName").isRequired();
+            validator.clearProp("firstName");
+            assert.doesNotThrow(() => validator.prop("firstName").isRequired());
+        });
+    });
+
+
+    await describe("enable/disable", async () =>
+    {
+        await test("should be enabled by default", () =>
+        {
+            validator = new Validator<TestVal>();
+            assert.strictEqual(validator.isEnabled, true);
+        });
+
+        await test("should respect the disabled constructor flag", () =>
+        {
+            validator = new Validator<TestVal>(true);
+            assert.strictEqual(validator.isEnabled, false);
+        });
+
+        await test("should skip rule evaluation while disabled and report valid", () =>
+        {
+            validator = new Validator<TestVal>(true);
+            validator.prop("firstName").isRequired();
+            testVal.firstName = null as any;
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true, "disabled validator should report valid");
+            assert.strictEqual(validator.errors["firstName"], null);
+        });
+
+        await test("should begin evaluating rules once enabled", () =>
+        {
+            validator = new Validator<TestVal>(true);
+            validator.prop("firstName").isRequired();
+            testVal.firstName = null as any;
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+            validator.enable();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+        });
+
+        await test("should stop evaluating rules once disabled", () =>
+        {
+            validator = new Validator<TestVal>();
+            validator.prop("firstName").isRequired();
+            testVal.firstName = null as any;
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, false);
+            validator.disable();
+            validator.validate(testVal);
+            assert.strictEqual(validator.isValid, true);
+        });
+    });
 });
 
 
@@ -781,6 +869,185 @@ await describe("PropertyValidator", async () =>
             assert.strictEqual(validator.isValid, false, "Should be invalid");
             assert.strictEqual(validator.hasErrors, true, "Should have errors");
             assert.strictEqual(validator.errors.getValue("firstName"), "First name is not shrey");
+        });
+    });
+
+
+    await describe("isEnum", async () =>
+    {
+        enum Role
+        {
+            admin = 0,
+            user = 1,
+            guest = 2
+        }
+
+        enum Status
+        {
+            open = "OPEN",
+            closed = "CLOSED"
+        }
+
+        interface WithRole { role: Role; }
+        interface WithStatus { status: Status; }
+
+        await test("should pass when property value is a valid numeric enum value", () =>
+        {
+            const v = new Validator<WithRole>();
+            v.prop("role").isEnum(Role);
+            v.validate({ role: Role.admin });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should fail when property value is not a valid numeric enum value", () =>
+        {
+            const v = new Validator<WithRole>();
+            v.prop("role").isEnum(Role);
+            v.validate({ role: 99 as Role });
+            assert.strictEqual(v.isValid, false);
+            assert.strictEqual(v.errors["role"], "Invalid enum value");
+        });
+
+        await test("should pass when property value is a valid string enum value", () =>
+        {
+            const v = new Validator<WithStatus>();
+            v.prop("status").isEnum(Status);
+            v.validate({ status: Status.open });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should fail when property value is not a valid string enum value", () =>
+        {
+            const v = new Validator<WithStatus>();
+            v.prop("status").isEnum(Status);
+            v.validate({ status: "UNKNOWN" as Status });
+            assert.strictEqual(v.isValid, false);
+            assert.strictEqual(v.errors["status"], "Invalid enum value");
+        });
+
+        await test("should throw when given a null enum type", () =>
+        {
+            const v = new Validator<WithRole>();
+            assert.throws(() => v.prop("role").isEnum(null as any));
+        });
+    });
+
+
+    await describe("isType", async () =>
+    {
+        class Person
+        {
+            public name: string;
+            public constructor(name: string) { this.name = name; }
+        }
+
+        class Dog
+        {
+            public name: string;
+            public constructor(name: string) { this.name = name; }
+        }
+
+        interface WithPerson { person: Person; }
+
+        await test("should pass when property value is of the given type", () =>
+        {
+            const v = new Validator<WithPerson>();
+            v.prop("person").isType(Person);
+            v.validate({ person: new Person("Jo") });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should fail when property value is not of the given type", () =>
+        {
+            const v = new Validator<WithPerson>();
+            v.prop("person").isType(Person);
+            v.validate({ person: new Dog("Rex") as unknown as Person });
+            assert.strictEqual(v.isValid, false);
+        });
+    });
+
+
+    await describe("isInstanceOf", async () =>
+    {
+        class Animal { }
+        class Dog extends Animal { }
+        class Cat { }
+
+        interface WithAnimal { animal: Animal; }
+
+        await test("should pass when property value is an instance of the given type", () =>
+        {
+            const v = new Validator<WithAnimal>();
+            v.prop("animal").isInstanceOf(Animal);
+            v.validate({ animal: new Animal() });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should pass when property value is an instance of a subclass", () =>
+        {
+            const v = new Validator<WithAnimal>();
+            v.prop("animal").isInstanceOf(Animal);
+            v.validate({ animal: new Dog() });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should fail when property value is not an instance of the given type", () =>
+        {
+            const v = new Validator<WithAnimal>();
+            v.prop("animal").isInstanceOf(Animal);
+            v.validate({ animal: new Cat() as unknown as Animal });
+            assert.strictEqual(v.isValid, false);
+        });
+    });
+
+
+    await describe("rule ordering", async () =>
+    {
+        interface WithName { name: string | null; }
+
+        await test("should fail when isRequired precedes content rule and value is null", () =>
+        {
+            const v = new Validator<WithName>();
+            v.prop("name").isRequired().ensure(t => t.length > 3);
+            v.validate({ name: null });
+            assert.strictEqual(v.isValid, false);
+        });
+
+        await test("should fail when content rule precedes isRequired and value is null", () =>
+        {
+            const v = new Validator<WithName>();
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            v.prop("name").ensure(t => t != null && t.length > 3).isRequired();
+            v.validate({ name: null });
+            assert.strictEqual(v.isValid, false);
+        });
+
+        await test("should skip remaining rules when isOptional precedes them and value is null", () =>
+        {
+            const v = new Validator<WithName>();
+            v.prop("name").isOptional().ensure(t => t.length > 100);
+            v.validate({ name: null });
+            assert.strictEqual(v.isValid, true);
+        });
+
+        await test("should still apply content rules when isOptional precedes them and value is present", () =>
+        {
+            const v = new Validator<WithName>();
+            v.prop("name").isOptional().ensure(t => t.length > 3);
+            v.validate({ name: "xx" });
+            assert.strictEqual(v.isValid, false, "short non-null value should fail content rule");
+        });
+
+        await test("should report first failing rule's message, not subsequent ones", () =>
+        {
+            const v = new Validator<WithName>();
+            v.prop("name")
+                .isRequired()
+                .ensure(t => t.length > 3).withMessage("too short")
+                .ensure(t => t.startsWith("A")).withMessage("must start with A");
+            v.validate({ name: "xx" });
+            assert.strictEqual(v.isValid, false);
+            assert.strictEqual(v.errors["name"], "too short");
         });
     });
 
