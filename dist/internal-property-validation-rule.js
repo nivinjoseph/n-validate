@@ -2,16 +2,14 @@ import { given } from "@nivinjoseph/n-defensive";
 import { InvalidOperationException } from "@nivinjoseph/n-exception";
 // internal
 export class InternalPropertyValidationRule {
-    constructor() {
-        this._tpropertyValidationPredicate = null;
-        this._tValidationPredicate = null;
-        this._validationRule = null;
-        this._validator = null;
-        this._conditionPredicate = null;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-        this._error = null;
-        this._overrideError = false;
-    }
+    _tpropertyValidationPredicate = null;
+    _tValidationPredicate = null;
+    _validationRule = null;
+    _validator = null;
+    _conditionPredicate = null;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    _error = null;
+    _overrideError = false;
     get error() {
         if (this._validationRule != null && !this._overrideError)
             return this._validationRule.error;

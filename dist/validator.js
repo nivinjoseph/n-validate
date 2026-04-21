@@ -7,6 +7,10 @@ import { InternalPropertyValidator } from "./internal-property-validator.js";
  * @template T - The type of object being validated
  */
 export class Validator {
+    _propertyValidators = new Array();
+    _errors = {};
+    _hasErrors = false;
+    _isEnabled = true;
     /**
      * Gets whether the current validation state is valid.
      * @returns true if all validations pass, false otherwise
@@ -37,10 +41,6 @@ export class Validator {
      * @param disabled - Whether the validator should be initially disabled
      */
     constructor(disabled = false) {
-        this._propertyValidators = new Array();
-        this._errors = {};
-        this._hasErrors = false;
-        this._isEnabled = true;
         this._isEnabled = !disabled;
     }
     // public for<TProperty extends boolean>(propertyName: string): BooleanPropertyValidator<T>;

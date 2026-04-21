@@ -4,10 +4,8 @@
  * @template T - The type of value being validated
  */
 export class BaseValidationRule {
-    constructor() {
-        this._validationRules = new Array();
-        this._error = null;
-    }
+    _validationRules = new Array();
+    _error = null;
     /**
      * Gets the error message when validation fails.
      * @returns The error message or null if validation passed

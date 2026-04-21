@@ -4,18 +4,19 @@ import { CollectionValidationRule, numval, strval } from "./index.js";
 import { InternalPropertyValidationRule } from "./internal-property-validation-rule.js";
 // internal
 export class InternalPropertyValidator {
+    _propertyName;
+    _hasError = false;
+    _error = null;
+    _validationRules = new Array();
+    _lastValidationRule = null;
+    _conditionPredicate = null;
+    _overrideError = false;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    _errorMessage = null;
     get propertyName() { return this._propertyName; }
     get hasError() { return this._hasError; }
     get error() { return this._error; }
     constructor(propertyName) {
-        this._hasError = false;
-        this._error = null;
-        this._validationRules = new Array();
-        this._lastValidationRule = null;
-        this._conditionPredicate = null;
-        this._overrideError = false;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-        this._errorMessage = null;
         this._propertyName = propertyName;
     }
     validate(value) {
@@ -26,6 +27,7 @@ export class InternalPropertyValidator {
         const propertyVal = value.getValue(this._propertyName);
         for (let i = 0; i < this._validationRules.length; i++) {
             const validationRule = this._validationRules[i];
+            // eslint-disable-next-line no-useless-assignment
             let validationResult = true;
             try {
                 validationResult = validationRule.validate(value, propertyVal);
@@ -246,7 +248,7 @@ export class InternalPropertyValidator {
         if (value == null)
             return false;
         const val = value.toString().trim();
-        if (value.length === 0)
+        if (val.length === 0)
             return false;
         const parsed = +val;
         return !isNaN(parsed) && isFinite(parsed);
