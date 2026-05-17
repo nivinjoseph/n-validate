@@ -5,7 +5,8 @@ import { ArrayPropertyValidator, BooleanPropertyValidator, NumberPropertyValidat
  */
 export declare class Validator<T> {
     private readonly _propertyValidators;
-    private readonly _errors;
+    private readonly _errorsShadow;
+    private _errors;
     private _hasErrors;
     private _isEnabled;
     /**
