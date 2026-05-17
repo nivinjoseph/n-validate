@@ -11,7 +11,8 @@ import { InternalPropertyValidator } from "./internal-property-validator.js";
 export class Validator<T> // implements ValidationInitializer<T>, ValidationExecutor<T>
 {
     private readonly _propertyValidators = new Array<InternalPropertyValidator<T, any>>();
-    private readonly _errors: { [key in keyof T]: any } = {} as any;
+    private readonly _errorsShadow: { [key in keyof T]: any } = {} as any;
+    private _errors: { [key in keyof T]: any } = {} as any;
     private _hasErrors = false;
     private _isEnabled = true;
 
@@ -82,7 +83,10 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
 
         const propertyValidator = new InternalPropertyValidator<T, TProperty>(propertyName);
         this._propertyValidators.push(propertyValidator);
-        this._errors[propertyName] = null;
+        this._errorsShadow[propertyName] = null;
+        this._errors = {
+            ...this._errorsShadow
+        };
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return propertyValidator as any;
     }
@@ -100,7 +104,11 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
             return;
 
         this._propertyValidators.splice(this._propertyValidators.indexOf(propertyValidator), 1);
-        this._errors[propertyName] = null;
+        const errors = {
+            ...this._errors
+        };
+        errors[propertyName] = null;
+        this._errors = errors;
     }
 
     /**
@@ -111,7 +119,11 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
     {
         given(value, "value").ensureHasValue();
 
-        this._hasErrors = false;
+        const errors = {
+            ...this._errorsShadow
+        };
+        
+        let hasErrors = false;
         if (this._isEnabled)
         {
             this._propertyValidators.forEach(t =>
@@ -119,18 +131,22 @@ export class Validator<T> // implements ValidationInitializer<T>, ValidationExec
                 t.validate(value);
                 if (t.hasError)
                 {
-                    this._hasErrors = true;
-                    this._errors[t.propertyName] = t.error;
+                    hasErrors = true;
+                    errors[t.propertyName] = t.error;
                     return;
                 }
 
-                this._errors[t.propertyName] = null;
+                errors[t.propertyName] = null;
             });
         }
         else
         {
-            this._propertyValidators.forEach(t => this._errors[t.propertyName] = null);
+            this._propertyValidators.forEach(t => errors[t.propertyName] = null);
         }
+        this._errors = {
+            ...errors
+        };
+        this._hasErrors = hasErrors;
     }
 
     /**
